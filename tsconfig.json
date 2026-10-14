@@ -1,0 +1,14 @@
+{
+  // Один tsconfig на весь репозиторий: сайт, задачи, тесты и демо-приложение.
+  // Используется для `npm run typecheck` и IDE; сборкой занимаются Docusaurus и Vite.
+  "extends": "@docusaurus/tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
+    "strict": true,
+    "jsx": "react-jsx",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "types": ["node"]
+  },
+  "exclude": [".docusaurus", "build", "node_modules"]
+}

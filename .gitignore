@@ -1,0 +1,17 @@
+# Зависимости
+node_modules
+
+# Сборка и кэши
+build
+.docusaurus
+.cache-loader
+coverage
+*.tsbuildinfo
+
+# Прочее
+.env*
+.DS_Store
+.idea
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

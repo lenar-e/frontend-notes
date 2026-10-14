@@ -1,0 +1,35 @@
+.rating {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.star {
+  padding: 0;
+  font-size: 2rem;
+  line-height: 1;
+  color: #d1d5db;
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  transition:
+    color 0.15s,
+    transform 0.15s;
+}
+
+.star:hover:not(:disabled) {
+  transform: scale(1.15);
+}
+
+.star:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+.star:disabled {
+  cursor: default;
+}
+
+.filled {
+  color: #f59e0b;
+}

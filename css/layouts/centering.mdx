@@ -1,0 +1,86 @@
+---
+title: Центрирование
+sidebar_position: 1
+description: Способы отцентрировать элемент по горизонтали и вертикали
+---
+
+Классический вопрос: «Отцентрируйте блок по горизонтали и вертикали». Хороший ответ — назвать несколько способов и объяснить, когда какой уместен.
+
+## Flexbox
+
+<HtmlPreview
+  html={`<div class="parent">
+  <div class="child">Я в центре</div>
+</div>`}
+  css={`.parent {
+  display: flex;
+  justify-content: center; /* по главной оси */
+  align-items: center;     /* по поперечной оси */
+  height: 160px;
+  background: #eef2ff;
+}
+
+.child {
+  padding: 16px;
+  background: #4f46e5;
+  color: #fff;
+}`}
+/>
+
+Самый частый вариант. Работает для любого количества детей и не требует знать размеры элемента.
+
+## Grid
+
+<HtmlPreview
+  html={`<div class="parent">
+  <div class="child">Я в центре</div>
+</div>`}
+  css={`.parent {
+  display: grid;
+  place-items: center; /* align-items + justify-items */
+  height: 160px;
+  background: #eef2ff;
+}
+
+.child {
+  padding: 16px;
+  background: #4f46e5;
+  color: #fff;
+}`}
+/>
+
+Самый короткий вариант — одно свойство на родителе.
+
+## position + transform
+
+<HtmlPreview
+  html={`<div class="parent">
+  <div class="child">Я в центре</div>
+</div>`}
+  css={`.parent {
+  position: relative;
+  height: 160px;
+  background: #eef2ff;
+}
+
+.child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* сдвиг на половину своего размера */
+  padding: 16px;
+  background: #4f46e5;
+  color: #fff;
+}`}
+/>
+
+Подходит для оверлеев и модалок: элемент вынут из потока и не влияет на соседей.
+
+## Когда что использовать
+
+| Способ                        | Когда                                                    |
+| ----------------------------- | -------------------------------------------------------- |
+| `flex` + `justify`/`align`    | По умолчанию, особенно если детей несколько              |
+| `grid` + `place-items`        | Один элемент, нужна максимальная краткость               |
+| `absolute` + `transform`      | Элемент должен быть поверх контента (модалка, тултип)    |
+| `margin: 0 auto`              | Только по горизонтали, у блочного элемента с шириной     |

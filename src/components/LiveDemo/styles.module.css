@@ -1,0 +1,30 @@
+.demo {
+  margin-bottom: var(--ifm-leading);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-code-border-radius);
+  overflow: hidden;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700);
+  background: var(--ifm-color-emphasis-100);
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+}
+
+.toolbar a {
+  font-weight: 400;
+}
+
+.canvas {
+  padding: 1.5rem 1rem;
+}
+
+.fallback {
+  color: var(--ifm-color-emphasis-600);
+}

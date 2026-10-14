@@ -1,0 +1,42 @@
+---
+title: useDebounce
+description: Хук для отложенного обновления значения
+---
+
+import UseDebounceDemo from '@site/react/src/hooks/useDebounce.demo';
+import hook from '!!raw-loader!@site/react/src/hooks/useDebounce.ts';
+import demo from '!!raw-loader!@site/react/src/hooks/useDebounce.demo.tsx';
+import tests from '!!raw-loader!@site/react/src/hooks/useDebounce.test.ts';
+
+## Условие
+
+Напишите хук `useDebounce(value, delay)`, который возвращает `value`, но обновляет его только после `delay` мс без изменений. Типичное применение — поиск: запрос уходит не на каждое нажатие клавиши, а когда пользователь перестал печатать.
+
+<LiveDemo id="use-debounce">
+  <UseDebounceDemo />
+</LiveDemo>
+
+## Решение
+
+<CodeFiles
+  files={{
+    'useDebounce.ts': hook,
+    'useDebounce.test.ts': tests,
+    'useDebounce.demo.tsx': demo,
+  }}
+/>
+
+## Разбор
+
+- Каждое изменение `value` перезапускает эффект: cleanup предыдущего эффекта очищает старый таймер, новый эффект ставит свежий.
+- Если `value` не менялось `delay` мс, таймер срабатывает и обновляет состояние.
+- `delay` тоже в зависимостях: при его изменении таймер перезапускается с новой задержкой.
+
+## Follow-up вопросы
+
+<details>
+<summary>Чем useDebounce отличается от debounce-колбэка?</summary>
+
+`useDebounce` откладывает **значение** — удобно, когда от него зависит эффект (запрос). Debounce-колбэк (`useDebouncedCallback`) откладывает **вызов функции** — удобно для обработчиков. Для колбэка нужен `useRef`, чтобы таймер и актуальная версия функции переживали ререндеры.
+
+</details>

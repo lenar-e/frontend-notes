@@ -1,0 +1,8 @@
+build
+.docusaurus
+coverage
+node_modules
+package-lock.json
+
+# Prettier не поддерживает MDX 3: ломает шаблонные строки и комментарии внутри JSX
+*.mdx

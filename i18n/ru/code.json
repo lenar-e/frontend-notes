@@ -1,0 +1,14 @@
+{
+  "theme.SearchBar.label": { "message": "Поиск" },
+  "theme.SearchBar.noResultsText": { "message": "Ничего не найдено" },
+  "theme.SearchBar.seeAll": { "message": "Все результаты" },
+  "theme.SearchBar.searchInContext": { "message": "Все результаты в «{context}»" },
+  "theme.SearchBar.seeAllOutsideContext": { "message": "Все результаты вне «{context}»" },
+  "theme.SearchPage.existingResultsTitle": { "message": "Результаты поиска «{query}»" },
+  "theme.SearchPage.emptyResultsTitle": { "message": "Поиск по сайту" },
+  "theme.SearchPage.searchContext.everywhere": { "message": "Везде" },
+  "theme.SearchPage.documentsFound.plurals": {
+    "message": "Найдена {count} страница|Найдено {count} страницы|Найдено {count} страниц"
+  },
+  "theme.SearchPage.noResultsText": { "message": "Ничего не найдено" }
+}

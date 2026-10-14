@@ -1,0 +1,44 @@
+---
+title: Делегирование событий
+description: Один обработчик на контейнер вместо обработчика на каждый элемент
+---
+
+import solution from '!!raw-loader!./event-delegation.ts';
+import tests from '!!raw-loader!./event-delegation.test.ts';
+
+## Условие
+
+Напишите функцию `delegate(root, eventType, selector, handler)`. Она вешает **один** обработчик на `root` и вызывает `handler` для событий от элементов, подходящих под `selector`, — в том числе для элементов, добавленных позже.
+
+```ts
+const unsubscribe = delegate(list, 'click', '.item', (event, item) => {
+  console.log('Клик по', item.dataset.id);
+});
+```
+
+## Решение
+
+<CodeFiles files={{ 'event-delegation.ts': solution, 'event-delegation.test.ts': tests }} />
+
+## Разбор
+
+- Большинство событий **всплывают**: клик по `<span>` внутри `<li>` дойдёт до `<ul>`, и обработчик на `<ul>` его увидит.
+- `event.target` — самый глубокий элемент, по которому кликнули. `closest(selector)` поднимается от него вверх и находит нужный элемент.
+- `root.contains(target)` отсекает совпадения выше `root`: `closest` не знает, где заканчивается контейнер.
+- Зачем это нужно: меньше обработчиков (память), не нужно переподписываться при добавлении элементов — удобно для списков и таблиц.
+
+## Follow-up вопросы
+
+<details>
+<summary>Какие события не всплывают и что с ними делать?</summary>
+
+`focus`, `blur`, `mouseenter`, `mouseleave`, `load`, `scroll` (на элементах). Для фокуса есть всплывающие аналоги `focusin`/`focusout`. Другой вариант — подписаться в фазе перехвата: `addEventListener(type, listener, { capture: true })`.
+
+</details>
+
+<details>
+<summary>Чем отличаются event.target и event.currentTarget?</summary>
+
+`target` — элемент, на котором событие произошло. `currentTarget` — элемент, на котором сейчас выполняется обработчик. При делегировании `currentTarget` — это `root`.
+
+</details>

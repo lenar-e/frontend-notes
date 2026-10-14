@@ -1,0 +1,2 @@
+# Единые LF-переносы строк на Windows и Linux (CI), иначе Prettier ругается на CRLF
+* text=auto eol=lf

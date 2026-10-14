@@ -1,0 +1,57 @@
+---
+title: Star Rating
+description: Доступный компонент рейтинга со звёздами
+---
+
+import StarRatingDemo from '@site/react/src/components/StarRating/StarRating.demo';
+import component from '!!raw-loader!@site/react/src/components/StarRating/StarRating.tsx';
+import styles from '!!raw-loader!@site/react/src/components/StarRating/StarRating.module.css';
+import demo from '!!raw-loader!@site/react/src/components/StarRating/StarRating.demo.tsx';
+import tests from '!!raw-loader!@site/react/src/components/StarRating/StarRating.test.tsx';
+
+## Условие
+
+Сделайте компонент рейтинга из N звёзд:
+
+- при наведении подсвечиваются звёзды до курсора;
+- клик выбирает значение;
+- есть режим «только для чтения»;
+- компонентом можно пользоваться с клавиатуры и скринридера.
+
+<LiveDemo id="star-rating">
+  <StarRatingDemo />
+</LiveDemo>
+
+## Решение
+
+<CodeFiles
+  files={{
+    'StarRating.tsx': component,
+    'StarRating.module.css': styles,
+    'StarRating.test.tsx': tests,
+    'StarRating.demo.tsx': demo,
+  }}
+/>
+
+## Разбор
+
+- **Контролируемый компонент:** значение хранит родитель (`value` + `onChange`), внутри — только временное состояние наведения `hovered`.
+- **Семантика:** выбор одного значения из нескольких — это группа радиокнопок, поэтому `role="radiogroup"` и `role="radio"` с `aria-checked`. Скринридер прочитает «3 из 5, выбрано».
+- **Roving tabindex:** `tabIndex={0}` только у выбранной звезды, у остальных `-1`. Tab заходит в группу одним шагом, а выбор меняется стрелками — так ведут себя нативные `<input type="radio">`.
+- **Кнопки, а не `<span>`:** фокус, Enter и Space работают из коробки.
+
+## Follow-up вопросы
+
+<details>
+<summary>Как сделать половинки звёзд?</summary>
+
+Рисовать звезду двумя слоями: серый фон и жёлтую заливку с `width: 50%` и `overflow: hidden`. Значение при наведении считать по `event.nativeEvent.offsetX` относительно ширины звезды, шаг клавиатуры сделать 0.5.
+
+</details>
+
+<details>
+<summary>Почему не нативные input type="radio"?</summary>
+
+Можно и так — это даже надёжнее для доступности: визуально скрыть инпуты, а звёзды сделать `<label>`. Тогда стрелки и `name`-группа работают без JS. Кастомные кнопки дают больше контроля над поведением, но всю семантику приходится писать вручную.
+
+</details>
