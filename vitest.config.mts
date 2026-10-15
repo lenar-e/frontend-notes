@@ -11,7 +11,7 @@ export default defineConfig({
         test: {
           name: 'node',
           environment: 'node',
-          include: ['notes/{javascript,typescript,algorithms}/**/*.test.ts'],
+          include: ['notes/{javascript,typescript,computer-science}/**/*.test.ts'],
           typecheck: {
             enabled: true,
             include: ['notes/typescript/**/*.test-d.ts'],

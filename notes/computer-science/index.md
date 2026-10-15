@@ -2,14 +2,14 @@
 slug: /
 sidebar_position: 0
 sidebar_label: О разделе
-title: Алгоритмы
+title: Computer Science
 ---
 
 Алгоритмы и структуры данных в объёме фронтенд-собеседований. Для каждого решения указываются сложность по времени и памяти.
 
 ```bash
-npm run new -- algorithms/sorting merge-sort
-npm run new -- algorithms/patterns/two-pointers valid-palindrome
+npm run new -- computer-science/sorting merge-sort
+npm run new -- computer-science/patterns/two-pointers valid-palindrome
 ```
 
 Вложенные категории (как `patterns/two-pointers`) создаются автоматически.

@@ -45,8 +45,8 @@ export const sections: Section[] = [
       'Компоненты и хуки с живыми демо: Autocomplete, Modal, виртуальный список. Как устроены useState, Redux, React Query.',
   },
   {
-    id: 'algorithms',
-    label: 'Алгоритмы',
+    id: 'computer-science',
+    label: 'Computer Science',
     emoji: '🧮',
     description:
       'Сортировки, бинарный поиск, структуры данных, паттерны (два указателя, окно, BFS/DFS, DP).',

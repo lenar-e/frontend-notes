@@ -23,6 +23,17 @@
   --docusaurus-highlighted-code-line-bg: rgb(0 0 0 / 30%);
 }
 
+/* Пункты навбара в одну строку; на средних экранах остаётся только логотип без названия */
+.navbar__item {
+  white-space: nowrap;
+}
+
+@media (min-width: 997px) and (max-width: 1279px) {
+  .navbar__title {
+    display: none;
+  }
+}
+
 /* Иконка GitHub в навбаре вместо текста */
 .header-github-link::before {
   content: '';

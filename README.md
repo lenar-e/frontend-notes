@@ -15,7 +15,7 @@
 - [TypeScript](#typescript)
 - [Browser](#browser)
 - [React](#react)
-- [Алгоритмы](#алгоритмы)
+- [Computer Science](#computer-science)
 - [System Design](#system-design)
 - [CSS](#css)
 - [Как устроен проект](#как-устроен-проект)
@@ -148,7 +148,7 @@
 - ⬜ Redux в 50 строк
 - ⬜ Упрощённый React Query с кэшем
 
-## Алгоритмы
+## Computer Science
 
 **Сортировки**
 
@@ -164,7 +164,7 @@
 
 **Поиск**
 
-- ✅ [Бинарный поиск](notes/algorithms/searching/binary-search.ts)
+- ✅ [Бинарный поиск](notes/computer-science/searching/binary-search.ts)
 - ⬜ Первое и последнее вхождение
 - ⬜ Поиск в повёрнутом массиве
 
@@ -245,7 +245,7 @@ frontend-notes/
 │   │   │   ├── star-rating.mdx
 │   │   │   └── StarRating/        # компонент, стили, тесты, *.demo.tsx
 │   │   └── hooks/
-│   ├── algorithms/
+│   ├── computer-science/
 │   ├── system-design/             # только Markdown и Mermaid
 │   └── css/
 └── website/                       # ⚙️ всё, что показывает заметки, — заглядывать редко
@@ -293,16 +293,16 @@ npm run new -- javascript/promises promise-all
 
 Генератор создаёт заготовку под тип раздела:
 
-| Аргументы                                  | Что создаётся                                         |
-| ------------------------------------------ | ----------------------------------------------------- |
-| `javascript/promises promise-all`          | страница, решение, тесты                              |
-| `typescript/utility-types my-omit`         | страница, тип, тесты типов `*.test-d.ts`              |
-| `algorithms/patterns/two-pointers two-sum` | то же + недостающие категории                         |
-| `react/components Autocomplete`            | компонент, CSS-модуль, тест и демо рядом со страницей |
-| `react/hooks useThrottle`                  | хук, тест и демо + страница                           |
-| `javascript/theory closures`               | заметка с блоком «что выведет консоль?»               |
-| `system-design/cases chat`                 | шаблон кейса по RADIO с Mermaid-диаграммой            |
-| `css/layouts holy-grail`                   | страница с живым превью HTML и CSS                    |
+| Аргументы                                        | Что создаётся                                         |
+| ------------------------------------------------ | ----------------------------------------------------- |
+| `javascript/promises promise-all`                | страница, решение, тесты                              |
+| `typescript/utility-types my-omit`               | страница, тип, тесты типов `*.test-d.ts`              |
+| `computer-science/patterns/two-pointers two-sum` | то же + недостающие категории                         |
+| `react/components Autocomplete`                  | компонент, CSS-модуль, тест и демо рядом со страницей |
+| `react/hooks useThrottle`                        | хук, тест и демо + страница                           |
+| `javascript/theory closures`                     | заметка с блоком «что выведет консоль?»               |
+| `system-design/cases chat`                       | шаблон кейса по RADIO с Mermaid-диаграммой            |
+| `css/layouts holy-grail`                         | страница с живым превью HTML и CSS                    |
 
 Дальше: пишете тесты и решение (`npm run test:watch`), условие и разбор смотрите на сайте (`npm start`), отмечаете задачу в этом README.
 

@@ -2,7 +2,7 @@
 //
 //   npm run new -- javascript/promises promise-all
 //   npm run new -- typescript/utility-types my-omit
-//   npm run new -- algorithms/patterns/two-pointers valid-palindrome
+//   npm run new -- computer-science/patterns/two-pointers valid-palindrome
 //   npm run new -- react/components Autocomplete     (PascalCase → компонент)
 //   npm run new -- react/hooks useThrottle           (use* → хук)
 //   npm run new -- react/advanced mini-redux         (иначе → модуль)
@@ -23,7 +23,7 @@ const SECTIONS = [
   'browser',
   'css',
   'react',
-  'algorithms',
+  'computer-science',
   'system-design',
 ];
 
@@ -385,7 +385,7 @@ function planFiles(section, categoryParts, rawName) {
     return files;
   }
 
-  // javascript, browser, algorithms и прочие модули (например, react/advanced mini-redux)
+  // javascript, browser, computer-science и прочие модули (например, react/advanced mini-redux)
   const fn = toCamelCase(rawName);
   files[join(docDir, `${kebab}.ts`)] = fnModule(fn);
   files[join(docDir, `${kebab}.test.ts`)] = fnTest(fn, kebab);
