@@ -10,7 +10,7 @@ title: Browser
 Тесты запускаются в окружении [jsdom](https://github.com/jsdom/jsdom), поэтому в них доступны `document`, `window` и события.
 
 ```bash
-npm run new -- browser/dom get-elements-by-class-name
+yarn new browser/dom get-elements-by-class-name
 ```
 
 ## Что здесь будет

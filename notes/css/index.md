@@ -21,7 +21,7 @@ title: CSS
 ```
 
 ```bash
-npm run new -- css/layouts holy-grail
+yarn new css/layouts holy-grail
 ```
 
 ## Что здесь будет

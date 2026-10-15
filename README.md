@@ -274,21 +274,21 @@ frontend-notes/
 
 ## Команды
 
-| Команда              | Что делает                                               |
-| -------------------- | -------------------------------------------------------- |
-| `npm start`          | Сайт в dev-режиме: http://localhost:3000/frontend-notes/ |
-| `npm run demo`       | Демо-приложение: http://localhost:5173                   |
-| `npm run test:watch` | Тесты в watch-режиме                                     |
-| `npm test`           | Все тесты, включая проверки типов                        |
-| `npm run check`      | ESLint + Prettier + typecheck + тесты — то же, что в CI  |
-| `npm run build`      | Сборка сайта и демо в `website/build/`                   |
-| `npm run serve`      | Просмотр сборки локально (поиск работает только здесь)   |
-| `npm run new`        | Заготовка новой задачи — см. ниже                        |
+| Команда           | Что делает                                               |
+| ----------------- | -------------------------------------------------------- |
+| `yarn start`      | Сайт в dev-режиме: http://localhost:3000/frontend-notes/ |
+| `yarn demo`       | Демо-приложение: http://localhost:5173                   |
+| `yarn test:watch` | Тесты в watch-режиме                                     |
+| `yarn test`       | Все тесты, включая проверки типов                        |
+| `yarn verify`     | ESLint + Prettier + typecheck + тесты — то же, что в CI  |
+| `yarn build`      | Сборка сайта и демо в `website/build/`                   |
+| `yarn serve`      | Просмотр сборки локально (поиск работает только здесь)   |
+| `yarn new`        | Заготовка новой задачи — см. ниже                        |
 
 ## Как добавить задачу
 
 ```bash
-npm run new -- javascript/promises promise-all
+yarn new javascript/promises promise-all
 ```
 
 Генератор создаёт заготовку под тип раздела:
@@ -304,7 +304,7 @@ npm run new -- javascript/promises promise-all
 | `system-design/cases chat`                       | шаблон кейса по RADIO с Mermaid-диаграммой            |
 | `css/layouts holy-grail`                         | страница с живым превью HTML и CSS                    |
 
-Дальше: пишете тесты и решение (`npm run test:watch`), условие и разбор смотрите на сайте (`npm start`), отмечаете задачу в этом README.
+Дальше: пишете тесты и решение (`yarn test:watch`), условие и разбор смотрите на сайте (`yarn start`), отмечаете задачу в этом README.
 
 ## Деплой
 

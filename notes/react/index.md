@@ -27,11 +27,11 @@ react/
     └── useDebounce.demo.tsx
 ```
 
-Демо-приложение (`npm run demo`) собирает все файлы `*.demo.tsx` автоматически — регистрировать ничего не нужно.
+Демо-приложение (`yarn demo`) собирает все файлы `*.demo.tsx` автоматически — регистрировать ничего не нужно.
 
 ```bash
-npm run new -- react/components Autocomplete
-npm run new -- react/hooks useThrottle
+yarn new react/components Autocomplete
+yarn new react/hooks useThrottle
 ```
 
 ## Что здесь будет

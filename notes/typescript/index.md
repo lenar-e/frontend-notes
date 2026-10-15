@@ -9,7 +9,7 @@ title: TypeScript
 
 ## Формат задачи
 
-Тесты для типов пишутся в файлах `*.test-d.ts` через [`expectTypeOf`](https://vitest.dev/guide/testing-types) — Vitest проверяет их компилятором TypeScript при каждом `npm test`:
+Тесты для типов пишутся в файлах `*.test-d.ts` через [`expectTypeOf`](https://vitest.dev/guide/testing-types) — Vitest проверяет их компилятором TypeScript при каждом `yarn test`:
 
 ```ts
 expectTypeOf<MyPick<Todo, 'title'>>().toEqualTypeOf<{ title: string }>();
@@ -19,7 +19,7 @@ type _Invalid = MyPick<Todo, 'unknown'>;
 ```
 
 ```bash
-npm run new -- typescript/utility-types my-omit
+yarn new typescript/utility-types my-omit
 ```
 
 ## Что здесь будет

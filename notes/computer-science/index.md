@@ -8,8 +8,8 @@ title: Computer Science
 Алгоритмы и структуры данных в объёме фронтенд-собеседований. Для каждого решения указываются сложность по времени и памяти.
 
 ```bash
-npm run new -- computer-science/sorting merge-sort
-npm run new -- computer-science/patterns/two-pointers valid-palindrome
+yarn new computer-science/sorting merge-sort
+yarn new computer-science/patterns/two-pointers valid-palindrome
 ```
 
 Вложенные категории (как `patterns/two-pointers`) создаются автоматически.

@@ -20,8 +20,8 @@ title: Frontend System Design
 | **O**ptimizations   | Производительность, доступность, офлайн, безопасность, i18n                    |
 
 ```bash
-npm run new -- system-design/cases chat
-npm run new -- system-design/topics rendering-strategies
+yarn new system-design/cases chat
+yarn new system-design/topics rendering-strategies
 ```
 
 ## Что здесь будет

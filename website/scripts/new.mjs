@@ -1,13 +1,13 @@
 // Создаёт в notes/ заготовку новой задачи: страницу сайта, решение и тесты.
 //
-//   npm run new -- javascript/promises promise-all
-//   npm run new -- typescript/utility-types my-omit
-//   npm run new -- computer-science/patterns/two-pointers valid-palindrome
-//   npm run new -- react/components Autocomplete     (PascalCase → компонент)
-//   npm run new -- react/hooks useThrottle           (use* → хук)
-//   npm run new -- react/advanced mini-redux         (иначе → модуль)
-//   npm run new -- javascript/theory closures        (theory → заметка)
-//   npm run new -- system-design/cases chat          (cases → шаблон RADIO)
+//   yarn new javascript/promises promise-all
+//   yarn new typescript/utility-types my-omit
+//   yarn new computer-science/patterns/two-pointers valid-palindrome
+//   yarn new react/components Autocomplete     (PascalCase → компонент)
+//   yarn new react/hooks useThrottle           (use* → хук)
+//   yarn new react/advanced mini-redux         (иначе → модуль)
+//   yarn new javascript/theory closures        (theory → заметка)
+//   yarn new system-design/cases chat          (cases → шаблон RADIO)
 
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -48,8 +48,8 @@ const humanize = (name) => {
 
 function fail(message) {
   console.error(`\n✖ ${message}\n`);
-  console.error('Использование: npm run new -- <раздел>/<категория> <имя>');
-  console.error('Пример:        npm run new -- javascript/promises promise-all\n');
+  console.error('Использование: yarn new <раздел>/<категория> <имя>');
+  console.error('Пример:        yarn new javascript/promises promise-all\n');
   console.error(`Разделы: ${SECTIONS.join(', ')}\n`);
   process.exit(1);
 }
@@ -448,6 +448,6 @@ for (const [file, content] of Object.entries(files)) {
 }
 
 console.log('\nГотово! Дальше:');
-console.log('  1. npm run test:watch  — пишите решение по тестам');
-console.log('  2. npm start           — смотрите страницу на сайте');
+console.log('  1. yarn test:watch  — пишите решение по тестам');
+console.log('  2. yarn start           — смотрите страницу на сайте');
 console.log('  3. Отметьте задачу в README.md');

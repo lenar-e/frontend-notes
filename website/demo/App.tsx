@@ -75,7 +75,7 @@ export function App() {
             </section>
           </>
         ) : (
-          <p>Демо пока нет — создайте первое: npm run new -- react/components MyComponent</p>
+          <p>Демо пока нет — создайте первое: yarn new react/components MyComponent</p>
         )}
       </main>
     </div>

@@ -22,7 +22,7 @@ title: JavaScript
 Новая задача создаётся командой:
 
 ```bash
-npm run new -- javascript/promises promise-all
+yarn new javascript/promises promise-all
 ```
 
 ## Что здесь будет
