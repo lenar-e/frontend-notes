@@ -1,8 +1,8 @@
 /// <reference types="vite/types/importMeta.d.ts" />
 import type { ComponentType } from 'react';
 
-// Все файлы *.demo.tsx из react/src подхватываются автоматически
-const modules = import.meta.glob<{ default: ComponentType }>('../src/**/*.demo.tsx', {
+// Все файлы *.demo.tsx из notes/react подхватываются автоматически
+const modules = import.meta.glob<{ default: ComponentType }>('../../notes/react/**/*.demo.tsx', {
   eager: true,
 });
 
@@ -10,7 +10,7 @@ export interface Demo {
   /** kebab-case имени файла: StarRating.demo.tsx → star-rating. Используется в URL: #/star-rating */
   id: string;
   title: string;
-  /** Папка в react/src (components, hooks, advanced) — совпадает с разделом на сайте */
+  /** Папка в notes/react (components, hooks, advanced) — совпадает с разделом на сайте */
   folder: string;
   Component: ComponentType;
 }
@@ -21,7 +21,7 @@ export const GROUP_LABELS: Record<string, string> = {
   advanced: 'Под капотом',
 };
 
-// Та же функция есть в scripts/new.mjs — id демо и URL страницы должны совпадать
+// Та же функция есть в website/scripts/new.mjs — id демо и URL страницы должны совпадать
 export const toKebabCase = (name: string) =>
   name
     .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
@@ -30,9 +30,9 @@ export const toKebabCase = (name: string) =>
 
 export const demos: Demo[] = Object.entries(modules)
   .map(([path, module]) => {
-    // ../src/components/StarRating/StarRating.demo.tsx
-    const [, , folder, ...rest] = path.split('/');
-    const title = rest.at(-1)!.replace('.demo.tsx', '');
+    // ../../notes/react/components/StarRating/StarRating.demo.tsx → folder: components
+    const [folder] = path.split('/notes/react/')[1].split('/');
+    const title = path.split('/').at(-1)!.replace('.demo.tsx', '');
 
     return { id: toKebabCase(title), title, folder, Component: module.default };
   })

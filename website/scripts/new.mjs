@@ -1,4 +1,4 @@
-// Создаёт заготовку новой задачи: страницу сайта, решение и тесты.
+// Создаёт в notes/ заготовку новой задачи: страницу сайта, решение и тесты.
 //
 //   npm run new -- javascript/promises promise-all
 //   npm run new -- typescript/utility-types my-omit
@@ -7,7 +7,7 @@
 //   npm run new -- react/hooks useThrottle           (use* → хук)
 //   npm run new -- react/advanced mini-redux         (иначе → модуль)
 //   npm run new -- javascript/theory closures        (theory → заметка)
-//   npm run new -- frontend-system-design/cases chat (cases → шаблон RADIO)
+//   npm run new -- system-design/cases chat          (cases → шаблон RADIO)
 
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -15,7 +15,8 @@ import { fileURLToPath } from 'node:url';
 
 import * as prettier from 'prettier';
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+/** Корень репозитория: скрипт лежит в website/scripts/ */
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const SECTIONS = [
   'javascript',
   'typescript',
@@ -23,12 +24,12 @@ const SECTIONS = [
   'css',
   'react',
   'algorithms',
-  'frontend-system-design',
+  'system-design',
 ];
 
 // ---------- утилиты ----------
 
-// Та же функция есть в react/demo/registry.ts — id демо и URL страницы должны совпадать
+// Та же функция есть в website/demo/registry.ts — id демо и URL страницы должны совпадать
 const toKebabCase = (name) =>
   name
     .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
@@ -309,65 +310,52 @@ export default function ${toPascalCase(name)}Demo() {
 
 // ---------- сборка списка файлов ----------
 
+// Все пути — относительно корня репозитория. Страница всегда лежит рядом с кодом.
 function planFiles(section, categoryParts, rawName) {
-  const category = categoryParts.join('/');
-  const docDir = join(section, ...categoryParts);
+  const docDir = join('notes', section, ...categoryParts);
   const kebab = toKebabCase(rawName);
   const files = {};
 
-  if (section === 'react') {
-    const srcDir = join('react', 'src', category);
-    const src = (file) => `@site/react/src/${category}/${file}`;
-
-    if (/^use[A-Z0-9]/.test(rawName)) {
-      const name = rawName;
-      const demoComponent = `${toPascalCase(name)}Demo`;
-      files[join(srcDir, `${name}.ts`)] = hook(name);
-      files[join(srcDir, `${name}.test.ts`)] = hookTest(name);
-      files[join(srcDir, `${name}.demo.tsx`)] = hookDemo(name);
-      files[join(docDir, `${kebab}.mdx`)] = codePage({
-        title: name,
-        demo: { id: kebab, component: demoComponent, path: src(`${name}.demo`) },
-        sources: [
-          [`${name}.ts`, 'hook', src(`${name}.ts`)],
-          [`${name}.test.ts`, 'tests', src(`${name}.test.ts`)],
-          [`${name}.demo.tsx`, 'demo', src(`${name}.demo.tsx`)],
-        ],
-      });
-    } else if (/^[A-Z]/.test(rawName)) {
-      const name = rawName;
-      const dir = join(srcDir, name);
-      const path = (file) => src(`${name}/${file}`);
-      files[join(dir, `${name}.tsx`)] = component(name);
-      files[join(dir, `${name}.module.css`)] = componentCss();
-      files[join(dir, `${name}.test.tsx`)] = componentTest(name);
-      files[join(dir, `${name}.demo.tsx`)] = componentDemo(name);
-      files[join(docDir, `${kebab}.mdx`)] = codePage({
-        title: name,
-        demo: { id: kebab, component: `${name}Demo`, path: path(`${name}.demo`) },
-        sources: [
-          [`${name}.tsx`, 'component', path(`${name}.tsx`)],
-          [`${name}.module.css`, 'styles', path(`${name}.module.css`)],
-          [`${name}.test.tsx`, 'tests', path(`${name}.test.tsx`)],
-          [`${name}.demo.tsx`, 'demo', path(`${name}.demo.tsx`)],
-        ],
-      });
-    } else {
-      const fn = toCamelCase(rawName);
-      files[join(srcDir, `${kebab}.ts`)] = fnModule(fn);
-      files[join(srcDir, `${kebab}.test.ts`)] = fnTest(fn, kebab);
-      files[join(docDir, `${kebab}.mdx`)] = codePage({
-        title: fn,
-        sources: [
-          [`${kebab}.ts`, 'solution', src(`${kebab}.ts`)],
-          [`${kebab}.test.ts`, 'tests', src(`${kebab}.test.ts`)],
-        ],
-      });
-    }
+  // react/hooks useThrottle → хук, тест и демо рядом со страницей
+  if (section === 'react' && /^use[A-Z0-9]/.test(rawName)) {
+    const name = rawName;
+    files[join(docDir, `${name}.ts`)] = hook(name);
+    files[join(docDir, `${name}.test.ts`)] = hookTest(name);
+    files[join(docDir, `${name}.demo.tsx`)] = hookDemo(name);
+    files[join(docDir, `${kebab}.mdx`)] = codePage({
+      title: name,
+      demo: { id: kebab, component: `${toPascalCase(name)}Demo`, path: `./${name}.demo` },
+      sources: [
+        [`${name}.ts`, 'hook', `./${name}.ts`],
+        [`${name}.test.ts`, 'tests', `./${name}.test.ts`],
+        [`${name}.demo.tsx`, 'demo', `./${name}.demo.tsx`],
+      ],
+    });
     return files;
   }
 
-  if (section === 'frontend-system-design') {
+  // react/components Autocomplete → страница + папка компонента рядом с ней
+  if (section === 'react' && /^[A-Z]/.test(rawName)) {
+    const name = rawName;
+    const dir = join(docDir, name);
+    files[join(dir, `${name}.tsx`)] = component(name);
+    files[join(dir, `${name}.module.css`)] = componentCss();
+    files[join(dir, `${name}.test.tsx`)] = componentTest(name);
+    files[join(dir, `${name}.demo.tsx`)] = componentDemo(name);
+    files[join(docDir, `${kebab}.mdx`)] = codePage({
+      title: name,
+      demo: { id: kebab, component: `${name}Demo`, path: `./${name}/${name}.demo` },
+      sources: [
+        [`${name}.tsx`, 'component', `./${name}/${name}.tsx`],
+        [`${name}.module.css`, 'styles', `./${name}/${name}.module.css`],
+        [`${name}.test.tsx`, 'tests', `./${name}/${name}.test.tsx`],
+        [`${name}.demo.tsx`, 'demo', `./${name}/${name}.demo.tsx`],
+      ],
+    });
+    return files;
+  }
+
+  if (section === 'system-design') {
     const page = categoryParts[0] === 'cases' ? radioPage : topicPage;
     files[join(docDir, `${kebab}.md`)] = page(humanize(rawName));
     return files;
@@ -397,7 +385,7 @@ function planFiles(section, categoryParts, rawName) {
     return files;
   }
 
-  // javascript, browser, algorithms
+  // javascript, browser, algorithms и прочие модули (например, react/advanced mini-redux)
   const fn = toCamelCase(rawName);
   files[join(docDir, `${kebab}.ts`)] = fnModule(fn);
   files[join(docDir, `${kebab}.test.ts`)] = fnTest(fn, kebab);
@@ -432,12 +420,15 @@ if (existing.length > 0) fail(`Файлы уже существуют:\n  ${exis
 
 // Недостающие категории получают _category_.json — название можно поправить потом
 for (let depth = 1; depth <= categoryParts.length; depth++) {
-  const dir = join(ROOT, section, ...categoryParts.slice(0, depth));
-  if (!existsSync(dir)) {
-    mkdirSync(dir, { recursive: true });
+  const categoryDir = join('notes', section, ...categoryParts.slice(0, depth));
+  if (!existsSync(join(ROOT, categoryDir))) {
+    mkdirSync(join(ROOT, categoryDir), { recursive: true });
     const label = humanize(categoryParts[depth - 1]);
-    writeFileSync(join(dir, '_category_.json'), `${JSON.stringify({ label }, null, 2)}\n`);
-    console.log(`+ ${join(section, ...categoryParts.slice(0, depth), '_category_.json')}`);
+    writeFileSync(
+      join(ROOT, categoryDir, '_category_.json'),
+      `${JSON.stringify({ label }, null, 2)}\n`,
+    );
+    console.log(`+ ${join(categoryDir, '_category_.json')}`);
   }
 }
 

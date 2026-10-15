@@ -1,5 +1,5 @@
 {
-  // Один tsconfig на весь репозиторий: сайт, задачи, тесты и демо-приложение.
+  // Один tsconfig на весь репозиторий: заметки (notes/), сайт и демо-приложение (website/).
   // Используется для `npm run typecheck` и IDE; сборкой занимаются Docusaurus и Vite.
   "extends": "@docusaurus/tsconfig",
   "compilerOptions": {
@@ -8,7 +8,11 @@
     "strict": true,
     "jsx": "react-jsx",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "types": ["node"]
+    "types": ["node"],
+    // @site — алиас Docusaurus на папку сайта
+    "paths": {
+      "@site/*": ["./website/*"]
+    }
   },
-  "exclude": [".docusaurus", "build", "node_modules"]
+  "exclude": ["**/.docusaurus", "**/build", "node_modules"]
 }

@@ -1,6 +1,6 @@
 import { Component, useSyncExternalStore, type ReactNode } from 'react';
 
-import { BASE_URL, SITE_DEV_URL } from '../../site.config';
+import { BASE_URL, SITE_DEV_URL } from '../site.config';
 import styles from './App.module.css';
 import { demos, GROUP_LABELS } from './registry';
 

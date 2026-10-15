@@ -4,13 +4,13 @@
   "private": true,
   "description": "Решения типовых задач с фронтенд-собеседований: JavaScript, TypeScript, Browser API, CSS, React, алгоритмы и system design",
   "scripts": {
-    "start": "docusaurus start",
-    "demo": "vite --configLoader runner --config react/demo/vite.config.ts",
+    "start": "docusaurus start website",
+    "demo": "vite --configLoader runner --config website/demo/vite.config.ts",
     "build": "npm run build:site && npm run build:demo",
-    "build:site": "docusaurus build",
-    "build:demo": "vite build --configLoader runner --config react/demo/vite.config.ts",
-    "serve": "docusaurus serve",
-    "clear": "docusaurus clear",
+    "build:site": "docusaurus build website",
+    "build:demo": "vite build --configLoader runner --config website/demo/vite.config.ts",
+    "serve": "docusaurus serve website",
+    "clear": "docusaurus clear website",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc",
@@ -19,7 +19,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "check": "npm run lint && npm run format:check && npm run typecheck && npm test",
-    "new": "node scripts/new.mjs"
+    "new": "node website/scripts/new.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.2",

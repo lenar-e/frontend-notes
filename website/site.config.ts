@@ -1,5 +1,5 @@
 // Адреса проекта в одном месте: используются в docusaurus.config.ts, в компонентах сайта
-// и в конфиге демо-приложения (react/demo/vite.config.ts).
+// и в конфиге демо-приложения (website/demo/vite.config.ts).
 
 export const GITHUB_USER = 'lenar-e';
 export const REPO = 'frontend-notes';

@@ -6,7 +6,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default defineConfig([
-  globalIgnores(['build/', '.docusaurus/', 'coverage/']),
+  globalIgnores(['**/build/', '**/.docusaurus/', 'coverage/']),
 
   js.configs.recommended,
   tseslint.configs.recommended,

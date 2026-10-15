@@ -11,10 +11,10 @@ export default defineConfig({
         test: {
           name: 'node',
           environment: 'node',
-          include: ['{javascript,typescript,algorithms}/**/*.test.ts'],
+          include: ['notes/{javascript,typescript,algorithms}/**/*.test.ts'],
           typecheck: {
             enabled: true,
-            include: ['typescript/**/*.test-d.ts'],
+            include: ['notes/typescript/**/*.test-d.ts'],
           },
         },
       },
@@ -24,7 +24,7 @@ export default defineConfig({
         test: {
           name: 'dom',
           environment: 'jsdom',
-          include: ['{browser,react}/**/*.test.{ts,tsx}'],
+          include: ['notes/{browser,react}/**/*.test.{ts,tsx}'],
           setupFiles: ['./vitest.setup.ts'],
         },
       },

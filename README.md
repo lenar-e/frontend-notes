@@ -27,7 +27,7 @@
 
 **Функции высшего порядка**
 
-- ✅ [debounce](javascript/functions/debounce.ts)
+- ✅ [debounce](notes/javascript/functions/debounce.ts)
 - ⬜ throttle
 - ⬜ memoize
 - ⬜ curry
@@ -71,7 +71,7 @@
 
 **Теория и «что выведет консоль?»**
 
-- 🚧 [Event loop: микро- и макрозадачи](javascript/theory/event-loop.md)
+- 🚧 [Event loop: микро- и макрозадачи](notes/javascript/theory/event-loop.md)
 - ⬜ Замыкания
 - ⬜ this
 - ⬜ Прототипы
@@ -80,7 +80,7 @@
 
 **Utility types**
 
-- ✅ [Pick](typescript/utility-types/my-pick.ts)
+- ✅ [Pick](notes/typescript/utility-types/my-pick.ts)
 - ⬜ Omit
 - ⬜ Partial
 - ⬜ ReturnType
@@ -99,7 +99,7 @@
 
 ## Browser
 
-- ✅ [Делегирование событий](browser/events/event-delegation.ts)
+- ✅ [Делегирование событий](notes/browser/events/event-delegation.ts)
 - ⬜ getElementsByClassName
 - ⬜ Простой querySelector
 - ⬜ Мини Virtual DOM: createElement, render, diff
@@ -124,7 +124,7 @@
 - ⬜ Форма с валидацией
 - ⬜ Дерево / вложенные комментарии
 - ⬜ Файловый проводник
-- ✅ [Star rating](react/src/components/StarRating/StarRating.tsx)
+- ✅ [Star rating](notes/react/components/StarRating/StarRating.tsx)
 - ⬜ OTP-инпут
 - ⬜ Carousel
 - ⬜ Drag-and-drop список
@@ -132,7 +132,7 @@
 
 **Хуки**
 
-- ✅ [useDebounce](react/src/hooks/useDebounce.ts)
+- ✅ [useDebounce](notes/react/hooks/useDebounce.ts)
 - ⬜ useThrottle
 - ⬜ usePrevious
 - ⬜ useFetch
@@ -164,7 +164,7 @@
 
 **Поиск**
 
-- ✅ [Бинарный поиск](algorithms/searching/binary-search.ts)
+- ✅ [Бинарный поиск](notes/algorithms/searching/binary-search.ts)
 - ⬜ Первое и последнее вхождение
 - ⬜ Поиск в повёрнутом массиве
 
@@ -196,7 +196,7 @@
 
 **Кейсы по RADIO** (Requirements, Architecture, Data model, Interface, Optimizations)
 
-- 🚧 [Лента новостей](frontend-system-design/cases/news-feed.md)
+- 🚧 [Лента новостей](notes/system-design/cases/news-feed.md)
 - ⬜ Autocomplete / поиск
 - ⬜ Чат
 - ⬜ Галерея изображений / Pinterest
@@ -218,7 +218,7 @@
 
 ## CSS
 
-- ✅ [Центрирование](css/layouts/centering.mdx)
+- ✅ [Центрирование](notes/css/layouts/centering.mdx)
 - ⬜ Holy grail layout
 - ⬜ Flexbox и Grid
 - ⬜ Адаптивная сетка
@@ -231,30 +231,37 @@
 
 ```
 frontend-notes/
-├── javascript/                 # раздел сайта = папка: страницы, решения и тесты рядом
-│   └── functions/
-│       ├── _category_.json     # название и порядок категории в сайдбаре
-│       ├── debounce.mdx        # условие, разбор, follow-up вопросы
-│       ├── debounce.ts         # решение
-│       └── debounce.test.ts    # тесты
-├── typescript/                 # тесты типов — *.test-d.ts
-├── browser/                    # тесты запускаются в jsdom
-├── react/
-│   ├── components/, hooks/     # страницы
-│   ├── src/                    # компоненты и хуки: код, стили, тесты, *.demo.tsx
-│   └── demo/                   # Vite-приложение со всеми демо
-├── algorithms/
-├── frontend-system-design/     # только Markdown и Mermaid
-├── css/
-├── src/                        # сайт: главная, MDX-компоненты, стили
-├── scripts/new.mjs             # генератор заготовок
-├── site.config.ts              # GitHub-пользователь, репозиторий, адреса
-└── docusaurus.config.ts
+├── notes/                         # 📚 всё содержимое — то, что наполняется
+│   ├── javascript/
+│   │   └── functions/
+│   │       ├── _category_.json    # название и порядок категории в сайдбаре
+│   │       ├── debounce.mdx       # условие, разбор, follow-up вопросы
+│   │       ├── debounce.ts        # решение
+│   │       └── debounce.test.ts   # тесты
+│   ├── typescript/                # тесты типов — *.test-d.ts
+│   ├── browser/                   # тесты запускаются в jsdom
+│   ├── react/
+│   │   ├── components/
+│   │   │   ├── star-rating.mdx
+│   │   │   └── StarRating/        # компонент, стили, тесты, *.demo.tsx
+│   │   └── hooks/
+│   ├── algorithms/
+│   ├── system-design/             # только Markdown и Mermaid
+│   └── css/
+└── website/                       # ⚙️ всё, что показывает заметки, — заглядывать редко
+    ├── docusaurus.config.ts
+    ├── site.config.ts             # GitHub-пользователь, репозиторий, адреса
+    ├── src/                       # главная, MDX-компоненты, стили
+    ├── demo/                      # Vite-приложение со всеми React-демо
+    └── scripts/new.mjs            # генератор заготовок
 ```
 
-- Каждая папка-раздел — отдельный инстанс docs-плагина Docusaurus со своим сайдбаром. Сайдбар строится из структуры папок.
+В корне — только конфиги инструментов (`package.json`, TypeScript, ESLint, Prettier, Vitest).
+
+- Каждая папка в `notes/` — раздел сайта: отдельный инстанс docs-плагина Docusaurus со своим сайдбаром. Сайдбар строится из структуры папок.
+- Страница всегда лежит рядом с кодом — во всех разделах одинаково.
 - Код на страницы подтягивается из настоящих файлов через `raw-loader` — на сайте всегда та версия, что проходит тесты.
-- Демо-приложение само находит все `react/src/**/*.demo.tsx`. Тот же демо-компонент показывается на странице сайта.
+- Демо-приложение само находит все `notes/react/**/*.demo.tsx`. Тот же демо-компонент показывается на странице сайта.
 
 В MDX без импорта доступны:
 
@@ -274,7 +281,7 @@ frontend-notes/
 | `npm run test:watch` | Тесты в watch-режиме                                     |
 | `npm test`           | Все тесты, включая проверки типов                        |
 | `npm run check`      | ESLint + Prettier + typecheck + тесты — то же, что в CI  |
-| `npm run build`      | Сборка сайта и демо в `build/`                           |
+| `npm run build`      | Сборка сайта и демо в `website/build/`                   |
 | `npm run serve`      | Просмотр сборки локально (поиск работает только здесь)   |
 | `npm run new`        | Заготовка новой задачи — см. ниже                        |
 
@@ -286,16 +293,16 @@ npm run new -- javascript/promises promise-all
 
 Генератор создаёт заготовку под тип раздела:
 
-| Аргументы                                  | Что создаётся                                                |
-| ------------------------------------------ | ------------------------------------------------------------ |
-| `javascript/promises promise-all`          | страница, решение, тесты                                     |
-| `typescript/utility-types my-omit`         | страница, тип, тесты типов `*.test-d.ts`                     |
-| `algorithms/patterns/two-pointers two-sum` | то же + недостающие категории                                |
-| `react/components Autocomplete`            | компонент, CSS-модуль, тест и демо в `react/src/` + страница |
-| `react/hooks useThrottle`                  | хук, тест и демо + страница                                  |
-| `javascript/theory closures`               | заметка с блоком «что выведет консоль?»                      |
-| `frontend-system-design/cases chat`        | шаблон кейса по RADIO с Mermaid-диаграммой                   |
-| `css/layouts holy-grail`                   | страница с живым превью HTML и CSS                           |
+| Аргументы                                  | Что создаётся                                         |
+| ------------------------------------------ | ----------------------------------------------------- |
+| `javascript/promises promise-all`          | страница, решение, тесты                              |
+| `typescript/utility-types my-omit`         | страница, тип, тесты типов `*.test-d.ts`              |
+| `algorithms/patterns/two-pointers two-sum` | то же + недостающие категории                         |
+| `react/components Autocomplete`            | компонент, CSS-модуль, тест и демо рядом со страницей |
+| `react/hooks useThrottle`                  | хук, тест и демо + страница                           |
+| `javascript/theory closures`               | заметка с блоком «что выведет консоль?»               |
+| `system-design/cases chat`                 | шаблон кейса по RADIO с Mermaid-диаграммой            |
+| `css/layouts holy-grail`                   | страница с живым превью HTML и CSS                    |
 
 Дальше: пишете тесты и решение (`npm run test:watch`), условие и разбор смотрите на сайте (`npm start`), отмечаете задачу в этом README.
 
@@ -303,6 +310,6 @@ npm run new -- javascript/promises promise-all
 
 Сайт и демо деплоятся на GitHub Pages при пуше в `main`, если прошли все проверки. Один раз нужно включить Pages: **Settings → Pages → Source: GitHub Actions**.
 
-Адреса задаются в [`site.config.ts`](site.config.ts).
+Адреса задаются в [`website/site.config.ts`](website/site.config.ts).
 
 **Стек:** Docusaurus 3 · React 19 · TypeScript 6 · Vite 8 · Vitest 5 · Testing Library · ESLint 10 · Prettier · GitHub Actions

@@ -22,16 +22,19 @@ const isDev = process.env.NODE_ENV === 'development';
 // в проде оно собирается в build/demo и живёт рядом с сайтом.
 const demoHref = isDev ? DEMO_DEV_URL : `pathname:///${DEMO_PATH}`;
 
-// Каждая папка-раздел (javascript/, typescript/, ...) — отдельный инстанс docs-плагина
-// со своим сайдбаром и URL. Код задач и тесты лежат рядом с .mdx-страницами.
+// Контент лежит вне сайта — в папке notes/ в корне репозитория
+const NOTES_DIR = '../notes';
+
+// Каждая папка-раздел (notes/javascript/, notes/typescript/, ...) — отдельный инстанс
+// docs-плагина со своим сайдбаром и URL. Код задач и тесты лежат рядом с .mdx-страницами.
 const docsPlugins: PluginConfig[] = sections.map(({ id }) => [
   '@docusaurus/plugin-content-docs',
   {
     id,
-    path: id,
+    path: `${NOTES_DIR}/${id}`,
     routeBasePath: id,
     sidebarPath: './sidebars.ts',
-    editUrl: `${REPO_URL}/edit/main/`,
+    editUrl: ({ docPath }) => `${REPO_URL}/edit/main/notes/${id}/${docPath}`,
     showLastUpdateTime: true,
   } satisfies DocsOptions,
 ]);
@@ -124,7 +127,7 @@ const config: Config = {
         language: ['ru', 'en'],
         indexBlog: false,
         docsRouteBasePath: sections.map(({ id }) => id),
-        docsDir: sections.map(({ id }) => id),
+        docsDir: sections.map(({ id }) => `${NOTES_DIR}/${id}`),
         // У нас нет docs-инстанса с id "default" — поиску нужен любой существующий
         docsPluginIdForPreferredVersion: sections[0].id,
         highlightSearchTermsOnTargetPage: true,

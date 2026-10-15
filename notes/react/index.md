@@ -9,20 +9,25 @@ title: React
 
 ## Как устроен раздел
 
+Как и в остальных разделах, страница лежит рядом с кодом:
+
 ```
 react/
-├── components/, hooks/, advanced/   # страницы сайта (.mdx)
-├── src/                             # код: как в обычном React-проекте
-│   ├── components/StarRating/
-│   │   ├── StarRating.tsx
-│   │   ├── StarRating.module.css
-│   │   ├── StarRating.test.tsx
-│   │   └── StarRating.demo.tsx      # демо: показывается и на сайте, и в демо-приложении
-│   └── hooks/
-└── demo/                            # Vite-приложение со всеми демо
+├── components/
+│   ├── star-rating.mdx              # страница сайта
+│   └── StarRating/                  # компонент: код, стили, тесты, демо
+│       ├── StarRating.tsx
+│       ├── StarRating.module.css
+│       ├── StarRating.test.tsx
+│       └── StarRating.demo.tsx      # показывается и на странице, и в демо-приложении
+└── hooks/
+    ├── use-debounce.mdx
+    ├── useDebounce.ts
+    ├── useDebounce.test.ts
+    └── useDebounce.demo.tsx
 ```
 
-Демо-приложение собирает все файлы `*.demo.tsx` автоматически — регистрировать ничего не нужно. Запуск: `npm run demo`.
+Демо-приложение (`npm run demo`) собирает все файлы `*.demo.tsx` автоматически — регистрировать ничего не нужно.
 
 ```bash
 npm run new -- react/components Autocomplete

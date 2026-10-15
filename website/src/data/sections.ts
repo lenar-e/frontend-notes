@@ -1,5 +1,5 @@
 // Разделы сайта. Из этого списка строятся инстансы docs-плагина, навбар, футер и главная.
-// id совпадает с именем папки в корне репозитория и с URL раздела.
+// id совпадает с именем папки в notes/ и с URL раздела.
 
 export interface Section {
   id: string;
@@ -52,7 +52,7 @@ export const sections: Section[] = [
       'Сортировки, бинарный поиск, структуры данных, паттерны (два указателя, окно, BFS/DFS, DP).',
   },
   {
-    id: 'frontend-system-design',
+    id: 'system-design',
     label: 'System Design',
     emoji: '🏗️',
     description:
