@@ -150,6 +150,8 @@
 
 ## Computer Science
 
+### Алгоритмы
+
 **Сортировки**
 
 | Сортировка | Время: среднее / худшее | Память   | Стабильная |     |
@@ -164,19 +166,9 @@
 
 **Поиск**
 
-- ✅ [Бинарный поиск](notes/computer-science/searching/binary-search.ts)
+- ✅ [Бинарный поиск](notes/computer-science/algorithms/searching/binary-search.ts)
 - ⬜ Первое и последнее вхождение
 - ⬜ Поиск в повёрнутом массиве
-
-**Структуры данных**
-
-- ⬜ Стек
-- ⬜ Очередь
-- ⬜ Связный список
-- ⬜ Хеш-таблица
-- ⬜ Куча
-- ⬜ Trie
-- ⬜ Граф
 
 **Паттерны (3–5 задач на каждый)**
 
@@ -191,6 +183,43 @@
 - ⬜ Обход DOM-дерева
 - ⬜ Trie для автокомплита
 - ⬜ Топологическая сортировка зависимостей
+
+### Структуры данных
+
+- ⬜ Стек
+- ⬜ Очередь
+- ⬜ Связный список
+- ⬜ Хеш-таблица
+- ⬜ Куча
+- ⬜ Trie
+- ⬜ Граф
+
+### Безопасность
+
+**Уязвимости**
+
+- ⬜ XSS: stored, reflected, DOM-based
+- ⬜ CSRF
+- ⬜ Clickjacking
+- ⬜ Open redirect
+- ⬜ Prototype pollution
+
+**Защита**
+
+- ⬜ Content Security Policy (CSP)
+- ⬜ CORS
+- ⬜ Флаги cookie: HttpOnly, Secure, SameSite
+- ⬜ Где хранить токены: cookie vs localStorage
+- ⬜ Subresource Integrity (SRI)
+- ⬜ Supply chain: зависимости и lock-файлы
+
+**Практика**
+
+- ⬜ Экранирование HTML
+- ⬜ Санитизация HTML по белому списку
+- ⬜ Проверка URL на `javascript:` и open redirect
+- ⬜ Сборка заголовка CSP
+- ⬜ Безопасный `postMessage`
 
 ## System Design
 
@@ -210,7 +239,6 @@
 - ⬜ CSR / SSR / SSG / ISR
 - ⬜ Кэширование
 - ⬜ Core Web Vitals и производительность
-- ⬜ Безопасность: XSS, CSRF, CSP
 - ⬜ Доступность
 - ⬜ i18n
 - ⬜ Управление состоянием
@@ -245,7 +273,7 @@ frontend-notes/
 │   │   │   ├── star-rating.mdx
 │   │   │   └── StarRating/        # компонент, стили, тесты, *.demo.tsx
 │   │   └── hooks/
-│   ├── computer-science/
+│   ├── computer-science/          # алгоритмы, структуры данных, безопасность
 │   ├── system-design/             # только Markdown и Mermaid
 │   └── css/
 └── website/                       # ⚙️ всё, что показывает заметки, — заглядывать редко
@@ -293,16 +321,17 @@ yarn new javascript/promises promise-all
 
 Генератор создаёт заготовку под тип раздела:
 
-| Аргументы                                        | Что создаётся                                         |
-| ------------------------------------------------ | ----------------------------------------------------- |
-| `javascript/promises promise-all`                | страница, решение, тесты                              |
-| `typescript/utility-types my-omit`               | страница, тип, тесты типов `*.test-d.ts`              |
-| `computer-science/patterns/two-pointers two-sum` | то же + недостающие категории                         |
-| `react/components Autocomplete`                  | компонент, CSS-модуль, тест и демо рядом со страницей |
-| `react/hooks useThrottle`                        | хук, тест и демо + страница                           |
-| `javascript/theory closures`                     | заметка с блоком «что выведет консоль?»               |
-| `system-design/cases chat`                       | шаблон кейса по RADIO с Mermaid-диаграммой            |
-| `css/layouts holy-grail`                         | страница с живым превью HTML и CSS                    |
+| Аргументы                                                   | Что создаётся                                         |
+| ----------------------------------------------------------- | ----------------------------------------------------- |
+| `javascript/promises promise-all`                           | страница, решение, тесты                              |
+| `typescript/utility-types my-omit`                          | страница, тип, тесты типов `*.test-d.ts`              |
+| `computer-science/algorithms/patterns/two-pointers two-sum` | то же + недостающие категории                         |
+| `computer-science/security/vulnerabilities xss`             | заметка (в practice — задача с кодом и тестами)       |
+| `react/components Autocomplete`                             | компонент, CSS-модуль, тест и демо рядом со страницей |
+| `react/hooks useThrottle`                                   | хук, тест и демо + страница                           |
+| `javascript/theory closures`                                | заметка с блоком «что выведет консоль?»               |
+| `system-design/cases chat`                                  | шаблон кейса по RADIO с Mermaid-диаграммой            |
+| `css/layouts holy-grail`                                    | страница с живым превью HTML и CSS                    |
 
 Дальше: пишете тесты и решение (`yarn test:watch`), условие и разбор смотрите на сайте (`yarn start`), отмечаете задачу в этом README.
 

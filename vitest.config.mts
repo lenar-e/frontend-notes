@@ -1,5 +1,8 @@
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vitest/config';
+import { configDefaults, defineConfig } from 'vitest/config';
+
+// Задачи по безопасности (санитизация HTML, postMessage) работают с DOM
+const SECURITY_TESTS = 'notes/computer-science/security/**/*.test.{ts,tsx}';
 
 export default defineConfig({
   plugins: [react()],
@@ -12,6 +15,7 @@ export default defineConfig({
           name: 'node',
           environment: 'node',
           include: ['notes/{javascript,typescript,computer-science}/**/*.test.ts'],
+          exclude: [...configDefaults.exclude, SECURITY_TESTS],
           typecheck: {
             enabled: true,
             include: ['notes/typescript/**/*.test-d.ts'],
@@ -19,12 +23,12 @@ export default defineConfig({
         },
       },
       {
-        // Всё, что работает с DOM: браузерные задачи и React
+        // Всё, что работает с DOM: браузерные задачи, React и безопасность
         extends: true,
         test: {
           name: 'dom',
           environment: 'jsdom',
-          include: ['notes/{browser,react}/**/*.test.{ts,tsx}'],
+          include: ['notes/{browser,react}/**/*.test.{ts,tsx}', SECURITY_TESTS],
           setupFiles: ['./vitest.setup.ts'],
         },
       },

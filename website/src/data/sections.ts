@@ -49,7 +49,7 @@ export const sections: Section[] = [
     label: 'Computer Science',
     emoji: '🧮',
     description:
-      'Сортировки, бинарный поиск, структуры данных, паттерны (два указателя, окно, BFS/DFS, DP).',
+      'Алгоритмы и структуры данных: сортировки, поиск, паттерны. Безопасность: XSS, CSRF, CSP, CORS, cookie.',
   },
   {
     id: 'system-design',

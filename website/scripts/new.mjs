@@ -2,7 +2,9 @@
 //
 //   yarn new javascript/promises promise-all
 //   yarn new typescript/utility-types my-omit
-//   yarn new computer-science/patterns/two-pointers valid-palindrome
+//   yarn new computer-science/algorithms/patterns/two-pointers valid-palindrome
+//   yarn new computer-science/security/vulnerabilities xss   (vulnerabilities, protection → заметка)
+//   yarn new computer-science/security/practice escape-html  (practice → задача с кодом)
 //   yarn new react/components Autocomplete     (PascalCase → компонент)
 //   yarn new react/hooks useThrottle           (use* → хук)
 //   yarn new react/advanced mini-redux         (иначе → модуль)
@@ -368,6 +370,16 @@ function planFiles(section, categoryParts, rawName) {
 
   if (categoryParts[0] === 'theory') {
     files[join(docDir, `${kebab}.md`)] = notePage(humanize(rawName));
+    return files;
+  }
+
+  // computer-science/security/{vulnerabilities,protection} → заметка; security/practice → задача с кодом
+  if (
+    section === 'computer-science' &&
+    categoryParts[0] === 'security' &&
+    categoryParts[1] !== 'practice'
+  ) {
+    files[join(docDir, `${kebab}.md`)] = topicPage(humanize(rawName));
     return files;
   }
 

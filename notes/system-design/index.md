@@ -27,4 +27,4 @@ yarn new system-design/topics rendering-strategies
 ## Что здесь будет
 
 - **Кейсы** — лента новостей, автокомплит, чат, галерея (Pinterest), страница товара, совместный редактор, видеоплеер, дизайн-система
-- **Сквозные темы** — CSR/SSR/SSG/ISR, кэширование, Core Web Vitals, безопасность (XSS, CSRF, CSP), доступность, i18n, управление состоянием, offline/PWA
+- **Сквозные темы** — CSR/SSR/SSG/ISR, кэширование, Core Web Vitals, доступность, i18n, управление состоянием, offline/PWA
