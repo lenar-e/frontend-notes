@@ -1,30 +1,30 @@
 ---
 title: Event loop
 sidebar_position: 1
-description: Микро- и макрозадачи, порядок выполнения и задачки «что выведет консоль?»
+description: Microtasks and macrotasks, execution order and "what will the console print?" puzzles
 ---
 
-## Коротко
+## In short
 
-JavaScript однопоточный: код выполняется в одном стеке вызовов (call stack). Асинхронные колбэки ждут своей очереди, а event loop решает, что выполнить следующим.
+JavaScript is single-threaded: code runs on one call stack. Async callbacks wait in queues, and the event loop decides what runs next.
 
-Один «оборот» цикла:
+One "turn" of the loop:
 
-1. Выполняется весь синхронный код, пока стек не опустеет.
-2. Выполняются **все** микрозадачи — включая те, что добавились по ходу:
-   - колбэки промисов (`then`, `catch`, `finally`);
-   - продолжение async-функции после `await`;
+1. All synchronous code runs until the stack is empty.
+2. **All** microtasks run — including the ones added along the way:
+   - promise callbacks (`then`, `catch`, `finally`);
+   - the continuation of an async function after `await`;
    - `queueMicrotask`, `MutationObserver`.
-3. Браузер может отрисовать кадр: `requestAnimationFrame` → стили → layout → paint.
-4. Берётся **одна** макрозадача (`setTimeout`, `setInterval`, события, `MessageChannel`), после неё — снова все микрозадачи.
+3. The browser may render a frame: `requestAnimationFrame` → styles → layout → paint.
+4. **One** macrotask is taken (`setTimeout`, `setInterval`, events, `MessageChannel`), then all microtasks again.
 
-:::tip Как отвечать на «что выведет консоль?»
+:::tip How to answer "what will the console print?"
 
-Пройдите код сверху вниз и разложите вызовы по трём спискам: синхронный код, микрозадачи, макрозадачи. Затем выведите их в этом порядке.
+Walk through the code top to bottom and sort the calls into three lists: synchronous code, microtasks, macrotasks. Then print them in that order.
 
 :::
 
-## Что выведет консоль?
+## What will the console print?
 
 ```js
 console.log(1);
@@ -45,12 +45,12 @@ console.log(7);
 ```
 
 <details>
-<summary>Ответ</summary>
+<summary>Answer</summary>
 
 `1 5 7 3 4 6 2`
 
-- Синхронно: `1`, `5` (тело async-функции до первого `await` выполняется синхронно), `7`.
-- Микрозадачи в порядке постановки в очередь: `3`, `4`, `6`.
-- Макрозадача: `2`.
+- Synchronous: `1`, `5` (an async function body runs synchronously up to the first `await`), `7`.
+- Microtasks in the order they were queued: `3`, `4`, `6`.
+- Macrotask: `2`.
 
 </details>

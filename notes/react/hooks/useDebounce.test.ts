@@ -15,13 +15,13 @@ describe('useDebounce', () => {
   const setup = (initial: string) =>
     renderHook(({ value }) => useDebounce(value, 300), { initialProps: { value: initial } });
 
-  it('сразу возвращает начальное значение', () => {
+  it('returns the initial value immediately', () => {
     const { result } = setup('a');
 
     expect(result.current).toBe('a');
   });
 
-  it('обновляет значение только после паузы', () => {
+  it('updates the value only after a pause', () => {
     const { result, rerender } = setup('a');
 
     rerender({ value: 'b' });
@@ -36,7 +36,7 @@ describe('useDebounce', () => {
     expect(result.current).toBe('b');
   });
 
-  it('частые изменения сбрасывают таймер', () => {
+  it('frequent changes reset the timer', () => {
     const { result, rerender } = setup('a');
 
     rerender({ value: 'b' });

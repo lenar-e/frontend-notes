@@ -11,15 +11,15 @@ export default function UseDebounceDemo() {
       <input
         value={text}
         onChange={(event) => setText(event.target.value)}
-        placeholder="Начните печатать…"
-        aria-label="Поисковый запрос"
+        placeholder="Start typing…"
+        aria-label="Search query"
         style={{ padding: 8, fontSize: 16 }}
       />
       <div>
-        Сразу: <code>{text || '—'}</code>
+        Instant: <code>{text || '—'}</code>
       </div>
       <div>
-        Через 500 мс тишины: <code>{debounced || '—'}</code>
+        After 500 ms of silence: <code>{debounced || '—'}</code>
       </div>
     </div>
   );

@@ -1,21 +1,21 @@
 ---
 slug: /
 sidebar_position: 0
-sidebar_label: О разделе
+sidebar_label: About
 title: Browser
 ---
 
-Задачи на DOM, события и браузерные API — без фреймворков, на чистом TypeScript.
+Tasks on the DOM, events and browser APIs — no frameworks, plain TypeScript.
 
-Тесты запускаются в окружении [jsdom](https://github.com/jsdom/jsdom), поэтому в них доступны `document`, `window` и события.
+Tests run in [jsdom](https://github.com/jsdom/jsdom), so `document`, `window` and events are available.
 
 ```bash
 yarn new browser/dom get-elements-by-class-name
 ```
 
-## Что здесь будет
+## What's inside
 
-- **События** — делегирование событий
-- **DOM** — свои `getElementsByClassName` и простой `querySelector`
+- **Events** — event delegation
+- **DOM** — your own `getElementsByClassName` and a simple `querySelector`
 - **Virtual DOM** — `createElement`, `render`, `diff`
-- **Браузерные API** — SPA-роутер на History API, `localStorage` с TTL, ленивая загрузка картинок через `IntersectionObserver`
+- **Browser APIs** — an SPA router on the History API, `localStorage` with TTL, lazy-loading images with `IntersectionObserver`

@@ -1,7 +1,7 @@
 import react from '@vitejs/plugin-react';
 import { configDefaults, defineConfig } from 'vitest/config';
 
-// Задачи по безопасности (санитизация HTML, postMessage) работают с DOM
+// Security tasks (HTML sanitizing, postMessage) work with the DOM
 const SECURITY_TESTS = 'notes/computer-science/security/**/*.test.{ts,tsx}';
 
 export default defineConfig({
@@ -9,7 +9,7 @@ export default defineConfig({
   test: {
     projects: [
       {
-        // Чистая логика: утилиты, алгоритмы и проверки типов
+        // Pure logic: utilities, algorithms and type checks
         extends: true,
         test: {
           name: 'node',
@@ -23,7 +23,7 @@ export default defineConfig({
         },
       },
       {
-        // Всё, что работает с DOM: браузерные задачи, React и безопасность
+        // Everything that works with the DOM: browser tasks, React and security
         extends: true,
         test: {
           name: 'dom',

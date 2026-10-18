@@ -1,20 +1,20 @@
 ---
 slug: /
 sidebar_position: 0
-sidebar_label: О разделе
+sidebar_label: About
 title: TypeScript
 ---
 
-Типизация на уровне, который проверяют на собеседованиях: свои реализации utility types, рекурсивные и условные типы, дженерики.
+Typing at the level interviews check: your own utility types, recursive and conditional types, generics.
 
-## Формат задачи
+## Task format
 
-Тесты для типов пишутся в файлах `*.test-d.ts` через [`expectTypeOf`](https://vitest.dev/guide/testing-types) — Vitest проверяет их компилятором TypeScript при каждом `yarn test`:
+Type tests live in `*.test-d.ts` files and use [`expectTypeOf`](https://vitest.dev/guide/testing-types) — Vitest checks them with the TypeScript compiler on every `yarn test`:
 
 ```ts
 expectTypeOf<MyPick<Todo, 'title'>>().toEqualTypeOf<{ title: string }>();
 
-// @ts-expect-error — такого ключа нет
+// @ts-expect-error — no such key
 type _Invalid = MyPick<Todo, 'unknown'>;
 ```
 
@@ -22,8 +22,8 @@ type _Invalid = MyPick<Todo, 'unknown'>;
 yarn new typescript/utility-types my-omit
 ```
 
-## Что здесь будет
+## What's inside
 
-- **Utility types** — свои `Pick`, `Omit`, `Partial`, `ReturnType`, `Awaited`
-- **Продвинутые типы** — `DeepPartial`, `DeepReadonly`, типизированный `EventEmitter`
-- **Type Challenges** — задачи уровня easy/medium из [type-challenges](https://github.com/type-challenges/type-challenges)
+- **Utility types** — your own `Pick`, `Omit`, `Partial`, `ReturnType`, `Awaited`
+- **Advanced types** — `DeepPartial`, `DeepReadonly`, a typed `EventEmitter`
+- **Type Challenges** — easy and medium tasks from [type-challenges](https://github.com/type-challenges/type-challenges)

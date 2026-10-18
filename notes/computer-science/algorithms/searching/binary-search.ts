@@ -1,16 +1,16 @@
 /**
- * Ищет `target` в массиве, отсортированном по возрастанию.
- * Время O(log n), память O(1).
+ * Searches for `target` in an array sorted in ascending order.
+ * Time O(log n), space O(1).
  *
- * @returns индекс найденного элемента или -1
+ * @returns the index of the element, or -1
  */
 export function binarySearch(arr: readonly number[], target: number): number {
   let left = 0;
   let right = arr.length - 1;
 
-  // Инвариант: если target есть в массиве, он находится в [left, right]
+  // Invariant: if target is in the array, it lies within [left, right]
   while (left <= right) {
-    // Не (left + right) / 2 — в языках с фиксированными int это переполнение
+    // Not (left + right) / 2 — that overflows in languages with fixed-size ints
     const mid = left + Math.floor((right - left) / 2);
 
     if (arr[mid] === target) return mid;

@@ -1,6 +1,6 @@
 ---
 title: Star Rating
-description: Доступный компонент рейтинга со звёздами
+description: An accessible star rating component
 ---
 
 import StarRatingDemo from './StarRating/StarRating.demo';
@@ -9,20 +9,20 @@ import styles from '!!raw-loader!./StarRating/StarRating.module.css';
 import demo from '!!raw-loader!./StarRating/StarRating.demo.tsx';
 import tests from '!!raw-loader!./StarRating/StarRating.test.tsx';
 
-## Условие
+## Problem
 
-Сделайте компонент рейтинга из N звёзд:
+Build a rating component with N stars:
 
-- при наведении подсвечиваются звёзды до курсора;
-- клик выбирает значение;
-- есть режим «только для чтения»;
-- компонентом можно пользоваться с клавиатуры и скринридера.
+- on hover, the stars up to the cursor light up;
+- a click selects a value;
+- there is a read-only mode;
+- the component works with a keyboard and a screen reader.
 
 <LiveDemo id="star-rating">
   <StarRatingDemo />
 </LiveDemo>
 
-## Решение
+## Solution
 
 <CodeFiles
   files={{
@@ -33,25 +33,25 @@ import tests from '!!raw-loader!./StarRating/StarRating.test.tsx';
   }}
 />
 
-## Разбор
+## Explanation
 
-- **Контролируемый компонент:** значение хранит родитель (`value` + `onChange`), внутри — только временное состояние наведения `hovered`.
-- **Семантика:** выбор одного значения из нескольких — это группа радиокнопок, поэтому `role="radiogroup"` и `role="radio"` с `aria-checked`. Скринридер прочитает «3 из 5, выбрано».
-- **Roving tabindex:** `tabIndex={0}` только у выбранной звезды, у остальных `-1`. Tab заходит в группу одним шагом, а выбор меняется стрелками — так ведут себя нативные `<input type="radio">`.
-- **Кнопки, а не `<span>`:** фокус, Enter и Space работают из коробки.
+- **Controlled component:** the parent owns the value (`value` + `onChange`); inside there is only the temporary `hovered` state.
+- **Semantics:** picking one value out of several is a radio group, hence `role="radiogroup"` and `role="radio"` with `aria-checked`. A screen reader announces "3 of 5, selected".
+- **Roving tabindex:** only the selected star has `tabIndex={0}`, the rest have `-1`. Tab enters the group in one step, and arrows change the selection — just like native `<input type="radio">`.
+- **Buttons, not `<span>`:** focus, Enter and Space work out of the box.
 
-## Follow-up вопросы
+## Follow-up questions
 
 <details>
-<summary>Как сделать половинки звёзд?</summary>
+<summary>How do you support half stars?</summary>
 
-Рисовать звезду двумя слоями: серый фон и жёлтую заливку с `width: 50%` и `overflow: hidden`. Значение при наведении считать по `event.nativeEvent.offsetX` относительно ширины звезды, шаг клавиатуры сделать 0.5.
+Draw each star in two layers: a gray background and a yellow fill with `width: 50%` and `overflow: hidden`. Compute the hovered value from `event.nativeEvent.offsetX` relative to the star width, and make the keyboard step 0.5.
 
 </details>
 
 <details>
-<summary>Почему не нативные input type="radio"?</summary>
+<summary>Why not native input type="radio"?</summary>
 
-Можно и так — это даже надёжнее для доступности: визуально скрыть инпуты, а звёзды сделать `<label>`. Тогда стрелки и `name`-группа работают без JS. Кастомные кнопки дают больше контроля над поведением, но всю семантику приходится писать вручную.
+That works too — and is even more robust for accessibility: visually hide the inputs and make the stars `<label>`s. Then arrows and the `name` group work without JS. Custom buttons give more control over behavior, but you have to write all the semantics yourself.
 
 </details>

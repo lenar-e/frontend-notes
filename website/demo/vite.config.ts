@@ -4,8 +4,8 @@ import { defineConfig } from 'vite';
 
 import { BASE_URL, DEMO_PATH } from '../site.config';
 
-// Демо-приложение со всеми React-компонентами и хуками из notes/react.
-// В проде собирается в website/build/demo и деплоится вместе с сайтом.
+// Demo app with every React component and hook from notes/react.
+// In production it is built into website/build/demo and deployed with the site.
 export default defineConfig(({ command }) => ({
   root: fileURLToPath(new URL('.', import.meta.url)),
   base: command === 'build' ? `${BASE_URL}${DEMO_PATH}` : '/',

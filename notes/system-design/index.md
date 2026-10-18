@@ -1,30 +1,30 @@
 ---
 slug: /
 sidebar_position: 0
-sidebar_label: О разделе
+sidebar_label: About
 title: Frontend System Design
 ---
 
-Разбор типовых кейсов фронтенд-проектирования. Только текст и диаграммы на [Mermaid](https://mermaid.js.org/) — они рендерятся и на сайте, и на GitHub.
+Walkthroughs of typical frontend design cases. Text and [Mermaid](https://mermaid.js.org/) diagrams only — they render both on the site and on GitHub.
 
-## Фреймворк RADIO
+## The RADIO framework
 
-Каждый кейс разбирается по одной схеме — так же удобно вести и само интервью:
+Every case follows the same outline — it works just as well for running the interview itself:
 
-| Шаг                 | Что обсуждаем                                                                  |
-| ------------------- | ------------------------------------------------------------------------------ |
-| **R**equirements    | Функциональные и нефункциональные требования, скоуп, устройства, нагрузка      |
-| **A**rchitecture    | Компоненты системы и их связи: UI, стор, слой данных, сервер                   |
-| **D**ata model      | Сущности, где хранятся (сервер, клиентский стор, URL), нормализация            |
-| **I**nterface (API) | Контракты между клиентом и сервером и между компонентами: эндпоинты, пагинация |
-| **O**ptimizations   | Производительность, доступность, офлайн, безопасность, i18n                    |
+| Step                | What to discuss                                                         |
+| ------------------- | ----------------------------------------------------------------------- |
+| **R**equirements    | Functional and non-functional requirements, scope, devices, load        |
+| **A**rchitecture    | System components and how they connect: UI, store, data layer, server   |
+| **D**ata model      | Entities and where they live (server, client store, URL), normalization |
+| **I**nterface (API) | Contracts between client and server and between components, pagination  |
+| **O**ptimizations   | Performance, accessibility, offline, security, i18n                     |
 
 ```bash
 yarn new system-design/cases chat
 yarn new system-design/topics rendering-strategies
 ```
 
-## Что здесь будет
+## What's inside
 
-- **Кейсы** — лента новостей, автокомплит, чат, галерея (Pinterest), страница товара, совместный редактор, видеоплеер, дизайн-система
-- **Сквозные темы** — CSR/SSR/SSG/ISR, кэширование, Core Web Vitals, доступность, i18n, управление состоянием, offline/PWA
+- **Cases** — news feed, autocomplete, chat, image gallery (Pinterest), e-commerce product page, collaborative editor, video player, design system
+- **Cross-cutting topics** — CSR/SSR/SSG/ISR, caching, Core Web Vitals, accessibility, i18n, state management, offline/PWA. Security has its own part in [Computer Science](/computer-science)

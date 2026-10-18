@@ -1,25 +1,25 @@
 ---
 slug: /
 sidebar_position: 0
-sidebar_label: О разделе
+sidebar_label: About
 title: React
 ---
 
-Компоненты и хуки, которые чаще всего просят написать на интервью, — с тестами на Testing Library и живыми демо.
+The components and hooks you are most often asked to build in interviews — with Testing Library tests and live demos.
 
-## Как устроен раздел
+## How the section is organized
 
-Как и в остальных разделах, страница лежит рядом с кодом:
+Like every other section, a page lives next to its code:
 
 ```
 react/
 ├── components/
-│   ├── star-rating.mdx              # страница сайта
-│   └── StarRating/                  # компонент: код, стили, тесты, демо
+│   ├── star-rating.mdx              # site page
+│   └── StarRating/                  # component: code, styles, tests, demo
 │       ├── StarRating.tsx
 │       ├── StarRating.module.css
 │       ├── StarRating.test.tsx
-│       └── StarRating.demo.tsx      # показывается и на странице, и в демо-приложении
+│       └── StarRating.demo.tsx      # shown both on the page and in the demo app
 └── hooks/
     ├── use-debounce.mdx
     ├── useDebounce.ts
@@ -27,15 +27,15 @@ react/
     └── useDebounce.demo.tsx
 ```
 
-Демо-приложение (`yarn demo`) собирает все файлы `*.demo.tsx` автоматически — регистрировать ничего не нужно.
+The demo app (`yarn start demo`) picks up every `*.demo.tsx` file automatically — nothing to register.
 
 ```bash
 yarn new react/components Autocomplete
 yarn new react/hooks useThrottle
 ```
 
-## Что здесь будет
+## What's inside
 
-- **Компоненты** — Autocomplete, Pagination, Infinite scroll, Virtualized list, Modal, Tabs, Accordion, Tooltip, Toast, таблица с сортировкой, форма с валидацией, дерево комментариев, OTP-инпут, Carousel, Drag-and-drop, загрузка файла
-- **Хуки** — `useDebounce`, `useThrottle`, `usePrevious`, `useFetch`, `useLocalStorage`, `useClickOutside`, `useIntersectionObserver`, `useMediaQuery`, `useInterval`
-- **Под капотом** — как React хранит хуки (мини `useState`), Redux в 50 строк, упрощённый React Query
+- **Components** — Autocomplete, Pagination, Infinite scroll, Virtualized list, Modal, Tabs, Accordion, Tooltip, Toast, a sortable table, a validated form, nested comments, OTP input, Carousel, Drag-and-drop, file upload
+- **Hooks** — `useDebounce`, `useThrottle`, `usePrevious`, `useFetch`, `useLocalStorage`, `useClickOutside`, `useIntersectionObserver`, `useMediaQuery`, `useInterval`
+- **Under the hood** — how React stores hooks (a mini `useState`), Redux in 50 lines, a simplified React Query

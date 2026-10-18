@@ -1,32 +1,32 @@
 ---
-title: Лента новостей
+title: News feed
 sidebar_position: 1
-description: Проектирование ленты как в Twitter/Facebook по фреймворку RADIO
+description: Designing a Twitter/Facebook-style feed with the RADIO framework
 ---
 
-> Спроектируйте ленту новостей: пользователь видит посты друзей, может лайкать и комментировать, лента подгружается при прокрутке.
+> Design a news feed: the user sees posts from friends, can like and comment, and the feed loads more as you scroll.
 
 ## Requirements
 
-**Функциональные:**
+**Functional:**
 
-- Лента постов (текст, изображения) от тех, на кого подписан пользователь.
-- Бесконечная прокрутка.
-- Создание поста, лайки, комментарии.
+- A feed of posts (text, images) from the people the user follows.
+- Infinite scroll.
+- Creating a post, likes, comments.
 
-**Нефункциональные:**
+**Non-functional:**
 
-- Быстрая первая загрузка (LCP < 2.5 с) и плавная прокрутка на длинных лентах.
-- Работа на мобильных и при плохой сети.
-- Доступность: навигация с клавиатуры, скринридеры.
+- Fast first load (LCP < 2.5 s) and smooth scrolling on long feeds.
+- Works on mobile and on poor networks.
+- Accessibility: keyboard navigation, screen readers.
 
-**Вопросы интервьюеру:** нужен ли realtime (новые посты без перезагрузки)? Какие типы контента? Нужен ли офлайн?
+**Questions for the interviewer:** do we need realtime (new posts without reloading)? What content types? Do we need offline?
 
 ## Architecture
 
 ```mermaid
 flowchart LR
-  Server[(API)] <--> Data[Data layer<br/>кэш + запросы]
+  Server[(API)] <--> Data[Data layer<br/>cache + requests]
   Data <--> Store[Client store]
   Store --> Feed[Feed]
   Feed --> Post[Post]
@@ -34,21 +34,21 @@ flowchart LR
   Post --> Comments[Comments]
 ```
 
-- **Feed** — список постов с виртуализацией и подгрузкой следующей страницы.
-- **Post composer** — форма создания поста с оптимистичным добавлением в ленту.
-- **Data layer** — запросы, кэш, дедупликация, повтор при ошибках (React Query / RTK Query).
-- **Client store** — нормализованные сущности: пост, автор, комментарий.
+- **Feed** — a virtualized list of posts that loads the next page.
+- **Post composer** — a form for creating a post, optimistically added to the feed.
+- **Data layer** — requests, cache, deduplication, retries on errors (React Query / RTK Query).
+- **Client store** — normalized entities: post, author, comment.
 
 ## Data model
 
-| Сущность | Поля                                              | Где живёт       |
-| -------- | ------------------------------------------------- | --------------- |
-| `Post`   | `id`, `authorId`, `content`, `createdAt`, `likes` | Серверный кэш   |
-| `User`   | `id`, `name`, `avatarUrl`                         | Серверный кэш   |
-| `Feed`   | `postIds[]`, `nextCursor`                         | Серверный кэш   |
-| Черновик | текст, вложения                                   | Локальный стейт |
+| Entity | Fields                                            | Lives in     |
+| ------ | ------------------------------------------------- | ------------ |
+| `Post` | `id`, `authorId`, `content`, `createdAt`, `likes` | Server cache |
+| `User` | `id`, `name`, `avatarUrl`                         | Server cache |
+| `Feed` | `postIds[]`, `nextCursor`                         | Server cache |
+| Draft  | text, attachments                                 | Local state  |
 
-Посты и пользователи хранятся **нормализованно** — один пользователь не дублируется в каждом посте, а лайк обновляется в одном месте.
+Posts and users are stored **normalized** — a user isn't duplicated in every post, and a like is updated in one place.
 
 ## Interface (API)
 
@@ -60,12 +60,12 @@ POST /posts          { content }
 POST /posts/:id/like
 ```
 
-**Курсорная пагинация, а не offset:** при появлении новых постов offset сдвигается и посты дублируются или теряются. Курсор (id или время последнего поста) стабилен.
+**Cursor pagination, not offset:** when new posts appear, the offset shifts and posts get duplicated or lost. A cursor (the id or time of the last post) is stable.
 
 ## Optimizations
 
-- **Производительность:** виртуализация списка; ленивая загрузка изображений с `srcset`; SSR первой страницы ленты; prefetch следующей страницы заранее.
-- **UX:** оптимистичные лайки с откатом при ошибке; скелетоны вместо спиннеров; плашка «Новые посты» вместо прыжка ленты.
-- **Сеть:** дедупликация запросов, повтор с экспоненциальной задержкой, кэш для мгновенного возврата на ленту.
-- **Доступность:** `role="feed"` и `aria-busy` при загрузке, управление фокусом при подгрузке.
-- **Безопасность:** санитизация пользовательского контента (XSS).
+- **Performance:** list virtualization; lazy-loaded images with `srcset`; SSR for the first page of the feed; prefetching the next page ahead of time.
+- **UX:** optimistic likes rolled back on error; skeletons instead of spinners; a "New posts" pill instead of the feed jumping.
+- **Network:** request deduplication, retries with exponential backoff, a cache for an instant return to the feed.
+- **Accessibility:** `role="feed"` and `aria-busy` while loading, focus management when more items load.
+- **Security:** sanitize user content (XSS).

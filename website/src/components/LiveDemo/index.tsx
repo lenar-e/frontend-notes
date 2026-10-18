@@ -1,33 +1,40 @@
 import BrowserOnly from '@docusaurus/BrowserOnly';
+import Translate from '@docusaurus/Translate';
 import type { ReactNode } from 'react';
 
-import { useDemoUrl } from '@site/src/hooks/useDemoUrl';
+import { getDemoUrl } from '@site/src/utils/demoUrl';
 
 import styles from './styles.module.css';
 
 interface Props {
   children: ReactNode;
-  /** id демо в Vite-приложении — kebab-case имени файла *.demo.tsx. Если указан, появится ссылка «Открыть отдельно» */
+  /** Demo id in the Vite app — kebab-case name of the *.demo.tsx file. Adds an "Open separately" link */
   id?: string;
 }
 
-/** Рамка для живого React-демо прямо на странице документации */
+/** A frame for a live React demo right on the docs page */
 export default function LiveDemo({ children, id }: Props) {
-  const demoUrl = useDemoUrl(id);
-
   return (
     <div className={styles.demo}>
       <div className={styles.toolbar}>
-        <span>Демо</span>
+        <span>
+          <Translate id="liveDemo.title">Demo</Translate>
+        </span>
         {id && (
-          <a href={demoUrl} target="_blank" rel="noreferrer">
-            Открыть отдельно ↗
+          <a href={getDemoUrl(id)} target="_blank" rel="noreferrer">
+            <Translate id="liveDemo.openSeparately">Open separately ↗</Translate>
           </a>
         )}
       </div>
       <div className={styles.canvas}>
-        {/* Демо рендерится только в браузере: компоненты могут обращаться к window/document */}
-        <BrowserOnly fallback={<span className={styles.fallback}>Загрузка демо…</span>}>
+        {/* Demos render in the browser only: components may touch window/document */}
+        <BrowserOnly
+          fallback={
+            <span className={styles.fallback}>
+              <Translate id="liveDemo.loading">Loading demo…</Translate>
+            </span>
+          }
+        >
           {() => <>{children}</>}
         </BrowserOnly>
       </div>

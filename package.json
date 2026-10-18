@@ -2,7 +2,7 @@
   "name": "frontend-notes",
   "version": "0.0.0",
   "private": true,
-  "description": "Решения типовых задач с фронтенд-собеседований: JavaScript, TypeScript, Browser API, CSS, React, алгоритмы и system design",
+  "description": "Solutions to common frontend interview tasks: JavaScript, TypeScript, Browser APIs, CSS, React, computer science and system design",
   "scripts": {
     "start": "node website/scripts/start.mjs",
     "demo": "node website/scripts/start.mjs demo",
@@ -11,6 +11,7 @@
     "build:demo": "vite build --configLoader runner --config website/demo/vite.config.ts",
     "serve": "docusaurus serve website",
     "clear": "docusaurus clear website",
+    "write-translations": "docusaurus write-translations website --locale ru",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc",

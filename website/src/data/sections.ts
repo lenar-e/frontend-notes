@@ -1,16 +1,17 @@
-// Разделы сайта. Из этого списка строятся инстансы docs-плагина, навбар, футер и главная.
-// id совпадает с именем папки в notes/ и с URL раздела.
+// Site sections. The docs plugin instances, navbar, footer and home page are all built from this list.
+// The id matches the folder name in notes/ and the section URL.
+// Russian labels live in website/i18n/ru (navbar.json, footer.json, code.json).
 
 export interface Section {
   id: string;
   label: string;
   emoji: string;
   description: string;
-  /** Если указано — раздел попадает в выпадающее меню навбара с этим названием */
+  /** If set, the section goes into a navbar dropdown with this label */
   navbarGroup?: string;
 }
 
-const BASICS = 'Основы';
+const BASICS = 'Basics';
 
 export const sections: Section[] = [
   {
@@ -19,7 +20,7 @@ export const sections: Section[] = [
     navbarGroup: BASICS,
     emoji: '🟨',
     description:
-      'debounce, throttle, промисы, EventEmitter, deepClone, полифиллы. Теория: event loop, замыкания, this, прототипы.',
+      'debounce, throttle, promises, EventEmitter, deepClone, polyfills. Theory: event loop, closures, this, prototypes.',
   },
   {
     id: 'typescript',
@@ -27,7 +28,7 @@ export const sections: Section[] = [
     navbarGroup: BASICS,
     emoji: '🟦',
     description:
-      'Свои utility types, DeepPartial, типизированный EventEmitter, задачи из type-challenges.',
+      'Your own utility types, DeepPartial, a typed EventEmitter, tasks from type-challenges.',
   },
   {
     id: 'browser',
@@ -35,34 +36,34 @@ export const sections: Section[] = [
     navbarGroup: BASICS,
     emoji: '🌐',
     description:
-      'Делегирование событий, querySelector, мини Virtual DOM, роутер на History API, IntersectionObserver.',
+      'Event delegation, querySelector, a mini Virtual DOM, a History API router, IntersectionObserver.',
   },
   {
     id: 'react',
     label: 'React',
     emoji: '⚛️',
     description:
-      'Компоненты и хуки с живыми демо: Autocomplete, Modal, виртуальный список. Как устроены useState, Redux, React Query.',
+      'Components and hooks with live demos: Autocomplete, Modal, a virtualized list. How useState, Redux and React Query work.',
   },
   {
     id: 'computer-science',
     label: 'Computer Science',
     emoji: '🧮',
     description:
-      'Алгоритмы и структуры данных: сортировки, поиск, паттерны. Безопасность: XSS, CSRF, CSP, CORS, cookie.',
+      'Algorithms and data structures: sorting, searching, patterns. Security: XSS, CSRF, CSP, CORS, cookies.',
   },
   {
     id: 'system-design',
     label: 'System Design',
     emoji: '🏗️',
     description:
-      'Разбор кейсов по RADIO: лента, чат, автокомплит, редактор. Рендеринг, кэширование, производительность.',
+      'RADIO walkthroughs: feed, chat, autocomplete, editor. Rendering, caching, performance.',
   },
   {
     id: 'css',
     label: 'CSS',
     navbarGroup: BASICS,
     emoji: '🎨',
-    description: 'Центрирование, holy grail, Flexbox и Grid, адаптивная сетка, специфичность, БЭМ.',
+    description: 'Centering, holy grail, Flexbox and Grid, a responsive grid, specificity, BEM.',
   },
 ];

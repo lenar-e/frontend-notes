@@ -1,17 +1,17 @@
 ---
 slug: /
 sidebar_position: 0
-sidebar_label: О разделе
+sidebar_label: About
 title: CSS
 ---
 
-Классические вёрстки и теория, которую спрашивают на собеседованиях.
+Classic layouts and the theory interviews ask about.
 
-Для живых примеров используется компонент `<HtmlPreview>`: он рендерит HTML и CSS в изолированном iframe и показывает код под превью.
+Live examples use the `<HtmlPreview>` component: it renders HTML and CSS in an isolated iframe and shows the code below the preview.
 
 ```mdx
 <HtmlPreview
-  html={`<div class="box">Привет</div>`}
+  html={`<div class="box">Hello</div>`}
   css={`
     .box {
       color: rebeccapurple;
@@ -24,7 +24,7 @@ title: CSS
 yarn new css/layouts holy-grail
 ```
 
-## Что здесь будет
+## What's inside
 
-- **Раскладки** — центрирование всеми способами, holy grail layout, адаптивная сетка
-- **Основы** — Flexbox и Grid, специфичность, БЭМ
+- **Layouts** — centering every way, the holy grail layout, a responsive grid
+- **Fundamentals** — Flexbox and Grid, specificity, BEM

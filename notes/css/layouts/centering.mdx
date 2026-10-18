@@ -1,21 +1,21 @@
 ---
-title: Центрирование
+title: Centering
 sidebar_position: 1
-description: Способы отцентрировать элемент по горизонтали и вертикали
+description: Ways to center an element horizontally and vertically
 ---
 
-Классический вопрос: «Отцентрируйте блок по горизонтали и вертикали». Хороший ответ — назвать несколько способов и объяснить, когда какой уместен.
+A classic question: "Center a block horizontally and vertically". A good answer names several ways and explains when each one fits.
 
 ## Flexbox
 
 <HtmlPreview
   html={`<div class="parent">
-  <div class="child">Я в центре</div>
+  <div class="child">I'm centered</div>
 </div>`}
   css={`.parent {
   display: flex;
-  justify-content: center; /* по главной оси */
-  align-items: center;     /* по поперечной оси */
+  justify-content: center; /* along the main axis */
+  align-items: center;     /* along the cross axis */
   height: 160px;
   background: #eef2ff;
 }
@@ -27,13 +27,13 @@ description: Способы отцентрировать элемент по г�
 }`}
 />
 
-Самый частый вариант. Работает для любого количества детей и не требует знать размеры элемента.
+The most common option. Works for any number of children and doesn't require knowing the element's size.
 
 ## Grid
 
 <HtmlPreview
   html={`<div class="parent">
-  <div class="child">Я в центре</div>
+  <div class="child">I'm centered</div>
 </div>`}
   css={`.parent {
   display: grid;
@@ -49,13 +49,13 @@ description: Способы отцентрировать элемент по г�
 }`}
 />
 
-Самый короткий вариант — одно свойство на родителе.
+The shortest option — one property on the parent.
 
 ## position + transform
 
 <HtmlPreview
   html={`<div class="parent">
-  <div class="child">Я в центре</div>
+  <div class="child">I'm centered</div>
 </div>`}
   css={`.parent {
   position: relative;
@@ -67,20 +67,20 @@ description: Способы отцентрировать элемент по г�
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* сдвиг на половину своего размера */
+  transform: translate(-50%, -50%); /* shift by half of its own size */
   padding: 16px;
   background: #4f46e5;
   color: #fff;
 }`}
 />
 
-Подходит для оверлеев и модалок: элемент вынут из потока и не влияет на соседей.
+Good for overlays and modals: the element is taken out of the flow and doesn't affect its neighbors.
 
-## Когда что использовать
+## When to use what
 
-| Способ                        | Когда                                                    |
-| ----------------------------- | -------------------------------------------------------- |
-| `flex` + `justify`/`align`    | По умолчанию, особенно если детей несколько              |
-| `grid` + `place-items`        | Один элемент, нужна максимальная краткость               |
-| `absolute` + `transform`      | Элемент должен быть поверх контента (модалка, тултип)    |
-| `margin: 0 auto`              | Только по горизонтали, у блочного элемента с шириной     |
+| Approach                     | When                                                      |
+| ---------------------------- | --------------------------------------------------------- |
+| `flex` + `justify`/`align`   | The default, especially with several children             |
+| `grid` + `place-items`       | A single element, maximum brevity                         |
+| `absolute` + `transform`     | The element must sit above the content (modal, tooltip)   |
+| `margin: 0 auto`             | Horizontal only, for a block element with a set width     |

@@ -6,7 +6,7 @@ import { demos, GROUP_LABELS } from './registry';
 
 const DOCS_URL = import.meta.env.DEV ? SITE_DEV_URL : BASE_URL;
 
-// Hash-роутинг (#/star-rating): работает на GitHub Pages без настройки сервера
+// Hash routing (#/star-rating): works on GitHub Pages without any server setup
 const subscribe = (callback: () => void) => {
   window.addEventListener('hashchange', callback);
   return () => window.removeEventListener('hashchange', callback);
@@ -66,7 +66,7 @@ export function App() {
           <>
             <header className={styles.header}>
               <h1>{active.title}</h1>
-              <a href={`${DOCS_URL}react/${active.folder}/${active.id}`}>Разбор решения →</a>
+              <a href={`${DOCS_URL}react/${active.folder}/${active.id}`}>Read the solution →</a>
             </header>
             <section className={styles.canvas}>
               <ErrorBoundary key={active.id}>
@@ -75,7 +75,7 @@ export function App() {
             </section>
           </>
         ) : (
-          <p>Демо пока нет — создайте первое: yarn new react/components MyComponent</p>
+          <p>No demos yet — create the first one: yarn new react/components MyComponent</p>
         )}
       </main>
     </div>

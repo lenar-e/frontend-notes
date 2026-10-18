@@ -1,6 +1,6 @@
 ---
 title: useDebounce
-description: Хук для отложенного обновления значения
+description: A hook that delays value updates
 ---
 
 import UseDebounceDemo from './useDebounce.demo';
@@ -8,15 +8,15 @@ import hook from '!!raw-loader!./useDebounce.ts';
 import demo from '!!raw-loader!./useDebounce.demo.tsx';
 import tests from '!!raw-loader!./useDebounce.test.ts';
 
-## Условие
+## Problem
 
-Напишите хук `useDebounce(value, delay)`, который возвращает `value`, но обновляет его только после `delay` мс без изменений. Типичное применение — поиск: запрос уходит не на каждое нажатие клавиши, а когда пользователь перестал печатать.
+Write a `useDebounce(value, delay)` hook that returns `value`, but updates it only after `delay` ms without changes. A typical use case is search: the request goes out not on every keystroke, but once the user stops typing.
 
 <LiveDemo id="use-debounce">
   <UseDebounceDemo />
 </LiveDemo>
 
-## Решение
+## Solution
 
 <CodeFiles
   files={{
@@ -26,17 +26,17 @@ import tests from '!!raw-loader!./useDebounce.test.ts';
   }}
 />
 
-## Разбор
+## Explanation
 
-- Каждое изменение `value` перезапускает эффект: cleanup предыдущего эффекта очищает старый таймер, новый эффект ставит свежий.
-- Если `value` не менялось `delay` мс, таймер срабатывает и обновляет состояние.
-- `delay` тоже в зависимостях: при его изменении таймер перезапускается с новой задержкой.
+- Every change of `value` re-runs the effect: the cleanup of the previous effect clears the old timer, and the new effect sets a fresh one.
+- If `value` hasn't changed for `delay` ms, the timer fires and updates the state.
+- `delay` is a dependency too: when it changes, the timer restarts with the new delay.
 
-## Follow-up вопросы
+## Follow-up questions
 
 <details>
-<summary>Чем useDebounce отличается от debounce-колбэка?</summary>
+<summary>How is useDebounce different from a debounced callback?</summary>
 
-`useDebounce` откладывает **значение** — удобно, когда от него зависит эффект (запрос). Debounce-колбэк (`useDebouncedCallback`) откладывает **вызов функции** — удобно для обработчиков. Для колбэка нужен `useRef`, чтобы таймер и актуальная версия функции переживали ререндеры.
+`useDebounce` delays a **value** — handy when an effect (a request) depends on it. A debounced callback (`useDebouncedCallback`) delays a **function call** — handy for event handlers. The callback version needs `useRef` so that the timer and the latest version of the function survive re-renders.
 
 </details>

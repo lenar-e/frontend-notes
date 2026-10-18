@@ -4,5 +4,5 @@ coverage
 node_modules
 yarn.lock
 
-# Prettier не поддерживает MDX 3: ломает шаблонные строки и комментарии внутри JSX
+# Prettier doesn't support MDX 3: it breaks template literals and comments inside JSX
 *.mdx

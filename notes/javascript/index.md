@@ -1,35 +1,35 @@
 ---
 slug: /
 sidebar_position: 0
-sidebar_label: О разделе
+sidebar_label: About
 title: JavaScript
 ---
 
-Ядро подготовки: реализации утилит, промисов, паттернов и полифиллов, а также короткие заметки по теории.
+The core of interview prep: implementations of utilities, promises, patterns and polyfills, plus short theory notes.
 
-## Формат задачи
+## Task format
 
-Каждая задача — три файла рядом друг с другом:
+Every task is three files side by side:
 
-| Файл               | Что внутри                                              |
-| ------------------ | ------------------------------------------------------- |
-| `debounce.mdx`     | Условие, разбор и follow-up вопросы — страница сайта    |
-| `debounce.ts`      | Решение                                                 |
-| `debounce.test.ts` | Тесты на Vitest: граничные случаи, о которых спрашивают |
+| File               | Contents                                                 |
+| ------------------ | -------------------------------------------------------- |
+| `debounce.mdx`     | Problem, explanation and follow-up questions — site page |
+| `debounce.ts`      | Solution                                                 |
+| `debounce.test.ts` | Vitest tests: the edge cases interviewers ask about      |
 
-Код на страницу подтягивается прямо из файлов, поэтому на сайте всегда та же версия, что проходит тесты.
+The page pulls the code straight from the files, so the site always shows the version that passes the tests.
 
-Новая задача создаётся командой:
+Create a new task with:
 
 ```bash
 yarn new javascript/promises promise-all
 ```
 
-## Что здесь будет
+## What's inside
 
-- **Функции высшего порядка** — `debounce`, `throttle`, `memoize`, `curry`, `compose`/`pipe`, `once`
-- **Промисы** — `Promise.all`/`allSettled`/`race`/`any`, `promisify`, `retry`, пул с лимитом параллельности, отмена через `AbortController`
-- **Паттерны** — `EventEmitter`, LRU Cache, Observable, Pub/Sub
-- **Объекты и массивы** — `deepClone`, `deepEqual`, `get`/`set` по пути, `flatten`, `classnames`
-- **Полифиллы** — `map`, `filter`, `reduce`, `bind`, `call`, `apply`, `new`, `instanceof`, `JSON.stringify`
-- **Теория** — event loop, замыкания, `this`, прототипы и задачки «что выведет консоль?»
+- **Higher-order functions** — `debounce`, `throttle`, `memoize`, `curry`, `compose`/`pipe`, `once`
+- **Promises** — `Promise.all`/`allSettled`/`race`/`any`, `promisify`, `retry`, a concurrency-limited pool, cancellation with `AbortController`
+- **Patterns** — `EventEmitter`, LRU Cache, Observable, Pub/Sub
+- **Objects and arrays** — `deepClone`, `deepEqual`, `get`/`set` by path, `flatten`, `classnames`
+- **Polyfills** — `map`, `filter`, `reduce`, `bind`, `call`, `apply`, `new`, `instanceof`, `JSON.stringify`
+- **Theory** — event loop, closures, `this`, prototypes and "what will the console print?" puzzles

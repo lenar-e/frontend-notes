@@ -3,13 +3,13 @@ import { useRef, useState, type KeyboardEvent } from 'react';
 import styles from './StarRating.module.css';
 
 export interface StarRatingProps {
-  /** Текущее значение: 0 — ничего не выбрано */
+  /** Current value: 0 means nothing is selected */
   value: number;
   onChange?: (value: number) => void;
-  /** Количество звёзд */
+  /** Number of stars */
   max?: number;
   readOnly?: boolean;
-  /** Подпись группы для скринридеров */
+  /** Group label for screen readers */
   label?: string;
 }
 
@@ -18,12 +18,12 @@ export function StarRating({
   onChange,
   max = 5,
   readOnly = false,
-  label = 'Рейтинг',
+  label = 'Rating',
 }: StarRatingProps) {
   const [hovered, setHovered] = useState<number | null>(null);
   const starsRef = useRef<(HTMLButtonElement | null)[]>([]);
 
-  // При наведении подсвечиваем звёзды до курсора, иначе — до выбранного значения
+  // On hover, highlight stars up to the cursor, otherwise up to the selected value
   const highlighted = hovered ?? value;
 
   const select = (star: number) => {
@@ -32,7 +32,7 @@ export function StarRating({
     starsRef.current[star - 1]?.focus();
   };
 
-  // Клавиатура как у нативной группы радиокнопок: стрелки, Home и End
+  // Keyboard works like a native radio group: arrows, Home and End
   const handleKeyDown = (event: KeyboardEvent) => {
     const current = Math.max(value, 1);
     const next: Record<string, number> = {
@@ -72,8 +72,8 @@ export function StarRating({
             type="button"
             role="radio"
             aria-checked={star === value}
-            aria-label={`${star} из ${max}`}
-            // Roving tabindex: Tab попадает только на выбранную звезду, дальше — стрелками
+            aria-label={`${star} of ${max}`}
+            // Roving tabindex: Tab lands only on the selected star, arrows do the rest
             tabIndex={star === Math.max(value, 1) ? 0 : -1}
             disabled={readOnly}
             className={isFilled ? `${styles.star} ${styles.filled}` : styles.star}

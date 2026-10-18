@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 /**
- * Возвращает значение, которое обновляется только после `delay` мс без изменений `value`.
+ * Returns a value that updates only after `value` has not changed for `delay` ms.
  */
 export function useDebounce<T>(value: T, delay = 300): T {
   const [debounced, setDebounced] = useState(value);
@@ -9,7 +9,7 @@ export function useDebounce<T>(value: T, delay = 300): T {
   useEffect(() => {
     const timerId = setTimeout(() => setDebounced(value), delay);
 
-    // Новое value до истечения таймера отменяет предыдущее обновление
+    // A new value before the timer fires cancels the previous update
     return () => clearTimeout(timerId);
   }, [value, delay]);
 

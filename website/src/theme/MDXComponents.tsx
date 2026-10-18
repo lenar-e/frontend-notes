@@ -6,7 +6,7 @@ import CodeFiles from '@site/src/components/CodeFiles';
 import HtmlPreview from '@site/src/components/HtmlPreview';
 import LiveDemo from '@site/src/components/LiveDemo';
 
-// Компоненты, доступные в любом .md/.mdx без импорта
+// Components available in any .md/.mdx without an import
 export default {
   ...MDXComponents,
   Tabs,

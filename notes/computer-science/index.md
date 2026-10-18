@@ -1,11 +1,11 @@
 ---
 slug: /
 sidebar_position: 0
-sidebar_label: О разделе
+sidebar_label: About
 title: Computer Science
 ---
 
-Фундамент, который спрашивают на фронтенд-собеседованиях помимо фреймворков: алгоритмы, структуры данных и безопасность. Для каждого алгоритма указывается сложность по времени и памяти.
+The fundamentals frontend interviews ask about beyond frameworks: algorithms, data structures and security. Every algorithm comes with its time and space complexity.
 
 ```bash
 yarn new computer-science/algorithms/sorting merge-sort
@@ -13,21 +13,21 @@ yarn new computer-science/algorithms/patterns/two-pointers valid-palindrome
 yarn new computer-science/security/practice escape-html
 ```
 
-Вложенные категории (как `patterns/two-pointers`) создаются автоматически.
+Nested categories (like `patterns/two-pointers`) are created automatically.
 
-## Что здесь будет
+## What's inside
 
-**Алгоритмы**
+**Algorithms**
 
-- **Сортировки** — bubble, selection, insertion, merge, quick, heap, counting: сложность и стабильность
-- **Поиск** — бинарный поиск и вариации: первое/последнее вхождение, поиск в повёрнутом массиве
-- **Паттерны** — два указателя, скользящее окно, BFS/DFS, рекурсия и backtracking, динамическое программирование
-- **Фронтенд-алгоритмы** — обход DOM-дерева, trie для автокомплита, топологическая сортировка зависимостей
+- **Sorting** — bubble, selection, insertion, merge, quick, heap, counting: complexity and stability
+- **Searching** — binary search and its variations: first/last occurrence, search in a rotated array
+- **Patterns** — two pointers, sliding window, BFS/DFS, recursion and backtracking, dynamic programming
+- **Frontend algorithms** — DOM tree traversal, a trie for autocomplete, topological sorting of dependencies
 
-**Структуры данных** — стек, очередь, связный список, хеш-таблица, куча, trie, граф
+**Data structures** — stack, queue, linked list, hash table, heap, trie, graph
 
-**Безопасность**
+**Security**
 
-- **Уязвимости** — XSS (stored, reflected, DOM-based), CSRF, clickjacking, open redirect, prototype pollution
-- **Защита** — CSP, CORS, флаги cookie (`HttpOnly`, `Secure`, `SameSite`), где хранить токены, SRI, supply chain
-- **Практика** — экранирование и санитизация HTML, проверка URL на `javascript:`, сборка заголовка CSP, безопасный `postMessage`
+- **Vulnerabilities** — XSS (stored, reflected, DOM-based), CSRF, clickjacking, open redirect, prototype pollution
+- **Protection** — CSP, CORS, cookie flags (`HttpOnly`, `Secure`, `SameSite`), where to store tokens, SRI, supply chain
+- **Practice** — escaping and sanitizing HTML, checking URLs for `javascript:`, building a CSP header, safe `postMessage`

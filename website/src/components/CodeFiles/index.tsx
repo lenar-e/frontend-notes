@@ -4,8 +4,8 @@ import Tabs from '@theme/Tabs';
 
 interface Props {
   /**
-   * Имя файла → исходный код. Код подтягивается из реальных файлов через raw-loader,
-   * поэтому на странице всегда та же версия, что прогоняется в тестах:
+   * File name → source code. The code is pulled from the real files with raw-loader,
+   * so the page always shows the same version the tests run against:
    *
    * import solution from '!!raw-loader!./debounce.ts';
    * <CodeFiles files={{ 'debounce.ts': solution }} />

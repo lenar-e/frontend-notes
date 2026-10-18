@@ -1,9 +1,9 @@
 /**
- * Вешает один обработчик на `root` и вызывает `handler` только для событий,
- * которые всплыли от элемента, подходящего под `selector`.
- * Работает и для элементов, добавленных после подписки.
+ * Attaches a single listener to `root` and calls `handler` only for events
+ * that bubbled up from an element matching `selector`.
+ * Also works for elements added after subscribing.
  *
- * @returns функция, снимающая обработчик
+ * @returns a function that removes the listener
  */
 export function delegate<K extends keyof HTMLElementEventMap>(
   root: Node,
@@ -14,10 +14,10 @@ export function delegate<K extends keyof HTMLElementEventMap>(
   const listener = (event: Event) => {
     if (!(event.target instanceof Element)) return;
 
-    // closest ищет вверх по дереву, начиная с самого элемента
+    // closest walks up the tree, starting from the element itself
     const target = event.target.closest(selector);
 
-    // closest может найти предка за пределами root — такие совпадения игнорируем
+    // closest may find an ancestor outside root — ignore such matches
     if (target && root.contains(target)) {
       handler(event as HTMLElementEventMap[K], target);
     }

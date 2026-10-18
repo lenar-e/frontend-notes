@@ -1,6 +1,8 @@
 import type { Options as DocsOptions } from '@docusaurus/plugin-content-docs';
 import type * as Preset from '@docusaurus/preset-classic';
-import type { Config, PluginConfig } from '@docusaurus/types';
+import type { Config, Plugin, PluginConfig } from '@docusaurus/types';
+import { existsSync } from 'node:fs';
+import path from 'node:path';
 import { themes as prismThemes } from 'prism-react-renderer';
 
 import {
@@ -14,19 +16,24 @@ import {
 } from './site.config';
 import { sections } from './src/data/sections';
 
-// Конфиг выполняется в Node.js — здесь нельзя использовать браузерные API и JSX.
+// This config runs in Node.js — no browser APIs or JSX here.
 
 const isDev = process.env.NODE_ENV === 'development';
 
-// В dev-режиме демо-приложение крутится отдельно на Vite (`npm run demo`),
-// в проде оно собирается в build/demo и живёт рядом с сайтом.
-const demoHref = isDev ? DEMO_DEV_URL : `pathname:///${DEMO_PATH}`;
+// In dev the demo app runs separately on Vite (`yarn start demo`),
+// in production it is built into build/demo and lives next to the site.
+// The URL is absolute: a relative link would get the locale prefix (/ru/demo/) on the Russian site.
+const demoHref = isDev ? DEMO_DEV_URL : `${SITE_URL}${BASE_URL}${DEMO_PATH}`;
 
-// Контент лежит вне сайта — в папке notes/ в корне репозитория
+// Content lives outside the site — in the notes/ folder at the repo root
 const NOTES_DIR = '../notes';
 
-// Каждая папка-раздел (notes/javascript/, notes/typescript/, ...) — отдельный инстанс
-// docs-плагина со своим сайдбаром и URL. Код задач и тесты лежат рядом с .mdx-страницами.
+// Translated pages: website/i18n/<locale>/docusaurus-plugin-content-docs-<section>/current/
+const translatedDocsDir = (locale: string, sectionId: string) =>
+  `i18n/${locale}/docusaurus-plugin-content-docs-${sectionId}/current`;
+
+// Every section folder (notes/javascript/, notes/typescript/, ...) is a separate docs plugin
+// instance with its own sidebar and URL. Task code and tests sit next to the .mdx pages.
 const docsPlugins: PluginConfig[] = sections.map(({ id }) => [
   '@docusaurus/plugin-content-docs',
   {
@@ -34,10 +41,25 @@ const docsPlugins: PluginConfig[] = sections.map(({ id }) => [
     path: `${NOTES_DIR}/${id}`,
     routeBasePath: id,
     sidebarPath: './sidebars.ts',
-    editUrl: ({ docPath }) => `${REPO_URL}/edit/main/notes/${id}/${docPath}`,
+    // "Edit this page" leads to the translation if it exists, otherwise to the English original
+    editUrl: ({ locale, docPath }) => {
+      const translated = `${translatedDocsDir(locale, id)}/${docPath}`;
+      return locale !== 'en' && existsSync(path.join(__dirname, translated))
+        ? `${REPO_URL}/edit/main/website/${translated}`
+        : `${REPO_URL}/edit/main/notes/${id}/${docPath}`;
+    },
     showLastUpdateTime: true,
   } satisfies DocsOptions,
 ]);
+
+// The @notes alias lets translated pages import code from notes/:
+// import solution from '!!raw-loader!@notes/javascript/functions/debounce.ts';
+const notesAliasPlugin = (): Plugin => ({
+  name: 'notes-alias',
+  configureWebpack: () => ({
+    resolve: { alias: { '@notes': path.resolve(__dirname, NOTES_DIR) } },
+  }),
+});
 
 interface NavItem {
   type?: string;
@@ -47,7 +69,7 @@ interface NavItem {
   [key: string]: unknown;
 }
 
-// Разделы с navbarGroup собираются в выпадающие меню, остальные — отдельными пунктами
+// Sections with a navbarGroup go into dropdowns, the rest become separate items
 function buildSectionNavItems(): NavItem[] {
   const items: NavItem[] = [];
   const dropdowns = new Map<string, NavItem[]>();
@@ -74,11 +96,11 @@ function buildSectionNavItems(): NavItem[] {
 
 const config: Config = {
   title: 'Frontend Notes',
-  tagline: 'Решения типовых задач с фронтенд-собеседований: код, тесты, разбор и живые демо',
+  tagline: 'Solutions to common frontend interview tasks: code, tests, explanations and live demos',
   favicon: 'img/logo.svg',
 
   future: {
-    // Включает флаги будущей v4, в том числе быструю сборку на Rspack + SWC
+    // Enables the upcoming v4 flags, including the fast Rspack + SWC build
     v4: true,
   },
 
@@ -90,9 +112,15 @@ const config: Config = {
 
   onBrokenLinks: 'throw',
 
+  // English is the default locale, Russian is served under /ru/.
+  // A page without a Russian translation falls back to the English version.
   i18n: {
-    defaultLocale: 'ru',
-    locales: ['ru'],
+    defaultLocale: 'en',
+    locales: ['en', 'ru'],
+    localeConfigs: {
+      en: { label: 'English', htmlLang: 'en' },
+      ru: { label: 'Русский', htmlLang: 'ru' },
+    },
   },
 
   markdown: {
@@ -106,7 +134,7 @@ const config: Config = {
     [
       'classic',
       {
-        // Документация подключается ниже отдельными инстансами — по одному на раздел
+        // Docs are registered below as separate instances — one per section
         docs: false,
         blog: false,
         theme: {
@@ -116,7 +144,7 @@ const config: Config = {
     ],
   ],
 
-  plugins: docsPlugins,
+  plugins: [...docsPlugins, notesAliasPlugin],
 
   themes: [
     '@docusaurus/theme-mermaid',
@@ -124,11 +152,11 @@ const config: Config = {
       '@easyops-cn/docusaurus-search-local',
       {
         hashed: true,
-        language: ['ru', 'en'],
+        language: ['en', 'ru'],
         indexBlog: false,
         docsRouteBasePath: sections.map(({ id }) => id),
         docsDir: sections.map(({ id }) => `${NOTES_DIR}/${id}`),
-        // У нас нет docs-инстанса с id "default" — поиску нужен любой существующий
+        // There is no docs instance with the "default" id — search needs any existing one
         docsPluginIdForPreferredVersion: sections[0].id,
         highlightSearchTermsOnTargetPage: true,
         explicitSearchResultPath: true,
@@ -154,12 +182,13 @@ const config: Config = {
       },
       items: [
         ...buildSectionNavItems(),
-        { href: demoHref, label: 'Демо', position: 'right' },
+        { href: demoHref, label: 'Demo', position: 'right' },
+        { type: 'localeDropdown', position: 'right' },
         {
           href: REPO_URL,
           position: 'right',
           className: 'header-github-link',
-          'aria-label': 'Репозиторий на GitHub',
+          'aria-label': 'GitHub repository',
         },
       ],
     },
@@ -167,18 +196,19 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Разделы',
+          title: 'Sections',
           items: sections.map(({ id, label }) => ({ label, to: `/${id}` })),
         },
         {
-          title: 'Проект',
+          title: 'Project',
           items: [
-            { label: 'Демо компонентов', href: demoHref },
+            { label: 'Component demo', href: demoHref },
             { label: 'GitHub', href: REPO_URL },
           ],
         },
       ],
-      copyright: `© ${new Date().getFullYear()} Frontend Notes. Сделано на Docusaurus.`,
+      // No year here: footer.json keeps a translated copy of this string, and a year would go stale
+      copyright: 'Frontend Notes · Built with Docusaurus',
     },
     prism: {
       theme: prismThemes.github,

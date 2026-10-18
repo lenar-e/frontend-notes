@@ -9,18 +9,18 @@ interface Todo {
 }
 
 describe('MyPick', () => {
-  it('оставляет только указанные ключи', () => {
+  it('keeps only the given keys', () => {
     expectTypeOf<MyPick<Todo, 'title' | 'completed'>>().toEqualTypeOf<{
       title: string;
       completed: boolean;
     }>();
   });
 
-  it('совпадает со встроенным Pick', () => {
+  it('matches the built-in Pick', () => {
     expectTypeOf<MyPick<Todo, 'description'>>().toEqualTypeOf<Pick<Todo, 'description'>>();
   });
 
-  it('сохраняет модификаторы readonly и ?', () => {
+  it('keeps the readonly and ? modifiers', () => {
     interface User {
       readonly id: number;
       name?: string;
@@ -33,8 +33,8 @@ describe('MyPick', () => {
     }>();
   });
 
-  it('не принимает ключи, которых нет в типе', () => {
-    // @ts-expect-error — ключа 'invalid' нет в Todo
+  it('rejects keys that are not in the type', () => {
+    // @ts-expect-error — Todo has no 'invalid' key
     type _Invalid = MyPick<Todo, 'title' | 'invalid'>;
   });
 });

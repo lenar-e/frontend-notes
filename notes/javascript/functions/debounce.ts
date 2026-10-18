@@ -1,12 +1,12 @@
 export interface Debounced<Args extends unknown[]> {
   (...args: Args): void;
-  /** Отменяет запланированный вызов */
+  /** Cancels the scheduled call */
   cancel(): void;
 }
 
 /**
- * Откладывает вызов `fn`, пока с момента последнего вызова обёртки не пройдёт `delay` мс.
- * Вызов происходит с аргументами и `this` последнего вызова.
+ * Postpones calling `fn` until `delay` ms have passed since the last call of the wrapper.
+ * `fn` is called with the arguments and `this` of the last call.
  */
 export function debounce<Args extends unknown[]>(
   fn: (...args: Args) => void,

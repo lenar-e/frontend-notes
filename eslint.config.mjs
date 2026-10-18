@@ -17,7 +17,7 @@ export default defineConfig([
       globals: { ...globals.browser, ...globals.node },
     },
     rules: {
-      // В полифиллах и утилитах any иногда честнее, чем дженерик-акробатика — пусть подсвечивается, но не ломает CI
+      // In polyfills and utilities `any` is sometimes more honest than generic acrobatics — warn, but don't fail CI
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unused-vars': [
         'error',
@@ -26,6 +26,6 @@ export default defineConfig([
     },
   },
 
-  // Отключает правила, конфликтующие с Prettier, — должен идти последним
+  // Turns off rules that conflict with Prettier — must come last
   prettier,
 ]);

@@ -1,15 +1,19 @@
-// Создаёт в notes/ заготовку новой задачи: страницу сайта, решение и тесты.
+// Scaffolds a new task in notes/: the site page, the solution and the tests.
 //
 //   yarn new javascript/promises promise-all
 //   yarn new typescript/utility-types my-omit
 //   yarn new computer-science/algorithms/patterns/two-pointers valid-palindrome
-//   yarn new computer-science/security/vulnerabilities xss   (vulnerabilities, protection → заметка)
-//   yarn new computer-science/security/practice escape-html  (practice → задача с кодом)
-//   yarn new react/components Autocomplete     (PascalCase → компонент)
-//   yarn new react/hooks useThrottle           (use* → хук)
-//   yarn new react/advanced mini-redux         (иначе → модуль)
-//   yarn new javascript/theory closures        (theory → заметка)
-//   yarn new system-design/cases chat          (cases → шаблон RADIO)
+//   yarn new computer-science/security/vulnerabilities xss   (vulnerabilities, protection → note)
+//   yarn new computer-science/security/practice escape-html  (practice → task with code)
+//   yarn new react/components Autocomplete     (PascalCase → component)
+//   yarn new react/hooks useThrottle           (use* → hook)
+//   yarn new react/advanced mini-redux         (otherwise → module)
+//   yarn new javascript/theory closures        (theory → note)
+//   yarn new system-design/cases chat          (cases → RADIO template)
+//
+// Add --ru to also create the Russian translation of the page:
+//   yarn new javascript/promises promise-all --ru
+// Without it, the Russian site shows the English page until a translation exists.
 
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -17,7 +21,7 @@ import { fileURLToPath } from 'node:url';
 
 import * as prettier from 'prettier';
 
-/** Корень репозитория: скрипт лежит в website/scripts/ */
+/** Repo root: the script lives in website/scripts/ */
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const SECTIONS = [
   'javascript',
@@ -29,9 +33,9 @@ const SECTIONS = [
   'system-design',
 ];
 
-// ---------- утилиты ----------
+// ---------- helpers ----------
 
-// Та же функция есть в website/demo/registry.ts — id демо и URL страницы должны совпадать
+// The same function lives in website/demo/registry.ts — demo ids and page URLs must match
 const toKebabCase = (name) =>
   name
     .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
@@ -50,114 +54,171 @@ const humanize = (name) => {
 
 function fail(message) {
   console.error(`\n✖ ${message}\n`);
-  console.error('Использование: yarn new <раздел>/<категория> <имя>');
-  console.error('Пример:        yarn new javascript/promises promise-all\n');
-  console.error(`Разделы: ${SECTIONS.join(', ')}\n`);
+  console.error('Usage:   yarn new <section>/<category> <name> [--ru]');
+  console.error('Example: yarn new javascript/promises promise-all\n');
+  console.error(`Sections: ${SECTIONS.join(', ')}\n`);
   process.exit(1);
 }
 
-// ---------- шаблоны страниц ----------
+// ---------- page text in both languages ----------
 
-const followUp = `## Follow-up вопросы
+const TEXT = {
+  en: {
+    problem: 'Problem',
+    problemHint: 'The problem as stated in an interview, plus a usage example',
+    solution: 'Solution',
+    explanation: 'Explanation',
+    idea: 'Idea:',
+    complexity: 'Complexity: time O(?), space O(?)',
+    followUp: 'Follow-up questions',
+    followUpQuestion: 'A question you may get after solving it',
+    answer: 'Answer',
+    answerBody: 'The answer and an explanation.',
+    inShort: 'In short',
+    gistInterview: '_The gist in a few points — the way you would answer in an interview._',
+    gist: '_The gist in a few points._',
+    console: 'What will the console print?',
+    inDepth: 'In depth',
+    interview: 'What to ask or mention in an interview',
+    statement: 'The problem as stated by the interviewer.',
+    functional: 'Functional:',
+    nonFunctional: 'Non-functional:',
+    questions: 'Questions for the interviewer:',
+    dataTable: ['Entity', 'Fields', 'Lives in'],
+    optimizations: ['Performance', 'UX', 'Network', 'Accessibility', 'Security'],
+    task: 'Task',
+    block: 'Block',
+  },
+  ru: {
+    problem: 'Условие',
+    problemHint: 'Формулировка, как на собеседовании, и пример использования',
+    solution: 'Решение',
+    explanation: 'Разбор',
+    idea: 'Идея решения:',
+    complexity: 'Сложность: время O(?), память O(?)',
+    followUp: 'Follow-up вопросы',
+    followUpQuestion: 'Вопрос, который могут задать после решения',
+    answer: 'Ответ',
+    answerBody: 'Ответ и объяснение.',
+    inShort: 'Коротко',
+    gistInterview: '_Суть в нескольких пунктах — так, как вы бы ответили на интервью._',
+    gist: '_Суть в нескольких пунктах._',
+    console: 'Что выведет консоль?',
+    inDepth: 'Подробнее',
+    interview: 'Что спросить или упомянуть на интервью',
+    statement: 'Формулировка задачи от интервьюера.',
+    functional: 'Функциональные:',
+    nonFunctional: 'Нефункциональные:',
+    questions: 'Вопросы интервьюеру:',
+    dataTable: ['Сущность', 'Поля', 'Где живёт'],
+    optimizations: ['Производительность', 'UX', 'Сеть', 'Доступность', 'Безопасность'],
+    task: 'Задача',
+    block: 'Блок',
+  },
+};
 
-<details>
-<summary>Вопрос, который могут задать после решения</summary>
+// ---------- page templates ----------
 
-Ответ
+/** A task page with code. sources: [file name, variable, raw-loader path] */
+const codePage =
+  ({ title, sources, demo }) =>
+  (t) => {
+    const demoImport = demo ? `import ${demo.component} from '${demo.path}';\n` : '';
+    const rawImports = sources
+      .map(([, variable, path]) => `import ${variable} from '!!raw-loader!${path}';`)
+      .join('\n');
+    // Prettier doesn't format MDX, so a long file list is split into lines right away
+    const entries = sources.map(([file, variable]) => `'${file}': ${variable}`);
+    const codeFiles =
+      entries.length <= 2
+        ? `<CodeFiles files={{ ${entries.join(', ')} }} />`
+        : `<CodeFiles\n  files={{\n${entries.map((entry) => `    ${entry},`).join('\n')}\n  }}\n/>`;
+    const liveDemo = demo
+      ? `\n<LiveDemo id="${demo.id}">\n  <${demo.component} />\n</LiveDemo>\n`
+      : '';
 
-</details>
-`;
-
-/** Страница задачи с кодом. sources: [имя файла, переменная, путь для raw-loader] */
-function codePage({ title, sources, demo }) {
-  const demoImport = demo ? `import ${demo.component} from '${demo.path}';\n` : '';
-  const rawImports = sources
-    .map(([, variable, path]) => `import ${variable} from '!!raw-loader!${path}';`)
-    .join('\n');
-  // MDX не форматируется Prettier'ом, поэтому длинный список файлов сразу переносим по строкам
-  const entries = sources.map(([file, variable]) => `'${file}': ${variable}`);
-  const codeFiles =
-    entries.length <= 2
-      ? `<CodeFiles files={{ ${entries.join(', ')} }} />`
-      : `<CodeFiles\n  files={{\n${entries.map((entry) => `    ${entry},`).join('\n')}\n  }}\n/>`;
-  const liveDemo = demo
-    ? `\n<LiveDemo id="${demo.id}">\n  <${demo.component} />\n</LiveDemo>\n`
-    : '';
-
-  return `---
+    return `---
 title: ${title}
 ---
 
 ${demoImport}${rawImports}
 
-## Условие
+## ${t.problem}
 
-{/* Формулировка, как на собеседовании, и пример использования */}
+{/* ${t.problemHint} */}
 ${liveDemo}
-## Решение
+## ${t.solution}
 
 ${codeFiles}
 
-## Разбор
+## ${t.explanation}
 
-- Идея решения:
-- Сложность: время O(?), память O(?)
+- ${t.idea}
+- ${t.complexity}
 
-${followUp}`;
-}
+## ${t.followUp}
 
-const notePage = (title) => `---
+<details>
+<summary>${t.followUpQuestion}</summary>
+
+${t.answer}
+
+</details>
+`;
+  };
+
+const notePage = (title) => (t) => `---
 title: ${title}
 ---
 
-## Коротко
+## ${t.inShort}
 
-_Суть в нескольких пунктах — так, как вы бы ответили на интервью._
+${t.gistInterview}
 
-## Что выведет консоль?
+## ${t.console}
 
 \`\`\`js
 console.log('?');
 \`\`\`
 
 <details>
-<summary>Ответ</summary>
+<summary>${t.answer}</summary>
 
-Ответ и объяснение.
+${t.answerBody}
 
 </details>
 `;
 
-const topicPage = (title) => `---
+const topicPage = (title) => (t) => `---
 title: ${title}
 ---
 
-## Коротко
+## ${t.inShort}
 
-_Суть в нескольких пунктах._
+${t.gist}
 
-## Подробнее
+## ${t.inDepth}
 
-## Что спросить или упомянуть на интервью
+## ${t.interview}
 `;
 
-const radioPage = (title) => `---
+const radioPage = (title) => (t) => `---
 title: ${title}
 ---
 
-> Формулировка задачи от интервьюера.
+> ${t.statement}
 
 ## Requirements
 
-**Функциональные:**
+**${t.functional}**
 
 -
 
-**Нефункциональные:**
+**${t.nonFunctional}**
 
 -
 
-**Вопросы интервьюеру:**
+**${t.questions}**
 
 ## Architecture
 
@@ -170,9 +231,9 @@ flowchart LR
 
 ## Data model
 
-| Сущность | Поля | Где живёт |
-| -------- | ---- | --------- |
-|          |      |           |
+| ${t.dataTable.join(' | ')} |
+| --- | --- | --- |
+|     |     |     |
 
 ## Interface (API)
 
@@ -182,32 +243,28 @@ GET /resource
 
 ## Optimizations
 
-- **Производительность:**
-- **UX:**
-- **Сеть:**
-- **Доступность:**
-- **Безопасность:**
+${t.optimizations.map((item) => `- **${item}:**`).join('\n')}
 `;
 
-const cssPage = (title) => `---
+const cssPage = (title) => (t) => `---
 title: ${title}
 ---
 
-## Задача
+## ${t.task}
 
 <HtmlPreview
   html={\`<div class="parent">
-  <div class="child">Блок</div>
+  <div class="child">${t.block}</div>
 </div>\`}
   css={\`.parent {
   display: flex;
 }\`}
 />
 
-## Разбор
+## ${t.explanation}
 `;
 
-// ---------- шаблоны кода ----------
+// ---------- code templates ----------
 
 const fnModule = (fn) => `export function ${fn}() {
   throw new Error('Not implemented');
@@ -219,12 +276,12 @@ const fnTest = (fn, file) => `import { describe, expect, it } from 'vitest';
 import { ${fn} } from './${file}';
 
 describe('${fn}', () => {
-  it('экспортирует функцию', () => {
+  it('exports a function', () => {
     expect(${fn}).toBeTypeOf('function');
   });
 
-  it.todo('базовый случай');
-  it.todo('граничные случаи');
+  it.todo('basic case');
+  it.todo('edge cases');
 });
 `;
 
@@ -236,7 +293,7 @@ const typeTest = (type, file) => `import { describe, expectTypeOf, it } from 'vi
 import type { ${type} } from './${file}';
 
 describe('${type}', () => {
-  it('TODO: замените на настоящие проверки', () => {
+  it('TODO: replace with real checks', () => {
     expectTypeOf<${type}<string>>().toEqualTypeOf<string>();
   });
 });
@@ -264,7 +321,7 @@ import { describe, expect, it } from 'vitest';
 import { ${name} } from './${name}';
 
 describe('${name}', () => {
-  it('рендерится', () => {
+  it('renders', () => {
     render(<${name} />);
 
     expect(screen.getByText('${name}')).toBeInTheDocument();
@@ -293,7 +350,7 @@ import { describe, expect, it } from 'vitest';
 import { ${name} } from './${name}';
 
 describe('${name}', () => {
-  it('возвращает начальное значение', () => {
+  it('returns the initial value', () => {
     const { result } = renderHook(() => ${name}(1));
 
     expect(result.current[0]).toBe(1);
@@ -310,130 +367,165 @@ export default function ${toPascalCase(name)}Demo() {
 }
 `;
 
-// ---------- сборка списка файлов ----------
+// ---------- planning the files ----------
 
-// Все пути — относительно корня репозитория. Страница всегда лежит рядом с кодом.
-function planFiles(section, categoryParts, rawName) {
+/**
+ * Returns the code files (repo-relative path → content) and the page:
+ * its file name inside the category and a template that renders it for a language.
+ * The page always sits next to the code.
+ */
+function plan(section, categoryParts, rawName) {
   const docDir = join('notes', section, ...categoryParts);
   const kebab = toKebabCase(rawName);
-  const files = {};
+  const code = {};
+  const result = (fileName, render) => ({ code, page: { fileName, render } });
 
-  // react/hooks useThrottle → хук, тест и демо рядом со страницей
+  // react/hooks useThrottle → hook, test and demo next to the page
   if (section === 'react' && /^use[A-Z0-9]/.test(rawName)) {
     const name = rawName;
-    files[join(docDir, `${name}.ts`)] = hook(name);
-    files[join(docDir, `${name}.test.ts`)] = hookTest(name);
-    files[join(docDir, `${name}.demo.tsx`)] = hookDemo(name);
-    files[join(docDir, `${kebab}.mdx`)] = codePage({
-      title: name,
-      demo: { id: kebab, component: `${toPascalCase(name)}Demo`, path: `./${name}.demo` },
-      sources: [
-        [`${name}.ts`, 'hook', `./${name}.ts`],
-        [`${name}.test.ts`, 'tests', `./${name}.test.ts`],
-        [`${name}.demo.tsx`, 'demo', `./${name}.demo.tsx`],
-      ],
-    });
-    return files;
+    code[join(docDir, `${name}.ts`)] = hook(name);
+    code[join(docDir, `${name}.test.ts`)] = hookTest(name);
+    code[join(docDir, `${name}.demo.tsx`)] = hookDemo(name);
+    return result(
+      `${kebab}.mdx`,
+      codePage({
+        title: name,
+        demo: { id: kebab, component: `${toPascalCase(name)}Demo`, path: `./${name}.demo` },
+        sources: [
+          [`${name}.ts`, 'hook', `./${name}.ts`],
+          [`${name}.test.ts`, 'tests', `./${name}.test.ts`],
+          [`${name}.demo.tsx`, 'demo', `./${name}.demo.tsx`],
+        ],
+      }),
+    );
   }
 
-  // react/components Autocomplete → страница + папка компонента рядом с ней
+  // react/components Autocomplete → the page + the component folder next to it
   if (section === 'react' && /^[A-Z]/.test(rawName)) {
     const name = rawName;
     const dir = join(docDir, name);
-    files[join(dir, `${name}.tsx`)] = component(name);
-    files[join(dir, `${name}.module.css`)] = componentCss();
-    files[join(dir, `${name}.test.tsx`)] = componentTest(name);
-    files[join(dir, `${name}.demo.tsx`)] = componentDemo(name);
-    files[join(docDir, `${kebab}.mdx`)] = codePage({
-      title: name,
-      demo: { id: kebab, component: `${name}Demo`, path: `./${name}/${name}.demo` },
-      sources: [
-        [`${name}.tsx`, 'component', `./${name}/${name}.tsx`],
-        [`${name}.module.css`, 'styles', `./${name}/${name}.module.css`],
-        [`${name}.test.tsx`, 'tests', `./${name}/${name}.test.tsx`],
-        [`${name}.demo.tsx`, 'demo', `./${name}/${name}.demo.tsx`],
-      ],
-    });
-    return files;
+    code[join(dir, `${name}.tsx`)] = component(name);
+    code[join(dir, `${name}.module.css`)] = componentCss();
+    code[join(dir, `${name}.test.tsx`)] = componentTest(name);
+    code[join(dir, `${name}.demo.tsx`)] = componentDemo(name);
+    return result(
+      `${kebab}.mdx`,
+      codePage({
+        title: name,
+        demo: { id: kebab, component: `${name}Demo`, path: `./${name}/${name}.demo` },
+        sources: [
+          [`${name}.tsx`, 'component', `./${name}/${name}.tsx`],
+          [`${name}.module.css`, 'styles', `./${name}/${name}.module.css`],
+          [`${name}.test.tsx`, 'tests', `./${name}/${name}.test.tsx`],
+          [`${name}.demo.tsx`, 'demo', `./${name}/${name}.demo.tsx`],
+        ],
+      }),
+    );
   }
 
   if (section === 'system-design') {
     const page = categoryParts[0] === 'cases' ? radioPage : topicPage;
-    files[join(docDir, `${kebab}.md`)] = page(humanize(rawName));
-    return files;
+    return result(`${kebab}.md`, page(humanize(rawName)));
   }
 
   if (section === 'css') {
-    files[join(docDir, `${kebab}.mdx`)] = cssPage(humanize(rawName));
-    return files;
+    return result(`${kebab}.mdx`, cssPage(humanize(rawName)));
   }
 
   if (categoryParts[0] === 'theory') {
-    files[join(docDir, `${kebab}.md`)] = notePage(humanize(rawName));
-    return files;
+    return result(`${kebab}.md`, notePage(humanize(rawName)));
   }
 
-  // computer-science/security/{vulnerabilities,protection} → заметка; security/practice → задача с кодом
+  // computer-science/security/{vulnerabilities,protection} → note; security/practice → task with code
   if (
     section === 'computer-science' &&
     categoryParts[0] === 'security' &&
     categoryParts[1] !== 'practice'
   ) {
-    files[join(docDir, `${kebab}.md`)] = topicPage(humanize(rawName));
-    return files;
+    return result(`${kebab}.md`, topicPage(humanize(rawName)));
   }
 
   if (section === 'typescript') {
     const type = toPascalCase(rawName);
-    files[join(docDir, `${kebab}.ts`)] = typeModule(type);
-    files[join(docDir, `${kebab}.test-d.ts`)] = typeTest(type, kebab);
-    files[join(docDir, `${kebab}.mdx`)] = codePage({
-      title: type,
-      sources: [
-        [`${kebab}.ts`, 'solution', `./${kebab}.ts`],
-        [`${kebab}.test-d.ts`, 'tests', `./${kebab}.test-d.ts`],
-      ],
-    });
-    return files;
+    code[join(docDir, `${kebab}.ts`)] = typeModule(type);
+    code[join(docDir, `${kebab}.test-d.ts`)] = typeTest(type, kebab);
+    return result(
+      `${kebab}.mdx`,
+      codePage({
+        title: type,
+        sources: [
+          [`${kebab}.ts`, 'solution', `./${kebab}.ts`],
+          [`${kebab}.test-d.ts`, 'tests', `./${kebab}.test-d.ts`],
+        ],
+      }),
+    );
   }
 
-  // javascript, browser, computer-science и прочие модули (например, react/advanced mini-redux)
+  // javascript, browser, computer-science and other modules (e.g. react/advanced mini-redux)
   const fn = toCamelCase(rawName);
-  files[join(docDir, `${kebab}.ts`)] = fnModule(fn);
-  files[join(docDir, `${kebab}.test.ts`)] = fnTest(fn, kebab);
-  files[join(docDir, `${kebab}.mdx`)] = codePage({
-    title: fn,
-    sources: [
-      [`${kebab}.ts`, 'solution', `./${kebab}.ts`],
-      [`${kebab}.test.ts`, 'tests', `./${kebab}.test.ts`],
-    ],
-  });
-  return files;
+  code[join(docDir, `${kebab}.ts`)] = fnModule(fn);
+  code[join(docDir, `${kebab}.test.ts`)] = fnTest(fn, kebab);
+  return result(
+    `${kebab}.mdx`,
+    codePage({
+      title: fn,
+      sources: [
+        [`${kebab}.ts`, 'solution', `./${kebab}.ts`],
+        [`${kebab}.test.ts`, 'tests', `./${kebab}.test.ts`],
+      ],
+    }),
+  );
 }
 
 // ---------- main ----------
 
-const [categoryArg, rawName] = process.argv.slice(2);
+const args = process.argv.slice(2);
+const withRussian = args.includes('--ru');
+const [categoryArg, rawName] = args.filter((arg) => !arg.startsWith('--'));
 
-if (!categoryArg || !rawName) fail('Не хватает аргументов.');
+if (!categoryArg || !rawName) fail('Missing arguments.');
 
 const [section, ...categoryParts] = categoryArg.replace(/\\/g, '/').replace(/\/+$/, '').split('/');
 
-if (!SECTIONS.includes(section)) fail(`Неизвестный раздел «${section}».`);
+if (!SECTIONS.includes(section)) fail(`Unknown section "${section}".`);
 if (categoryParts.length === 0)
-  fail('Укажите категорию внутри раздела, например javascript/promises.');
+  fail('Specify a category inside the section, e.g. javascript/promises.');
 if (!/^[A-Za-z][A-Za-z0-9-]*$/.test(rawName))
-  fail(`Некорректное имя «${rawName}»: только латиница, цифры и дефис.`);
+  fail(`Invalid name "${rawName}": Latin letters, digits and hyphens only.`);
 
-const files = planFiles(section, categoryParts, rawName);
+const { code, page } = plan(section, categoryParts, rawName);
+const categoryPath = categoryParts.join('/');
+
+const files = { ...code };
+files[join('notes', section, ...categoryParts, page.fileName)] = page.render(TEXT.en);
+
+if (withRussian) {
+  // The translation lives in website/i18n, so relative imports are rewritten to the @notes alias
+  const notesDir = `@notes/${section}/${categoryPath}/`;
+  const russian = page
+    .render(TEXT.ru)
+    .replaceAll("from './", `from '${notesDir}`)
+    .replaceAll('raw-loader!./', `raw-loader!${notesDir}`);
+  const translationDir = join(
+    'website',
+    'i18n',
+    'ru',
+    `docusaurus-plugin-content-docs-${section}`,
+    'current',
+    ...categoryParts,
+  );
+  files[join(translationDir, page.fileName)] = russian;
+}
 
 const existing = Object.keys(files).filter((file) => existsSync(join(ROOT, file)));
-if (existing.length > 0) fail(`Файлы уже существуют:\n  ${existing.join('\n  ')}`);
+if (existing.length > 0) fail(`Files already exist:\n  ${existing.join('\n  ')}`);
 
-// Недостающие категории получают _category_.json — название можно поправить потом
+// Missing categories get a _category_.json — the label can be edited later
+let newCategories = false;
 for (let depth = 1; depth <= categoryParts.length; depth++) {
   const categoryDir = join('notes', section, ...categoryParts.slice(0, depth));
   if (!existsSync(join(ROOT, categoryDir))) {
+    newCategories = true;
     mkdirSync(join(ROOT, categoryDir), { recursive: true });
     const label = humanize(categoryParts[depth - 1]);
     writeFileSync(
@@ -446,7 +538,7 @@ for (let depth = 1; depth <= categoryParts.length; depth++) {
 
 for (const [file, content] of Object.entries(files)) {
   const absolute = join(ROOT, file);
-  // MDX в .prettierignore: Prettier не поддерживает MDX 3 и ломает шаблонные строки в JSX
+  // MDX is in .prettierignore: Prettier doesn't support MDX 3 and breaks template literals in JSX
   const formatted = file.endsWith('.mdx')
     ? content
     : await prettier.format(content, {
@@ -459,7 +551,10 @@ for (const [file, content] of Object.entries(files)) {
   console.log(`+ ${file}`);
 }
 
-console.log('\nГотово! Дальше:');
-console.log('  1. yarn test:watch  — пишите решение по тестам');
-console.log('  2. yarn start           — смотрите страницу на сайте');
-console.log('  3. Отметьте задачу в README.md');
+console.log('\nDone! Next:');
+console.log('  1. yarn test:watch  — write the solution against the tests');
+console.log('  2. yarn start       — see the page on the site');
+console.log('  3. Mark the task as done in README.md');
+if (newCategories) {
+  console.log('  4. yarn write-translations — add the Russian label for the new category');
+}

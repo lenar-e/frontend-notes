@@ -11,7 +11,7 @@ describe('debounce', () => {
     vi.useRealTimers();
   });
 
-  it('вызывает функцию один раз после паузы', () => {
+  it('calls the function once after a pause', () => {
     const fn = vi.fn();
     const debounced = debounce(fn, 100);
 
@@ -24,7 +24,7 @@ describe('debounce', () => {
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
-  it('каждый вызов сбрасывает таймер', () => {
+  it('every call resets the timer', () => {
     const fn = vi.fn();
     const debounced = debounce(fn, 100);
 
@@ -38,7 +38,7 @@ describe('debounce', () => {
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
-  it('передаёт аргументы последнего вызова', () => {
+  it('passes the arguments of the last call', () => {
     const fn = vi.fn();
     const debounced = debounce(fn, 100);
 
@@ -49,18 +49,18 @@ describe('debounce', () => {
     expect(fn).toHaveBeenCalledWith('b', 2);
   });
 
-  it('сохраняет контекст this', () => {
+  it('keeps the this context', () => {
     const fn = vi.fn();
     const obj = { method: debounce(fn, 100) };
 
     obj.method();
     vi.advanceTimersByTime(100);
 
-    // mock.contexts хранит this для каждого вызова мока
+    // mock.contexts stores this for every call of the mock
     expect(fn.mock.contexts[0]).toBe(obj);
   });
 
-  it('cancel отменяет запланированный вызов', () => {
+  it('cancel cancels the scheduled call', () => {
     const fn = vi.fn();
     const debounced = debounce(fn, 100);
 
@@ -71,7 +71,7 @@ describe('debounce', () => {
     expect(fn).not.toHaveBeenCalled();
   });
 
-  it('после паузы можно вызвать снова', () => {
+  it('can be called again after a pause', () => {
     const fn = vi.fn();
     const debounced = debounce(fn, 100);
 

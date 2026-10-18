@@ -5,8 +5,8 @@ import { delegate } from './event-delegation';
 function setup() {
   document.body.innerHTML = `
     <ul id="list">
-      <li class="item" data-id="1"><span>Первый</span></li>
-      <li class="item" data-id="2">Второй</li>
+      <li class="item" data-id="1"><span>First</span></li>
+      <li class="item" data-id="2">Second</li>
       <li class="separator"></li>
     </ul>
   `;
@@ -18,7 +18,7 @@ function setup() {
 }
 
 describe('delegate', () => {
-  it('вызывает обработчик для подходящего элемента', () => {
+  it('calls the handler for a matching element', () => {
     const { list, getItem } = setup();
     const handler = vi.fn();
     delegate(list, 'click', '.item', handler);
@@ -29,7 +29,7 @@ describe('delegate', () => {
     expect(handler).toHaveBeenCalledWith(expect.any(MouseEvent), getItem('2'));
   });
 
-  it('находит подходящего предка при клике на вложенный элемент', () => {
+  it('finds the matching ancestor when a nested element is clicked', () => {
     const { list, getItem } = setup();
     const handler = vi.fn();
     delegate(list, 'click', '.item', handler);
@@ -39,7 +39,7 @@ describe('delegate', () => {
     expect(handler).toHaveBeenCalledWith(expect.any(MouseEvent), getItem('1'));
   });
 
-  it('игнорирует элементы, не подходящие под селектор', () => {
+  it('ignores elements that do not match the selector', () => {
     const { list } = setup();
     const handler = vi.fn();
     delegate(list, 'click', '.item', handler);
@@ -49,9 +49,9 @@ describe('delegate', () => {
     expect(handler).not.toHaveBeenCalled();
   });
 
-  it('игнорирует совпадения за пределами root', () => {
+  it('ignores matches outside root', () => {
     const { list } = setup();
-    // Оборачиваем список в элемент, который сам подходит под селектор
+    // Wrap the list in an element that itself matches the selector
     const wrapper = document.createElement('div');
     wrapper.className = 'item';
     list.before(wrapper);
@@ -60,13 +60,13 @@ describe('delegate', () => {
     const handler = vi.fn();
     delegate(list, 'click', '.item', handler);
 
-    // Для .separator closest('.item') найдёт wrapper — он снаружи root
+    // For .separator, closest('.item') finds the wrapper, which is outside root
     list.querySelector<HTMLElement>('.separator')!.click();
 
     expect(handler).not.toHaveBeenCalled();
   });
 
-  it('работает для элементов, добавленных после подписки', () => {
+  it('works for elements added after subscribing', () => {
     const { list } = setup();
     const handler = vi.fn();
     delegate(list, 'click', '.item', handler);
@@ -79,7 +79,7 @@ describe('delegate', () => {
     expect(handler).toHaveBeenCalledWith(expect.any(MouseEvent), newItem);
   });
 
-  it('возвращает функцию для отписки', () => {
+  it('returns an unsubscribe function', () => {
     const { list, getItem } = setup();
     const handler = vi.fn();
     const unsubscribe = delegate(list, 'click', '.item', handler);

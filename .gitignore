@@ -1,14 +1,14 @@
-# Зависимости
+# Dependencies
 node_modules
 
-# Сборка и кэши
+# Build output and caches
 build
 .docusaurus
 .cache-loader
 coverage
 *.tsbuildinfo
 
-# Прочее
+# Misc
 .env*
 .DS_Store
 .idea

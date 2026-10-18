@@ -8,12 +8,12 @@ export default function StarRatingDemo() {
   return (
     <div style={{ display: 'grid', gap: 16 }}>
       <div>
-        <StarRating value={value} onChange={setValue} label="Ваша оценка" />
-        <div>Оценка: {value} из 5. Попробуйте стрелки на клавиатуре.</div>
+        <StarRating value={value} onChange={setValue} label="Your rating" />
+        <div>Rating: {value} of 5. Try the arrow keys.</div>
       </div>
       <div>
-        <StarRating value={4} readOnly label="Средняя оценка" />
-        <div>Только для чтения</div>
+        <StarRating value={4} readOnly label="Average rating" />
+        <div>Read-only</div>
       </div>
     </div>
   );

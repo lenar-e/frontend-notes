@@ -1,44 +1,44 @@
 ---
-title: Делегирование событий
-description: Один обработчик на контейнер вместо обработчика на каждый элемент
+title: Event delegation
+description: One handler on a container instead of a handler on every element
 ---
 
 import solution from '!!raw-loader!./event-delegation.ts';
 import tests from '!!raw-loader!./event-delegation.test.ts';
 
-## Условие
+## Problem
 
-Напишите функцию `delegate(root, eventType, selector, handler)`. Она вешает **один** обработчик на `root` и вызывает `handler` для событий от элементов, подходящих под `selector`, — в том числе для элементов, добавленных позже.
+Write a `delegate(root, eventType, selector, handler)` function. It attaches **one** handler to `root` and calls `handler` for events coming from elements that match `selector` — including elements added later.
 
 ```ts
 const unsubscribe = delegate(list, 'click', '.item', (event, item) => {
-  console.log('Клик по', item.dataset.id);
+  console.log('Clicked', item.dataset.id);
 });
 ```
 
-## Решение
+## Solution
 
 <CodeFiles files={{ 'event-delegation.ts': solution, 'event-delegation.test.ts': tests }} />
 
-## Разбор
+## Explanation
 
-- Большинство событий **всплывают**: клик по `<span>` внутри `<li>` дойдёт до `<ul>`, и обработчик на `<ul>` его увидит.
-- `event.target` — самый глубокий элемент, по которому кликнули. `closest(selector)` поднимается от него вверх и находит нужный элемент.
-- `root.contains(target)` отсекает совпадения выше `root`: `closest` не знает, где заканчивается контейнер.
-- Зачем это нужно: меньше обработчиков (память), не нужно переподписываться при добавлении элементов — удобно для списков и таблиц.
+- Most events **bubble**: a click on a `<span>` inside an `<li>` reaches the `<ul>`, and a handler on the `<ul>` sees it.
+- `event.target` is the deepest element that was clicked. `closest(selector)` walks up from it and finds the element we need.
+- `root.contains(target)` filters out matches above `root`: `closest` doesn't know where the container ends.
+- Why bother: fewer handlers (memory), and no need to re-subscribe when elements are added — handy for lists and tables.
 
-## Follow-up вопросы
+## Follow-up questions
 
 <details>
-<summary>Какие события не всплывают и что с ними делать?</summary>
+<summary>Which events don't bubble, and what do you do about them?</summary>
 
-`focus`, `blur`, `mouseenter`, `mouseleave`, `load`, `scroll` (на элементах). Для фокуса есть всплывающие аналоги `focusin`/`focusout`. Другой вариант — подписаться в фазе перехвата: `addEventListener(type, listener, { capture: true })`.
+`focus`, `blur`, `mouseenter`, `mouseleave`, `load`, `scroll` (on elements). Focus has bubbling counterparts: `focusin`/`focusout`. Another option is to listen in the capture phase: `addEventListener(type, listener, { capture: true })`.
 
 </details>
 
 <details>
-<summary>Чем отличаются event.target и event.currentTarget?</summary>
+<summary>What is the difference between event.target and event.currentTarget?</summary>
 
-`target` — элемент, на котором событие произошло. `currentTarget` — элемент, на котором сейчас выполняется обработчик. При делегировании `currentTarget` — это `root`.
+`target` is the element where the event happened. `currentTarget` is the element whose handler is running right now. With delegation, `currentTarget` is `root`.
 
 </details>

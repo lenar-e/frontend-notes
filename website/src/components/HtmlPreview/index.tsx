@@ -1,3 +1,5 @@
+import { translate } from '@docusaurus/Translate';
+
 import CodeFiles from '@site/src/components/CodeFiles';
 
 import styles from './styles.module.css';
@@ -5,21 +7,21 @@ import styles from './styles.module.css';
 interface Props {
   html: string;
   css?: string;
-  /** Высота превью в пикселях */
+  /** Preview height in pixels */
   height?: number;
 }
 
 const BASE_STYLES = 'body { margin: 0; padding: 12px; font-family: system-ui, sans-serif; }';
 
-/** Живое превью HTML + CSS в изолированном iframe и код под ним — для раздела CSS */
+/** A live HTML + CSS preview in an isolated iframe with the code below it — for the CSS section */
 export default function HtmlPreview({ html, css = '', height = 200 }: Props) {
   const srcDoc = `<!doctype html><html><head><meta charset="utf-8"><style>${BASE_STYLES}\n${css}</style></head><body>${html}</body></html>`;
 
   return (
     <div className={styles.preview}>
-      {/* sandbox без флагов: скрипты внутри превью запрещены, нужны только стили */}
+      {/* sandbox without flags: scripts inside the preview are blocked, only styles are needed */}
       <iframe
-        title="Превью"
+        title={translate({ id: 'htmlPreview.title', message: 'Preview' })}
         className={styles.frame}
         srcDoc={srcDoc}
         sandbox=""

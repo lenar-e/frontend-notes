@@ -1,27 +1,27 @@
 /// <reference types="vite/types/importMeta.d.ts" />
 import type { ComponentType } from 'react';
 
-// Все файлы *.demo.tsx из notes/react подхватываются автоматически
+// Every *.demo.tsx file in notes/react is picked up automatically
 const modules = import.meta.glob<{ default: ComponentType }>('../../notes/react/**/*.demo.tsx', {
   eager: true,
 });
 
 export interface Demo {
-  /** kebab-case имени файла: StarRating.demo.tsx → star-rating. Используется в URL: #/star-rating */
+  /** kebab-case file name: StarRating.demo.tsx → star-rating. Used in the URL: #/star-rating */
   id: string;
   title: string;
-  /** Папка в notes/react (components, hooks, advanced) — совпадает с разделом на сайте */
+  /** Folder in notes/react (components, hooks, advanced) — matches the site section */
   folder: string;
   Component: ComponentType;
 }
 
 export const GROUP_LABELS: Record<string, string> = {
-  components: 'Компоненты',
-  hooks: 'Хуки',
-  advanced: 'Под капотом',
+  components: 'Components',
+  hooks: 'Hooks',
+  advanced: 'Under the hood',
 };
 
-// Та же функция есть в website/scripts/new.mjs — id демо и URL страницы должны совпадать
+// The same function lives in website/scripts/new.mjs — demo ids and page URLs must match
 export const toKebabCase = (name: string) =>
   name
     .replace(/([a-z0-9])([A-Z])/g, '$1-$2')

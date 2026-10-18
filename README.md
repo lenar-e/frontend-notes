@@ -2,14 +2,16 @@
 
 [![CI](https://github.com/lenar-e/frontend-notes/actions/workflows/ci.yml/badge.svg)](https://github.com/lenar-e/frontend-notes/actions/workflows/ci.yml)
 
-Решения типовых задач с фронтенд-собеседований: код на TypeScript, тесты на Vitest, разбор и живые демо.
+**English** · [Русский](README.ru.md)
 
-- 🌐 **Сайт:** https://lenar-e.github.io/frontend-notes/
-- ⚛️ **Демо React-компонентов:** https://lenar-e.github.io/frontend-notes/demo/
+Solutions to common frontend interview tasks: TypeScript code, Vitest tests, explanations and live demos.
 
-**Прогресс:** ✅ готово · 🚧 в работе · ⬜ в планах
+- 🌐 **Site:** https://lenar-e.github.io/frontend-notes/ (Russian: [/ru/](https://lenar-e.github.io/frontend-notes/ru/))
+- ⚛️ **React component demo:** https://lenar-e.github.io/frontend-notes/demo/
 
-## Содержание
+**Progress:** ✅ done · 🚧 in progress · ⬜ planned
+
+## Contents
 
 - [JavaScript](#javascript)
 - [TypeScript](#typescript)
@@ -18,14 +20,15 @@
 - [Computer Science](#computer-science)
 - [System Design](#system-design)
 - [CSS](#css)
-- [Как устроен проект](#как-устроен-проект)
-- [Команды](#команды)
-- [Как добавить задачу](#как-добавить-задачу)
-- [Деплой](#деплой)
+- [Project structure](#project-structure)
+- [Languages](#languages)
+- [Commands](#commands)
+- [Adding a task](#adding-a-task)
+- [Deployment](#deployment)
 
 ## JavaScript
 
-**Функции высшего порядка**
+**Higher-order functions**
 
 - ✅ [debounce](notes/javascript/functions/debounce.ts)
 - ⬜ throttle
@@ -34,47 +37,47 @@
 - ⬜ compose / pipe
 - ⬜ once
 
-**Промисы и асинхронность**
+**Promises and async**
 
 - ⬜ Promise.all
 - ⬜ Promise.allSettled
 - ⬜ Promise.race
 - ⬜ Promise.any
 - ⬜ promisify
-- ⬜ retry с экспоненциальной задержкой
-- ⬜ Пул промисов с лимитом параллельности
+- ⬜ retry with exponential backoff
+- ⬜ Promise pool with a concurrency limit
 - ⬜ sleep
-- ⬜ Отменяемый запрос через AbortController
+- ⬜ Cancellable request with AbortController
 
-**Паттерны**
+**Patterns**
 
 - ⬜ EventEmitter
 - ⬜ LRU Cache
 - ⬜ Observable
 - ⬜ Pub/Sub
 
-**Объекты и массивы**
+**Objects and arrays**
 
 - ⬜ deepClone
 - ⬜ deepEqual
-- ⬜ get / set по пути (`'a.b[0].c'`)
-- ⬜ flatten объекта и массива
+- ⬜ get / set by path (`'a.b[0].c'`)
+- ⬜ flatten an object and an array
 - ⬜ classnames
 
-**Полифиллы**
+**Polyfills**
 
 - ⬜ Array.prototype.map / filter / reduce
 - ⬜ Function.prototype.bind / call / apply
-- ⬜ Оператор new
+- ⬜ The new operator
 - ⬜ instanceof
 - ⬜ JSON.stringify
 
-**Теория и «что выведет консоль?»**
+**Theory and "what will the console print?"**
 
-- 🚧 [Event loop: микро- и макрозадачи](notes/javascript/theory/event-loop.md)
-- ⬜ Замыкания
+- 🚧 [Event loop: microtasks and macrotasks](notes/javascript/theory/event-loop.md)
+- ⬜ Closures
 - ⬜ this
-- ⬜ Прототипы
+- ⬜ Prototypes
 
 ## TypeScript
 
@@ -86,51 +89,51 @@
 - ⬜ ReturnType
 - ⬜ Awaited
 
-**Продвинутые типы**
+**Advanced types**
 
 - ⬜ DeepPartial
 - ⬜ DeepReadonly
-- ⬜ Типизированный EventEmitter
+- ⬜ Typed EventEmitter
 
 **Type Challenges**
 
-- ⬜ Задачи уровня easy
-- ⬜ Задачи уровня medium
+- ⬜ Easy tasks
+- ⬜ Medium tasks
 
 ## Browser
 
-- ✅ [Делегирование событий](notes/browser/events/event-delegation.ts)
+- ✅ [Event delegation](notes/browser/events/event-delegation.ts)
 - ⬜ getElementsByClassName
-- ⬜ Простой querySelector
-- ⬜ Мини Virtual DOM: createElement, render, diff
-- ⬜ SPA-роутер на History API
-- ⬜ Обёртка над localStorage с TTL
-- ⬜ Ленивая загрузка картинок через IntersectionObserver
+- ⬜ A simple querySelector
+- ⬜ Mini Virtual DOM: createElement, render, diff
+- ⬜ SPA router on the History API
+- ⬜ localStorage wrapper with TTL
+- ⬜ Lazy-loading images with IntersectionObserver
 
 ## React
 
-**Компоненты**
+**Components**
 
-- ⬜ Autocomplete: debounce, отмена запросов, гонки ответов, клавиатура, кэш, роль combobox
+- ⬜ Autocomplete: debounce, request cancellation, response races, keyboard, cache, combobox role
 - ⬜ Pagination
 - ⬜ Infinite scroll
-- ⬜ Virtualized list (10 000 строк)
-- ⬜ Modal: портал, focus trap, закрытие по Esc и клику вне
+- ⬜ Virtualized list (10,000 rows)
+- ⬜ Modal: portal, focus trap, closing on Esc and outside click
 - ⬜ Tabs
 - ⬜ Accordion
 - ⬜ Tooltip
-- ⬜ Toast-уведомления
-- ⬜ Таблица с сортировкой и фильтрацией
-- ⬜ Форма с валидацией
-- ⬜ Дерево / вложенные комментарии
-- ⬜ Файловый проводник
+- ⬜ Toast notifications
+- ⬜ Table with sorting and filtering
+- ⬜ Form with validation
+- ⬜ Tree / nested comments
+- ⬜ File explorer
 - ✅ [Star rating](notes/react/components/StarRating/StarRating.tsx)
-- ⬜ OTP-инпут
+- ⬜ OTP input
 - ⬜ Carousel
-- ⬜ Drag-and-drop список
-- ⬜ Загрузка файла с прогрессом
+- ⬜ Drag-and-drop list
+- ⬜ File upload with progress
 
-**Хуки**
+**Hooks**
 
 - ✅ [useDebounce](notes/react/hooks/useDebounce.ts)
 - ⬜ useThrottle
@@ -142,61 +145,61 @@
 - ⬜ useMediaQuery
 - ⬜ useInterval
 
-**Под капотом**
+**Under the hood**
 
-- ⬜ Мини-useState: как React хранит хуки
-- ⬜ Redux в 50 строк
-- ⬜ Упрощённый React Query с кэшем
+- ⬜ Mini useState: how React stores hooks
+- ⬜ Redux in 50 lines
+- ⬜ A simplified React Query with a cache
 
 ## Computer Science
 
-### Алгоритмы
+### Algorithms
 
-**Сортировки**
+**Sorting**
 
-| Сортировка | Время: среднее / худшее | Память   | Стабильная |     |
-| ---------- | ----------------------- | -------- | ---------- | --- |
-| Bubble     | O(n²) / O(n²)           | O(1)     | да         | ⬜  |
-| Selection  | O(n²) / O(n²)           | O(1)     | нет        | ⬜  |
-| Insertion  | O(n²) / O(n²)           | O(1)     | да         | ⬜  |
-| Merge      | O(n log n) / O(n log n) | O(n)     | да         | ⬜  |
-| Quick      | O(n log n) / O(n²)      | O(log n) | нет        | ⬜  |
-| Heap       | O(n log n) / O(n log n) | O(1)     | нет        | ⬜  |
-| Counting   | O(n + k) / O(n + k)     | O(n + k) | да         | ⬜  |
+| Algorithm | Time: average / worst   | Space    | Stable |     |
+| --------- | ----------------------- | -------- | ------ | --- |
+| Bubble    | O(n²) / O(n²)           | O(1)     | yes    | ⬜  |
+| Selection | O(n²) / O(n²)           | O(1)     | no     | ⬜  |
+| Insertion | O(n²) / O(n²)           | O(1)     | yes    | ⬜  |
+| Merge     | O(n log n) / O(n log n) | O(n)     | yes    | ⬜  |
+| Quick     | O(n log n) / O(n²)      | O(log n) | no     | ⬜  |
+| Heap      | O(n log n) / O(n log n) | O(1)     | no     | ⬜  |
+| Counting  | O(n + k) / O(n + k)     | O(n + k) | yes    | ⬜  |
 
-**Поиск**
+**Searching**
 
-- ✅ [Бинарный поиск](notes/computer-science/algorithms/searching/binary-search.ts)
-- ⬜ Первое и последнее вхождение
-- ⬜ Поиск в повёрнутом массиве
+- ✅ [Binary search](notes/computer-science/algorithms/searching/binary-search.ts)
+- ⬜ First and last occurrence
+- ⬜ Search in a rotated array
 
-**Паттерны (3–5 задач на каждый)**
+**Patterns (3–5 tasks each)**
 
-- ⬜ Два указателя
-- ⬜ Скользящее окно
+- ⬜ Two pointers
+- ⬜ Sliding window
 - ⬜ BFS / DFS
-- ⬜ Рекурсия и backtracking
-- ⬜ Динамическое программирование
+- ⬜ Recursion and backtracking
+- ⬜ Dynamic programming
 
-**Фронтенд-алгоритмы**
+**Frontend algorithms**
 
-- ⬜ Обход DOM-дерева
-- ⬜ Trie для автокомплита
-- ⬜ Топологическая сортировка зависимостей
+- ⬜ DOM tree traversal
+- ⬜ Trie for autocomplete
+- ⬜ Topological sorting of dependencies
 
-### Структуры данных
+### Data structures
 
-- ⬜ Стек
-- ⬜ Очередь
-- ⬜ Связный список
-- ⬜ Хеш-таблица
-- ⬜ Куча
+- ⬜ Stack
+- ⬜ Queue
+- ⬜ Linked list
+- ⬜ Hash table
+- ⬜ Heap
 - ⬜ Trie
-- ⬜ Граф
+- ⬜ Graph
 
-### Безопасность
+### Security
 
-**Уязвимости**
+**Vulnerabilities**
 
 - ⬜ XSS: stored, reflected, DOM-based
 - ⬜ CSRF
@@ -204,141 +207,163 @@
 - ⬜ Open redirect
 - ⬜ Prototype pollution
 
-**Защита**
+**Protection**
 
 - ⬜ Content Security Policy (CSP)
 - ⬜ CORS
-- ⬜ Флаги cookie: HttpOnly, Secure, SameSite
-- ⬜ Где хранить токены: cookie vs localStorage
+- ⬜ Cookie flags: HttpOnly, Secure, SameSite
+- ⬜ Where to store tokens: cookies vs localStorage
 - ⬜ Subresource Integrity (SRI)
-- ⬜ Supply chain: зависимости и lock-файлы
+- ⬜ Supply chain: dependencies and lock files
 
-**Практика**
+**Practice**
 
-- ⬜ Экранирование HTML
-- ⬜ Санитизация HTML по белому списку
-- ⬜ Проверка URL на `javascript:` и open redirect
-- ⬜ Сборка заголовка CSP
-- ⬜ Безопасный `postMessage`
+- ⬜ Escaping HTML
+- ⬜ Allowlist-based HTML sanitizing
+- ⬜ Checking URLs for `javascript:` and open redirects
+- ⬜ Building a CSP header
+- ⬜ Safe `postMessage`
 
 ## System Design
 
-**Кейсы по RADIO** (Requirements, Architecture, Data model, Interface, Optimizations)
+**RADIO cases** (Requirements, Architecture, Data model, Interface, Optimizations)
 
-- 🚧 [Лента новостей](notes/system-design/cases/news-feed.md)
-- ⬜ Autocomplete / поиск
-- ⬜ Чат
-- ⬜ Галерея изображений / Pinterest
-- ⬜ Страница товара e-commerce
-- ⬜ Совместный редактор (как Google Docs)
-- ⬜ Видеоплеер
-- ⬜ Дизайн-система / библиотека компонентов
+- 🚧 [News feed](notes/system-design/cases/news-feed.md)
+- ⬜ Autocomplete / search
+- ⬜ Chat
+- ⬜ Image gallery / Pinterest
+- ⬜ E-commerce product page
+- ⬜ Collaborative editor (like Google Docs)
+- ⬜ Video player
+- ⬜ Design system / component library
 
-**Сквозные темы**
+**Cross-cutting topics**
 
 - ⬜ CSR / SSR / SSG / ISR
-- ⬜ Кэширование
-- ⬜ Core Web Vitals и производительность
-- ⬜ Доступность
+- ⬜ Caching
+- ⬜ Core Web Vitals and performance
+- ⬜ Accessibility
 - ⬜ i18n
-- ⬜ Управление состоянием
+- ⬜ State management
 - ⬜ Offline / PWA
 
 ## CSS
 
-- ✅ [Центрирование](notes/css/layouts/centering.mdx)
+- ✅ [Centering](notes/css/layouts/centering.mdx)
 - ⬜ Holy grail layout
-- ⬜ Flexbox и Grid
-- ⬜ Адаптивная сетка
-- ⬜ Специфичность
-- ⬜ БЭМ
+- ⬜ Flexbox and Grid
+- ⬜ Responsive grid
+- ⬜ Specificity
+- ⬜ BEM
 
 ---
 
-## Как устроен проект
+## Project structure
 
 ```
 frontend-notes/
-├── notes/                         # 📚 всё содержимое — то, что наполняется
+├── notes/                         # 📚 all the content — the part you fill in (English)
 │   ├── javascript/
 │   │   └── functions/
-│   │       ├── _category_.json    # название и порядок категории в сайдбаре
-│   │       ├── debounce.mdx       # условие, разбор, follow-up вопросы
-│   │       ├── debounce.ts        # решение
-│   │       └── debounce.test.ts   # тесты
-│   ├── typescript/                # тесты типов — *.test-d.ts
-│   ├── browser/                   # тесты запускаются в jsdom
+│   │       ├── _category_.json    # category label and order in the sidebar
+│   │       ├── debounce.mdx       # problem, explanation, follow-up questions
+│   │       ├── debounce.ts        # solution
+│   │       └── debounce.test.ts   # tests
+│   ├── typescript/                # type tests — *.test-d.ts
+│   ├── browser/                   # tests run in jsdom
 │   ├── react/
 │   │   ├── components/
 │   │   │   ├── star-rating.mdx
-│   │   │   └── StarRating/        # компонент, стили, тесты, *.demo.tsx
+│   │   │   └── StarRating/        # component, styles, tests, *.demo.tsx
 │   │   └── hooks/
-│   ├── computer-science/          # алгоритмы, структуры данных, безопасность
-│   ├── system-design/             # только Markdown и Mermaid
+│   ├── computer-science/          # algorithms, data structures, security
+│   ├── system-design/             # Markdown and Mermaid only
 │   └── css/
-└── website/                       # ⚙️ всё, что показывает заметки, — заглядывать редко
+└── website/                       # ⚙️ everything that presents the notes — rarely touched
     ├── docusaurus.config.ts
-    ├── site.config.ts             # GitHub-пользователь, репозиторий, адреса
-    ├── src/                       # главная, MDX-компоненты, стили
-    ├── demo/                      # Vite-приложение со всеми React-демо
-    └── scripts/new.mjs            # генератор заготовок
+    ├── site.config.ts             # GitHub user, repository, URLs
+    ├── i18n/ru/                   # Russian translations of pages and UI
+    ├── src/                       # home page, MDX components, styles
+    ├── demo/                      # Vite app with every React demo
+    └── scripts/                   # dev server launcher and task generator
 ```
 
-В корне — только конфиги инструментов (`package.json`, TypeScript, ESLint, Prettier, Vitest).
+The root only holds tool configs (`package.json`, TypeScript, ESLint, Prettier, Vitest).
 
-- Каждая папка в `notes/` — раздел сайта: отдельный инстанс docs-плагина Docusaurus со своим сайдбаром. Сайдбар строится из структуры папок.
-- Страница всегда лежит рядом с кодом — во всех разделах одинаково.
-- Код на страницы подтягивается из настоящих файлов через `raw-loader` — на сайте всегда та версия, что проходит тесты.
-- Демо-приложение само находит все `notes/react/**/*.demo.tsx`. Тот же демо-компонент показывается на странице сайта.
+- Every folder in `notes/` is a site section: a separate Docusaurus docs plugin instance with its own sidebar. The sidebar is built from the folder structure.
+- A page always sits next to its code — the same way in every section.
+- Pages pull code from the real files with `raw-loader`, so the site always shows the version that passes the tests.
+- The demo app finds every `notes/react/**/*.demo.tsx` on its own. The same demo component is shown on the site page.
 
-В MDX без импорта доступны:
+Available in MDX without an import:
 
-| Компонент                     | Назначение                                               |
-| ----------------------------- | -------------------------------------------------------- |
-| `<CodeFiles files={{...}} />` | Вкладки с кодом нескольких файлов                        |
-| `<LiveDemo id="...">`         | Живое React-демо на странице и ссылка на демо-приложение |
-| `<HtmlPreview html css />`    | Превью HTML и CSS в изолированном iframe                 |
-| `<Tabs>`, `<TabItem>`         | Вкладки Docusaurus                                       |
+| Component                     | Purpose                                             |
+| ----------------------------- | --------------------------------------------------- |
+| `<CodeFiles files={{...}} />` | Tabs with the code of several files                 |
+| `<LiveDemo id="...">`         | A live React demo on the page and a link to the app |
+| `<HtmlPreview html css />`    | An HTML and CSS preview in an isolated iframe       |
+| `<Tabs>`, `<TabItem>`         | Docusaurus tabs                                     |
 
-## Команды
+## Languages
 
-| Команда           | Что делает                                               |
-| ----------------- | -------------------------------------------------------- |
-| `yarn start`      | Сайт в dev-режиме: http://localhost:3000/frontend-notes/ |
-| `yarn demo`       | Демо-приложение: http://localhost:5173                   |
-| `yarn test:watch` | Тесты в watch-режиме                                     |
-| `yarn test`       | Все тесты, включая проверки типов                        |
-| `yarn verify`     | ESLint + Prettier + typecheck + тесты — то же, что в CI  |
-| `yarn build`      | Сборка сайта и демо в `website/build/`                   |
-| `yarn serve`      | Просмотр сборки локально (поиск работает только здесь)   |
-| `yarn new`        | Заготовка новой задачи — см. ниже                        |
+English is the default; Russian is served under `/ru/`.
 
-## Как добавить задачу
+| What                     | English (source)               | Russian (translation)                                                   |
+| ------------------------ | ------------------------------ | ----------------------------------------------------------------------- |
+| Pages                    | `notes/<section>/…`            | `website/i18n/ru/docusaurus-plugin-content-docs-<section>/current/…`    |
+| Category labels          | `_category_.json`              | `website/i18n/ru/docusaurus-plugin-content-docs-<section>/current.json` |
+| Navbar, footer           | `website/docusaurus.config.ts` | `website/i18n/ru/docusaurus-theme-classic/{navbar,footer}.json`         |
+| Home page and UI strings | `website/src`                  | `website/i18n/ru/code.json`                                             |
+
+- A page without a Russian translation is shown in English on the Russian site — translations are optional.
+- Code, comments and tests are shared by both languages, so they are in English.
+- Translated pages import code through the `@notes` alias: `import solution from '!!raw-loader!@notes/javascript/functions/debounce.ts'`.
+- After adding a section or a category, run `yarn write-translations` to get the new keys into the Russian JSON files.
+
+## Commands
+
+| Command                   | What it does                                                        |
+| ------------------------- | ------------------------------------------------------------------- |
+| `yarn start`              | Site (http://localhost:3000/frontend-notes/) and demo (:5173)       |
+| `yarn start site`         | Site only                                                           |
+| `yarn start ru`           | Site in Russian (in dev, one locale at a time)                      |
+| `yarn start demo`         | Demo app only: http://localhost:5173                                |
+| `yarn test:watch`         | Tests in watch mode                                                 |
+| `yarn test`               | All tests, including type checks                                    |
+| `yarn verify`             | ESLint + Prettier + typecheck + tests — the same as CI              |
+| `yarn build`              | Builds the site (both languages) and the demo into `website/build/` |
+| `yarn serve`              | Serves the build locally (search only works here)                   |
+| `yarn new`                | Scaffolds a new task — see below                                    |
+| `yarn write-translations` | Adds new keys to the Russian translation files                      |
+
+## Adding a task
 
 ```bash
 yarn new javascript/promises promise-all
 ```
 
-Генератор создаёт заготовку под тип раздела:
+The generator scaffolds a task based on the section:
 
-| Аргументы                                                   | Что создаётся                                         |
+| Arguments                                                   | What gets created                                     |
 | ----------------------------------------------------------- | ----------------------------------------------------- |
-| `javascript/promises promise-all`                           | страница, решение, тесты                              |
-| `typescript/utility-types my-omit`                          | страница, тип, тесты типов `*.test-d.ts`              |
-| `computer-science/algorithms/patterns/two-pointers two-sum` | то же + недостающие категории                         |
-| `computer-science/security/vulnerabilities xss`             | заметка (в practice — задача с кодом и тестами)       |
-| `react/components Autocomplete`                             | компонент, CSS-модуль, тест и демо рядом со страницей |
-| `react/hooks useThrottle`                                   | хук, тест и демо + страница                           |
-| `javascript/theory closures`                                | заметка с блоком «что выведет консоль?»               |
-| `system-design/cases chat`                                  | шаблон кейса по RADIO с Mermaid-диаграммой            |
-| `css/layouts holy-grail`                                    | страница с живым превью HTML и CSS                    |
+| `javascript/promises promise-all`                           | page, solution, tests                                 |
+| `typescript/utility-types my-omit`                          | page, type, type tests `*.test-d.ts`                  |
+| `computer-science/algorithms/patterns/two-pointers two-sum` | the same + missing categories                         |
+| `computer-science/security/vulnerabilities xss`             | note (in `practice` — a task with code and tests)     |
+| `react/components Autocomplete`                             | component, CSS module, test and demo next to the page |
+| `react/hooks useThrottle`                                   | hook, test and demo + page                            |
+| `javascript/theory closures`                                | note with a "what will the console print?" block      |
+| `system-design/cases chat`                                  | RADIO case template with a Mermaid diagram            |
+| `css/layouts holy-grail`                                    | page with a live HTML and CSS preview                 |
 
-Дальше: пишете тесты и решение (`yarn test:watch`), условие и разбор смотрите на сайте (`yarn start`), отмечаете задачу в этом README.
+Add `--ru` to also create the Russian translation of the page: `yarn new javascript/promises promise-all --ru`.
 
-## Деплой
+Then: write the tests and the solution (`yarn test:watch`), check the problem and explanation on the site (`yarn start`), and mark the task in this README.
 
-Сайт и демо деплоятся на GitHub Pages при пуше в `main`, если прошли все проверки. Один раз нужно включить Pages: **Settings → Pages → Source: GitHub Actions**.
+## Deployment
 
-Адреса задаются в [`website/site.config.ts`](website/site.config.ts).
+The site and the demo deploy to GitHub Pages on every push to `main` once all checks pass. Enable Pages once: **Settings → Pages → Source: GitHub Actions**.
 
-**Стек:** Docusaurus 3 · React 19 · TypeScript 6 · Vite 8 · Vitest 5 · Testing Library · ESLint 10 · Prettier · GitHub Actions
+URLs are configured in [`website/site.config.ts`](website/site.config.ts).
+
+**Stack:** Docusaurus 3 · React 19 · TypeScript 6 · Vite 8 · Vitest 5 · Testing Library · ESLint 10 · Prettier · GitHub Actions

@@ -1,6 +1,6 @@
 {
-  // Один tsconfig на весь репозиторий: заметки (notes/), сайт и демо-приложение (website/).
-  // Используется для `npm run typecheck` и IDE; сборкой занимаются Docusaurus и Vite.
+  // One tsconfig for the whole repo: notes (notes/), the site and the demo app (website/).
+  // Used by `yarn typecheck` and the IDE; Docusaurus and Vite do the actual builds.
   "extends": "@docusaurus/tsconfig",
   "compilerOptions": {
     "baseUrl": ".",
@@ -9,7 +9,7 @@
     "jsx": "react-jsx",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "types": ["node"],
-    // @site — алиас Docusaurus на папку сайта
+    // @site is the Docusaurus alias for the site folder
     "paths": {
       "@site/*": ["./website/*"]
     }

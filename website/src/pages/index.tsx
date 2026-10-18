@@ -1,31 +1,35 @@
 import Link from '@docusaurus/Link';
+import Translate, { translate } from '@docusaurus/Translate';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Heading from '@theme/Heading';
 import Layout from '@theme/Layout';
 
 import { sections } from '@site/src/data/sections';
-import { useDemoUrl } from '@site/src/hooks/useDemoUrl';
+import { getDemoUrl } from '@site/src/utils/demoUrl';
 
 import styles from './index.module.css';
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
-  const demoUrl = useDemoUrl();
+  const tagline = translate({ id: 'homepage.tagline', message: siteConfig.tagline });
 
   return (
-    <Layout description={siteConfig.tagline}>
+    <Layout description={tagline}>
       <header className={styles.hero}>
         <div className="container">
           <Heading as="h1" className={styles.title}>
             {siteConfig.title}
           </Heading>
-          <p className={styles.tagline}>{siteConfig.tagline}</p>
+          <p className={styles.tagline}>{tagline}</p>
           <div className={styles.actions}>
             <Link className="button button--secondary button--lg" to="/javascript">
-              Начать с JavaScript
+              <Translate id="homepage.start">Start with JavaScript</Translate>
             </Link>
-            <a className={`button button--outline button--lg ${styles.demoButton}`} href={demoUrl}>
-              Демо компонентов
+            <a
+              className={`button button--outline button--lg ${styles.demoButton}`}
+              href={getDemoUrl()}
+            >
+              <Translate id="homepage.demo">Component demo</Translate>
             </a>
           </div>
         </div>
@@ -39,9 +43,11 @@ export default function Home() {
                 {emoji}
               </span>
               <Heading as="h2" className={styles.cardTitle}>
-                {label}
+                {translate({ id: `section.${id}.label`, message: label })}
               </Heading>
-              <p className={styles.cardText}>{description}</p>
+              <p className={styles.cardText}>
+                {translate({ id: `section.${id}.description`, message: description })}
+              </p>
             </Link>
           ))}
         </div>

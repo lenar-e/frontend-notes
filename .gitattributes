@@ -1,2 +1,2 @@
-# Единые LF-переносы строк на Windows и Linux (CI), иначе Prettier ругается на CRLF
+# LF line endings on both Windows and Linux (CI), otherwise Prettier complains about CRLF
 * text=auto eol=lf

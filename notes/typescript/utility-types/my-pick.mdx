@@ -1,14 +1,14 @@
 ---
 title: MyPick
-description: Своя реализация utility type Pick
+description: Your own implementation of the Pick utility type
 ---
 
 import solution from '!!raw-loader!./my-pick.ts';
 import tests from '!!raw-loader!./my-pick.test-d.ts';
 
-## Условие
+## Problem
 
-Реализуйте `MyPick<T, K>` — аналог встроенного `Pick`, не используя его.
+Implement `MyPick<T, K>` — an equivalent of the built-in `Pick` — without using it.
 
 ```ts
 interface Todo {
@@ -21,26 +21,26 @@ type TodoPreview = MyPick<Todo, 'title' | 'completed'>;
 // { title: string; completed: boolean }
 ```
 
-## Решение
+## Solution
 
 <CodeFiles files={{ 'my-pick.ts': solution, 'my-pick.test-d.ts': tests }} />
 
-## Разбор
+## Explanation
 
-- `K extends keyof T` — ограничение дженерика: передать можно только существующие ключи `T`, иначе ошибка компиляции.
-- `[P in K]` — mapped type: проходит по каждому члену объединения `K`.
-- `T[P]` — indexed access type: берёт тип свойства `P` из `T`.
-- Тип **гомоморфный**: ключи берутся из `keyof T`, поэтому модификаторы `readonly` и `?` переносятся из исходного типа.
+- `K extends keyof T` — a generic constraint: only existing keys of `T` can be passed, otherwise it's a compile error.
+- `[P in K]` — a mapped type: iterates over every member of the `K` union.
+- `T[P]` — an indexed access type: takes the type of property `P` from `T`.
+- The type is **homomorphic**: its keys come from `keyof T`, so the `readonly` and `?` modifiers carry over from the source type.
 
-## Follow-up вопросы
+## Follow-up questions
 
 <details>
-<summary>Как через MyPick выразить Omit?</summary>
+<summary>How do you express Omit with MyPick?</summary>
 
 ```ts
 type MyOmit<T, K extends keyof any> = MyPick<T, Exclude<keyof T, K>>;
 ```
 
-`Exclude<keyof T, K>` оставляет ключи `T`, которых нет в `K`. Обратите внимание: у встроенного `Omit` ключи не ограничены `keyof T` — можно передать любой.
+`Exclude<keyof T, K>` keeps the keys of `T` that are not in `K`. Note that the built-in `Omit` doesn't restrict keys to `keyof T` — you can pass any key.
 
 </details>
