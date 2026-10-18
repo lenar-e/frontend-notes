@@ -3,7 +3,7 @@ node_modules
 
 # Build output and caches
 build
-.docusaurus
+.docusaurus*
 .cache-loader
 coverage
 *.tsbuildinfo

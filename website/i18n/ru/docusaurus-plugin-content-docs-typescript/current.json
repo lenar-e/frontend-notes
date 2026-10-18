@@ -1,0 +1,16 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.main.category.Utility types": {
+    "message": "Utility types",
+    "description": "The label for category 'Utility types' in sidebar 'main'"
+  },
+  "sidebar.main.category.Advanced types": {
+    "message": "Продвинутые типы"
+  },
+  "sidebar.main.category.Type Challenges": {
+    "message": "Type Challenges"
+  }
+}

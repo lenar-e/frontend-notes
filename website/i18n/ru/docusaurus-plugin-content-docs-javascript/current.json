@@ -1,0 +1,26 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.main.category.Higher-order functions": {
+    "message": "Функции высшего порядка",
+    "description": "The label for category 'Higher-order functions' in sidebar 'main'"
+  },
+  "sidebar.main.category.Theory and \"what will the console print?\"": {
+    "message": "Теория и «что выведет консоль?»",
+    "description": "The label for category 'Theory and \"what will the console print?\"' in sidebar 'main'"
+  },
+  "sidebar.main.category.Objects and arrays": {
+    "message": "Объекты и массивы"
+  },
+  "sidebar.main.category.Patterns": {
+    "message": "Паттерны"
+  },
+  "sidebar.main.category.Polyfills": {
+    "message": "Полифиллы"
+  },
+  "sidebar.main.category.Promises and async": {
+    "message": "Промисы и асинхронность"
+  }
+}

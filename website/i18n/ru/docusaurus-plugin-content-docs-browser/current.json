@@ -1,0 +1,19 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.main.category.Events": {
+    "message": "События",
+    "description": "The label for category 'Events' in sidebar 'main'"
+  },
+  "sidebar.main.category.Browser APIs": {
+    "message": "Браузерные API"
+  },
+  "sidebar.main.category.DOM": {
+    "message": "DOM"
+  },
+  "sidebar.main.category.Virtual DOM": {
+    "message": "Virtual DOM"
+  }
+}

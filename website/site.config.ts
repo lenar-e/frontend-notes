@@ -11,6 +11,11 @@ export const BASE_URL = `/${REPO}/`;
 /** Demo app path relative to BASE_URL (in production it lives in build/demo) */
 export const DEMO_PATH = 'demo/';
 
-/** Dev server URLs: `yarn start site` and `yarn start demo` */
-export const SITE_DEV_URL = `http://localhost:3000${BASE_URL}`;
-export const DEMO_DEV_URL = 'http://localhost:5173/';
+/**
+ * Dev server ports. In dev, Docusaurus serves one locale per server,
+ * so `yarn start` runs English and Russian side by side and the language switcher links between them.
+ */
+export const DEV_PORTS = { en: 3000, ru: 3001, demo: 5173 } as const;
+
+export const SITE_DEV_URL = `http://localhost:${DEV_PORTS.en}${BASE_URL}`;
+export const DEMO_DEV_URL = `http://localhost:${DEV_PORTS.demo}/`;

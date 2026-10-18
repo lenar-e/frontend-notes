@@ -324,9 +324,9 @@ English is the default; Russian is served under `/ru/`.
 
 | Command                   | What it does                                                        |
 | ------------------------- | ------------------------------------------------------------------- |
-| `yarn start`              | Site (http://localhost:3000/frontend-notes/) and demo (:5173)       |
-| `yarn start site`         | Site only                                                           |
-| `yarn start ru`           | Site in Russian (in dev, one locale at a time)                      |
+| `yarn start`              | English site (:3000), Russian site (:3001) and demo (:5173)         |
+| `yarn start site`         | English site only: http://localhost:3000/frontend-notes/            |
+| `yarn start ru`           | Russian site only: http://localhost:3001/frontend-notes/ru/         |
 | `yarn start demo`         | Demo app only: http://localhost:5173                                |
 | `yarn test:watch`         | Tests in watch mode                                                 |
 | `yarn test`               | All tests, including type checks                                    |

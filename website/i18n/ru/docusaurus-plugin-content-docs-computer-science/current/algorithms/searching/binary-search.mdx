@@ -1,0 +1,39 @@
+---
+title: Бинарный поиск
+description: Поиск в отсортированном массиве за O(log n)
+---
+
+import solution from '!!raw-loader!@notes/computer-science/algorithms/searching/binary-search.ts';
+import tests from '!!raw-loader!@notes/computer-science/algorithms/searching/binary-search.test.ts';
+
+## Условие
+
+Дан массив чисел, отсортированный по возрастанию, и число `target`. Верните индекс `target` в массиве или `-1`, если его нет. Решение должно работать за O(log n).
+
+```ts
+binarySearch([1, 3, 5, 7, 9], 7); // 3
+binarySearch([1, 3, 5, 7, 9], 4); // -1
+```
+
+## Решение
+
+<CodeFiles files={{ 'binary-search.ts': solution, 'binary-search.test.ts': tests }} />
+
+## Разбор
+
+- На каждом шаге сравниваем `target` со средним элементом и отбрасываем половину, где его точно нет.
+- Главное — держать **инвариант**: искомый элемент, если он есть, всегда лежит в `[left, right]`. Отсюда условие `left <= right` и сдвиги `mid ± 1`.
+- Типичные ошибки: `left < right` вместо `<=` (теряется последний элемент), `left = mid` вместо `mid + 1` (бесконечный цикл).
+
+| Время    | Память |
+| -------- | ------ |
+| O(log n) | O(1)   |
+
+## Follow-up вопросы
+
+<details>
+<summary>Как найти первое вхождение, если есть дубликаты?</summary>
+
+При совпадении не возвращать сразу, а запомнить индекс и продолжить поиск в левой половине: `result = mid; right = mid - 1`. Для последнего вхождения — наоборот, `left = mid + 1`.
+
+</details>

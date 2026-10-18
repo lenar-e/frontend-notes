@@ -9,6 +9,7 @@ import {
   BASE_URL,
   DEMO_DEV_URL,
   DEMO_PATH,
+  DEV_PORTS,
   GITHUB_USER,
   REPO,
   REPO_URL,
@@ -24,6 +25,17 @@ const isDev = process.env.NODE_ENV === 'development';
 // in production it is built into build/demo and lives next to the site.
 // The URL is absolute: a relative link would get the locale prefix (/ru/demo/) on the Russian site.
 const demoHref = isDev ? DEMO_DEV_URL : `${SITE_URL}${BASE_URL}${DEMO_PATH}`;
+
+// In dev, each locale runs on its own server (see website/scripts/start.mjs).
+// Giving every locale its own url makes the language switcher jump between the servers;
+// without it, switching leads to /ru/ on the English server — a 404. Production uses the defaults.
+const devLocaleUrls = (locale: keyof typeof DEV_PORTS) =>
+  isDev
+    ? {
+        url: `http://localhost:${DEV_PORTS[locale]}`,
+        baseUrl: locale === 'en' ? BASE_URL : `${BASE_URL}${locale}/`,
+      }
+    : {};
 
 // Content lives outside the site — in the notes/ folder at the repo root
 const NOTES_DIR = '../notes';
@@ -118,8 +130,8 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en', 'ru'],
     localeConfigs: {
-      en: { label: 'English', htmlLang: 'en' },
-      ru: { label: 'Русский', htmlLang: 'ru' },
+      en: { label: 'English', htmlLang: 'en', ...devLocaleUrls('en') },
+      ru: { label: 'Русский', htmlLang: 'ru', ...devLocaleUrls('ru') },
     },
   },
 

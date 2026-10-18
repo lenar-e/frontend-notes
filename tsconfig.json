@@ -14,5 +14,5 @@
       "@site/*": ["./website/*"]
     }
   },
-  "exclude": ["**/.docusaurus", "**/build", "node_modules"]
+  "exclude": ["**/.docusaurus*", "**/build", "node_modules"]
 }

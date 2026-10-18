@@ -1,0 +1,46 @@
+{
+  "title": {
+    "message": "Frontend Notes",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "Frontend Notes",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Basics": {
+    "message": "Основы",
+    "description": "Navbar item with label Basics"
+  },
+  "item.label.React": {
+    "message": "React",
+    "description": "Navbar item with label React"
+  },
+  "item.label.Computer Science": {
+    "message": "Computer Science",
+    "description": "Navbar item with label Computer Science"
+  },
+  "item.label.System Design": {
+    "message": "System Design",
+    "description": "Navbar item with label System Design"
+  },
+  "item.label.Demo": {
+    "message": "Демо",
+    "description": "Navbar item with label Demo"
+  },
+  "item.label.JavaScript": {
+    "message": "JavaScript",
+    "description": "Navbar item with label JavaScript"
+  },
+  "item.label.TypeScript": {
+    "message": "TypeScript",
+    "description": "Navbar item with label TypeScript"
+  },
+  "item.label.Browser": {
+    "message": "Browser",
+    "description": "Navbar item with label Browser"
+  },
+  "item.label.CSS": {
+    "message": "CSS",
+    "description": "Navbar item with label CSS"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "link.title.Sections": {
+    "message": "Разделы",
+    "description": "The title of the footer links column with title=Sections in the footer"
+  },
+  "link.title.Project": {
+    "message": "Проект",
+    "description": "The title of the footer links column with title=Project in the footer"
+  },
+  "link.item.label.JavaScript": {
+    "message": "JavaScript",
+    "description": "The label of footer link with label=JavaScript linking to /javascript"
+  },
+  "link.item.label.TypeScript": {
+    "message": "TypeScript",
+    "description": "The label of footer link with label=TypeScript linking to /typescript"
+  },
+  "link.item.label.Browser": {
+    "message": "Browser",
+    "description": "The label of footer link with label=Browser linking to /browser"
+  },
+  "link.item.label.React": {
+    "message": "React",
+    "description": "The label of footer link with label=React linking to /react"
+  },
+  "link.item.label.Computer Science": {
+    "message": "Computer Science",
+    "description": "The label of footer link with label=Computer Science linking to /computer-science"
+  },
+  "link.item.label.System Design": {
+    "message": "System Design",
+    "description": "The label of footer link with label=System Design linking to /system-design"
+  },
+  "link.item.label.CSS": {
+    "message": "CSS",
+    "description": "The label of footer link with label=CSS linking to /css"
+  },
+  "link.item.label.Component demo": {
+    "message": "Демо компонентов",
+    "description": "The label of footer link with label=Component demo linking to http://localhost:5173/"
+  },
+  "link.item.label.GitHub": {
+    "message": "GitHub",
+    "description": "The label of footer link with label=GitHub linking to https://github.com/lenar-e/frontend-notes"
+  },
+  "copyright": {
+    "message": "Frontend Notes · Сделано на Docusaurus",
+    "description": "The footer copyright"
+  }
+}

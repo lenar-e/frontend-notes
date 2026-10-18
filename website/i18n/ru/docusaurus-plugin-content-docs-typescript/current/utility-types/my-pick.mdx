@@ -1,0 +1,46 @@
+---
+title: MyPick
+description: Своя реализация utility type Pick
+---
+
+import solution from '!!raw-loader!@notes/typescript/utility-types/my-pick.ts';
+import tests from '!!raw-loader!@notes/typescript/utility-types/my-pick.test-d.ts';
+
+## Условие
+
+Реализуйте `MyPick<T, K>` — аналог встроенного `Pick`, не используя его.
+
+```ts
+interface Todo {
+  title: string;
+  description: string;
+  completed: boolean;
+}
+
+type TodoPreview = MyPick<Todo, 'title' | 'completed'>;
+// { title: string; completed: boolean }
+```
+
+## Решение
+
+<CodeFiles files={{ 'my-pick.ts': solution, 'my-pick.test-d.ts': tests }} />
+
+## Разбор
+
+- `K extends keyof T` — ограничение дженерика: передать можно только существующие ключи `T`, иначе ошибка компиляции.
+- `[P in K]` — mapped type: проходит по каждому члену объединения `K`.
+- `T[P]` — indexed access type: берёт тип свойства `P` из `T`.
+- Тип **гомоморфный**: ключи берутся из `keyof T`, поэтому модификаторы `readonly` и `?` переносятся из исходного типа.
+
+## Follow-up вопросы
+
+<details>
+<summary>Как через MyPick выразить Omit?</summary>
+
+```ts
+type MyOmit<T, K extends keyof any> = MyPick<T, Exclude<keyof T, K>>;
+```
+
+`Exclude<keyof T, K>` оставляет ключи `T`, которых нет в `K`. Обратите внимание: у встроенного `Omit` ключи не ограничены `keyof T` — можно передать любой.
+
+</details>

@@ -1,0 +1,38 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.main.category.Algorithms": {
+    "message": "Алгоритмы",
+    "description": "The label for category 'Algorithms' in sidebar 'main'"
+  },
+  "sidebar.main.category.Searching": {
+    "message": "Поиск",
+    "description": "The label for category 'Searching' in sidebar 'main'"
+  },
+  "sidebar.main.category.Frontend algorithms": {
+    "message": "Фронтенд-алгоритмы"
+  },
+  "sidebar.main.category.Problem-solving patterns": {
+    "message": "Паттерны решения задач"
+  },
+  "sidebar.main.category.Sorting": {
+    "message": "Сортировки"
+  },
+  "sidebar.main.category.Data structures": {
+    "message": "Структуры данных"
+  },
+  "sidebar.main.category.Practice": {
+    "message": "Практика"
+  },
+  "sidebar.main.category.Protection": {
+    "message": "Защита"
+  },
+  "sidebar.main.category.Vulnerabilities": {
+    "message": "Уязвимости"
+  },
+  "sidebar.main.category.Security": {
+    "message": "Безопасность"
+  }
+}
