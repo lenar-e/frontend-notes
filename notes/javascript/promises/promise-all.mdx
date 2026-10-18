@@ -1,0 +1,71 @@
+---
+title: Promise.all
+description: A Promise.all implementation that keeps the input order and fails fast
+---
+
+import solution from '!!raw-loader!./promise-all.ts';
+import tests from '!!raw-loader!./promise-all.test.ts';
+
+## Problem
+
+Write a `promiseAll(values)` function that works like `Promise.all`. It takes an iterable of promises (or plain values) and returns a promise that:
+
+- resolves with an array of results **in the input order** once every value has resolved;
+- rejects with the reason of the **first** rejection, without waiting for the rest.
+
+```js
+const sleep = (ms, value) => new Promise((r) => setTimeout(() => r(value), ms));
+
+await promiseAll([sleep(300, 'a'), sleep(100, 'b'), 'c']);
+// ['a', 'b', 'c'] — after 300 ms
+
+await promiseAll([sleep(300, 'a'), Promise.reject(new Error('oops'))]);
+// Error: oops — right away
+```
+
+## Solution
+
+<CodeFiles files={{ 'promise-all.ts': solution, 'promise-all.test.ts': tests }} />
+
+## Explanation
+
+- Results are written by index — `results[index] = value`, not `push`. Promises resolve in any order, but the array keeps the input order.
+- A `pending` counter tracks how many values are still waiting. You can't use `results.length`: assigning `results[2]` first already makes the length 3.
+- `Promise.resolve(item)` turns plain values and thenables into real promises, so they all go through the same path.
+- `reject` is passed straight to `then`. A promise settles only once, so later rejections and resolutions are simply ignored — that is the fail-fast behavior.
+- An empty input would never decrement the counter, so it is resolved with `[]` right away.
+- `Array.from(values)` runs inside the executor: if the iterable throws, the executor's exception turns into a rejection rather than a synchronous throw.
+
+**Complexity:** O(n) time and memory.
+
+## Follow-up questions
+
+<details>
+<summary>Are the other promises cancelled when one rejects?</summary>
+
+No. Promises have no cancellation: the remaining work keeps running, only its results are ignored. To actually stop requests, pass a shared `AbortController` signal to them and call `abort()` in `catch`.
+
+</details>
+
+<details>
+<summary>How is Promise.all different from allSettled, race and any?</summary>
+
+- `allSettled` never rejects — it waits for everything and returns `{ status, value | reason }` for each item.
+- `race` settles with the first settled promise, whether it resolved or rejected.
+- `any` resolves with the first resolved promise and rejects with an `AggregateError` only if all of them rejected.
+
+</details>
+
+<details>
+<summary>Does Promise.all run the promises in parallel?</summary>
+
+It doesn't run anything: a promise is the result of work that has already started. By the time `Promise.all` gets the array, all requests are in flight. It only waits for them. To limit concurrency, pass functions that create promises and start them yourself — a promise pool.
+
+</details>
+
+<details>
+<summary>How do you type it so that a tuple keeps its element types?</summary>
+
+Use a mapped type over the tuple: `{ -readonly [K in keyof T]: Awaited<T[K]> }`. The `T extends readonly unknown[] | []` constraint makes TypeScript infer `[number, string]` instead of `(number | string)[]`. This is how `Promise.all` is declared in `lib.es2015.promise.d.ts`.
+
+</details>

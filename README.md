@@ -39,7 +39,7 @@ Solutions to common frontend interview tasks: TypeScript code, Vitest tests, exp
 
 **Promises and async**
 
-- ⬜ Promise.all
+- ✅ [Promise.all](notes/javascript/promises/promise-all.ts)
 - ⬜ Promise.allSettled
 - ⬜ Promise.race
 - ⬜ Promise.any
